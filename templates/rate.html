@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rating & Ulasan - EzyDraw</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/rate.css">
+</head>
+<body>
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <div class="logo-img-container">
+                <img src="../static/img/logo.png" alt="EzyDraw Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/45/4CAF50/FFFFFF?text=ED'">
+            </div>
+            <div class="logo">
+                <span class="logo-text">Ezy</span><span class="logo-d">D</span><span class="logo-text">raw</span>
+            </div>
+        </div>
+        
+        <button class="btn-new-design">
+            <i class="fas fa-plus-circle"></i> Buat Desain Baru
+        </button>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Alat Utama</div>
+            <div class="menu-item">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-puzzle-piece"></i> Plugin
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-th-large"></i> Templates
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-box-open"></i> Aset
+            </div>
+        </div>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Komunitas</div>
+            <div class="menu-item">
+                <i class="fas fa-users"></i> Contributors
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-graduation-cap"></i> EzyLearn
+            </div>
+        </div>
+        
+        <div class="menu-group sidebar-footer">
+            <div class="menu-group-title">Akun</div>
+            <div class="menu-item">
+                <i class="fas fa-info-circle"></i> Tentang Kami
+            </div>
+            <div class="menu-item active">
+                <i class="fas fa-star" style="color: var(--accent-secondary);"></i> Rating EzyDraw
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-question-circle"></i> Pusat Bantuan
+            </div>
+        </div>
+    </aside>
+    
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-container">
+        <main class="main-content">
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <div class="header-content">
+                    <h1 class="page-title">
+                        <i class="fas fa-star"></i>
+                        Rating & Ulasan
+                    </h1>
+                    <p class="page-subtitle">
+                        Bagikan pengalaman Anda menggunakan EzyDraw dan bantu kami meningkatkan aplikasi ini
+                    </p>
+                </div>
+                
+                <!-- QUICK STATS -->
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 class="stat-value">4.8</h3>
+                            <p class="stat-label">Rating Rata-rata</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 class="stat-value">1,248</h3>
+                            <p class="stat-label">Ulasan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 class="stat-value">28.5K</h3>
+                            <p class="stat-label">Pengguna</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MAIN CONTENT GRID -->
+            <div class="content-grid">
+                <!-- LEFT COLUMN - RATING FORM & OVERVIEW -->
+                <div class="left-column">
+                    <!-- RATING OVERVIEW -->
+                    <div class="card rating-overview">
+                        <div class="card-header">
+                            <h2><i class="fas fa-chart-bar"></i> Overview Rating</h2>
+                        </div>
+                        
+                        <div class="overview-content">
+                            <div class="overview-stats">
+                                <div class="average-rating">
+                                    <div class="rating-number">4.8</div>
+                                    <div class="rating-stars">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <p class="rating-count">Berdasarkan 1,248 ulasan</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="rating-distribution">
+                                    <div class="distribution-item">
+                                        <span class="star-count">5 bintang</span>
+                                        <div class="distribution-bar">
+                                            <div class="bar-fill" style="width: 65%;"></div>
+                                        </div>
+                                        <span class="percentage">65%</span>
+                                    </div>
+                                    
+                                    <div class="distribution-item">
+                                        <span class="star-count">4 bintang</span>
+                                        <div class="distribution-bar">
+                                            <div class="bar-fill" style="width: 25%;"></div>
+                                        </div>
+                                        <span class="percentage">25%</span>
+                                    </div>
+                                    
+                                    <div class="distribution-item">
+                                        <span class="star-count">3 bintang</span>
+                                        <div class="distribution-bar">
+                                            <div class="bar-fill" style="width: 7%;"></div>
+                                        </div>
+                                        <span class="percentage">7%</span>
+                                    </div>
+                                    
+                                    <div class="distribution-item">
+                                        <span class="star-count">2 bintang</span>
+                                        <div class="distribution-bar">
+                                            <div class="bar-fill" style="width: 2%;"></div>
+                                        </div>
+                                        <span class="percentage">2%</span>
+                                    </div>
+                                    
+                                    <div class="distribution-item">
+                                        <span class="star-count">1 bintang</span>
+                                        <div class="distribution-bar">
+                                            <div class="bar-fill" style="width: 1%;"></div>
+                                        </div>
+                                        <span class="percentage">1%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- RATING FORM -->
+                    <div class="card rating-form-card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-edit"></i> Berikan Rating Anda</h2>
+                        </div>
+                        
+                        <form id="ratingForm" class="rating-form">
+                            <div class="form-group">
+                                <label for="userName">
+                                    <i class="fas fa-user"></i> Nama Anda
+                                </label>
+                                <input type="text" id="userName" placeholder="Masukkan nama Anda (opsional)">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-star"></i> Rating
+                                </label>
+                                <div class="star-rating">
+                                    <div class="stars-input">
+                                        <span class="star" data-value="1">
+                                            <i class="far fa-star"></i>
+                                        </span>
+                                        <span class="star" data-value="2">
+                                            <i class="far fa-star"></i>
+                                        </span>
+                                        <span class="star" data-value="3">
+                                            <i class="far fa-star"></i>
+                                        </span>
+                                        <span class="star" data-value="4">
+                                            <i class="far fa-star"></i>
+                                        </span>
+                                        <span class="star" data-value="5">
+                                            <i class="far fa-star"></i>
+                                        </span>
+                                    </div>
+                                    <div class="rating-text">
+                                        <span id="ratingText">Pilih rating</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reviewTitle">
+                                    <i class="fas fa-heading"></i> Judul Ulasan
+                                </label>
+                                <input type="text" id="reviewTitle" placeholder="Berikan judul singkat untuk ulasan Anda" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reviewText">
+                                    <i class="fas fa-comment"></i> Ulasan Anda
+                                </label>
+                                <textarea id="reviewText" rows="4" placeholder="Bagikan pengalaman Anda menggunakan EzyDraw..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-tags"></i> Kategori Ulasan
+                                </label>
+                                <div class="review-categories">
+                                    <label class="category-checkbox">
+                                        <input type="checkbox" name="category" value="usability">
+                                        <span class="checkbox-custom"></span>
+                                        <span>Kemudahan Penggunaan</span>
+                                    </label>
+                                    
+                                    <label class="category-checkbox">
+                                        <input type="checkbox" name="category" value="performance">
+                                        <span class="checkbox-custom"></span>
+                                        <span>Performa</span>
+                                    </label>
+                                    
+                                    <label class="category-checkbox">
+                                        <input type="checkbox" name="category" value="features">
+                                        <span class="checkbox-custom"></span>
+                                        <span>Fitur</span>
+                                    </label>
+                                    
+                                    <label class="category-checkbox">
+                                        <input type="checkbox" name="category" value="support">
+                                        <span class="checkbox-custom"></span>
+                                        <span>Dukungan</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" id="clearForm">
+                                    <i class="fas fa-times"></i> Hapus
+                                </button>
+                                <button type="submit" class="btn-primary" id="submitReview">
+                                    <i class="fas fa-paper-plane"></i> Kirim Ulasan
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- RIGHT COLUMN - REVIEWS LIST -->
+                <div class="right-column">
+                    <!-- REVIEWS FILTER -->
+                    <div class="card reviews-filter">
+                        <div class="filter-header">
+                            <h3><i class="fas fa-filter"></i> Filter Ulasan</h3>
+                            <div class="sort-options">
+                                <select id="sortReviews">
+                                    <option value="newest">Terbaru</option>
+                                    <option value="highest">Rating Tertinggi</option>
+                                    <option value="lowest">Rating Terendah</option>
+                                    <option value="helpful">Paling Membantu</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-tags">
+                            <button class="filter-tag active" data-filter="all">
+                                Semua <span class="count">1,248</span>
+                            </button>
+                            <button class="filter-tag" data-filter="5">
+                                5 Bintang <span class="count">811</span>
+                            </button>
+                            <button class="filter-tag" data-filter="4">
+                                4 Bintang <span class="count">312</span>
+                            </button>
+                            <button class="filter-tag" data-filter="3">
+                                3 Bintang <span class="count">87</span>
+                            </button>
+                            <button class="filter-tag" data-filter="2">
+                                2 Bintang <span class="count">25</span>
+                            </button>
+                            <button class="filter-tag" data-filter="1">
+                                1 Bintang <span class="count">13</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- REVIEWS LIST -->
+                    <div class="reviews-list" id="reviewsContainer">
+                        <!-- Review 1 -->
+                        <div class="review-card" data-rating="5">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">
+                                        <span>A</span>
+                                    </div>
+                                    <div class="reviewer-details">
+                                        <h4 class="reviewer-name">Andi Wijaya</h4>
+                                        <div class="review-meta">
+                                            <span class="review-date">2 jam lalu</span>
+                                            <span class="review-category">• Kemudahan Penggunaan</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="review-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="review-title">Aplikasi Desain Terbaik untuk Mahasiswa!</h3>
+                            
+                            <p class="review-text">
+                                Sebagai mahasiswa yang sering membuat presentasi, EzyDraw sangat membantu. Mode offline-nya sangat berguna saat internet kampus lambat. Template gratisnya juga berkualitas tinggi!
+                            </p>
+                            
+                            <div class="review-footer">
+                                <div class="review-helpful">
+                                    <button class="helpful-btn">
+                                        <i class="fas fa-thumbs-up"></i>
+                                        <span>Membantu (42)</span>
+                                    </button>
+                                    <button class="helpful-btn">
+                                        <i class="fas fa-thumbs-down"></i>
+                                        <span>Tidak (2)</span>
+                                    </button>
+                                </div>
+                                
+                                <button class="reply-btn">
+                                    <i class="fas fa-reply"></i> Balas
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Review 2 -->
+                        <div class="review-card" data-rating="4">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">
+                                        <span>S</span>
+                                    </div>
+                                    <div class="reviewer-details">
+                                        <h4 class="reviewer-name">Sari Dewi</h4>
+                                        <div class="review-meta">
+                                            <span class="review-date">1 hari lalu</span>
+                                            <span class="review-category">• Fitur</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="review-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="review-title">Hampir Sempurna!</h3>
+                            
+                            <p class="review-text">
+                                Fitur Smart Remove Object-nya luar biasa! Sangat membantu untuk membersihkan background gambar. Hanya saja, export ke format SVG kadang agak lambat. Tapi overall sangat recommended!
+                            </p>
+                            
+                            <div class="review-footer">
+                                <div class="review-helpful">
+                                    <button class="helpful-btn">
+                                        <i class="fas fa-thumbs-up"></i>
+                                        <span>Membantu (28)</span>
+                                    </button>
+                                    <button class="helpful-btn">
+                                        <i class="fas fa-thumbs-down"></i>
+                                        <span>Tidak (1)</span>
+                                    </button>
+                                </div>
+                                
+                                <button class="reply-btn">
+                                    <i class="fas fa-reply"></i> Balas
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Review 3 -->
+                        <div class="review-card" data-rating="5">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">
+                                        <span>B</span>
+                                    </div>
+                                    <div class="reviewer-details">
+                                        <h4 class="reviewer-name">Budi Santoso</h4>
+                                        <div class="review-meta">
+                                            <span class="review-date">3 hari lalu</span>
+                                            <span class="review-category">• Performa</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="review-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="review-title">Performanya Sangat Stabil!</h3>
+                            
+                            <p class="review-text">
+                                Saya sudah mencoba banyak software desain, tapi EzyDraw yang paling ringan di laptop saya. Tidak ada lag meskipun bekerja dengan file yang besar. Model bisnis sekali bayar juga sangat menguntungkan.
+                            </p>
+                            
+                            <div class="review-footer">
+                                <div class="review-helpful">
+                                    <button class="helpful-btn">
+                                        <i class="fas fa-thumbs-up"></i>
+                                        <span>Membantu (56)</span>
+                                    </button>
+                                    <button class="helpful-btn">
+                                        <i class="fas fa-thumbs-down"></i>
+                                        <span>Tidak (0)</span>
+                                    </button>
+                                </div>
+                                
+                                <button class="reply-btn">
+                                    <i class="fas fa-reply"></i> Balas
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Review 4 -->
+                        <div class="review-card" data-rating="3">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">
+                                        <span>R</span>
+                                    </div>
+                                    <div class="reviewer-details">
+                                        <h4 class="reviewer-name">Rina Amelia</h4>
+                                        <div class="review-meta">
+                                            <span class="review-date">1 minggu lalu</span>
+                                            <span class="review-category">• Dukungan</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="review-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="review-title">Baik, tapi Perlu Improvement</h3>
+                            
+                            <p class="review-text">
+                                Secara umum aplikasinya bagus, tapi dokumentasinya masih kurang lengkap. Beberapa fitur butuh tutorial yang lebih jelas. Untuk versi selanjutnya, semoga ada panduan yang lebih komprehensif.
+                            </p>
+                            
+                            <div class="review-footer">
+                                <div class="review-helpful">
+                                    <button class="helpful-btn">
+                                        <i class="fas fa-thumbs-up"></i>
+                                        <span>Membantu (15)</span>
+                                    </button>
+                                    <button class="helpful-btn">
+                                        <i class="fas fa-thumbs-down"></i>
+                                        <span>Tidak (3)</span>
+                                    </button>
+                                </div>
+                                
+                                <button class="reply-btn">
+                                    <i class="fas fa-reply"></i> Balas
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Review 5 -->
+                        <div class="review-card" data-rating="5">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">
+                                        <span>D</span>
+                                    </div>
+                                    <div class="reviewer-details">
+                                        <h4 class="reviewer-name">David Pratama</h4>
+                                        <div class="review-meta">
+                                            <span class="review-date">2 minggu lalu</span>
+                                            <span class="review-category">• Kemudahan Penggunaan</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="review-rating">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="review-title">Alternatif Canva yang Lebih Baik!</h3>
+                            
+                            <p class="review-text">
+                                Sebagai freelancer, saya sering butuh aplikasi desain yang cepat dan mudah. EzyDraw memberikan semua yang saya butuhkan tanpa biaya langganan bulanan. Interface-nya juga sangat intuitif untuk pemula.
+                            </p>
+                            
+                            <div class="review-footer">
+                                <div class="review-helpful">
+                                    <button class="helpful-btn">
+                                        <i class="fas fa-thumbs-up"></i>
+                                        <span>Membantu (89)</span>
+                                    </button>
+                                    <button class="helpful-btn">
+                                        <i class="fas fa-thumbs-down"></i>
+                                        <span>Tidak (2)</span>
+                                    </button>
+                                </div>
+                                
+                                <button class="reply-btn">
+                                    <i class="fas fa-reply"></i> Balas
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- LOAD MORE BUTTON -->
+                    <div class="load-more-section">
+                        <button class="btn-load-more" id="loadMoreReviews">
+                            <i class="fas fa-arrow-down"></i> Tampilkan Lebih Banyak Ulasan
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FEATURES RATING -->
+            <div class="card features-rating">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-pie"></i> Rating Berdasarkan Fitur</h2>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-rating-item">
+                        <div class="feature-info">
+                            <div class="feature-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="feature-details">
+                                <h3>Performa & Kecepatan</h3>
+                                <p>Stabilitas dan responsivitas aplikasi</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-rating">
+                            <div class="rating-score">
+                                <span class="score">4.7</span>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                            <div class="rating-count">(892 reviews)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-rating-item">
+                        <div class="feature-info">
+                            <div class="feature-icon">
+                                <i class="fas fa-puzzle-piece"></i>
+                            </div>
+                            <div class="feature-details">
+                                <h3>Kemudahan Penggunaan</h3>
+                                <p>Intuitif dan mudah dipelajari</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-rating">
+                            <div class="rating-score">
+                                <span class="score">4.9</span>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="rating-count">(1,024 reviews)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-rating-item">
+                        <div class="feature-info">
+                            <div class="feature-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="feature-details">
+                                <h3>Fitur & Fungsi</h3>
+                                <p>Kelengkapan dan kualitas fitur</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-rating">
+                            <div class="rating-score">
+                                <span class="score">4.6</span>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="rating-count">(856 reviews)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-rating-item">
+                        <div class="feature-info">
+                            <div class="feature-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="feature-details">
+                                <h3>Dukungan & Dokumentasi</h3>
+                                <p>Bantuan dan panduan penggunaan</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-rating">
+                            <div class="rating-score">
+                                <span class="score">4.4</span>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="rating-count">(567 reviews)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../static/js/rate.js"></script>
+</body>
+</html>

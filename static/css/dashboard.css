@@ -1,0 +1,773 @@
+        /* VARIABLES & RESET - Minimalis dan Modern */
+        :root {
+            /* Skema Warna Ungu/Hijau/Kuning - Minimalis */
+            --primary-bg: #0F051F;       /* Ungu gelap - Latar Utama */
+            --secondary-bg: #1A0A33;     /* Ungu lebih gelap untuk sidebar */
+            --card-bg: #241242;          /* Ungu untuk kartu */
+            --accent-primary: #4CAF50;   /* Hijau untuk aksi utama */
+            --accent-secondary: #FF9800; /* Oranye untuk aksen sekunder */
+            --text-primary: #FFFFFF;     /* Putih untuk teks utama */
+            --text-secondary: #B0A8CC;   /* Ungu muda untuk teks sekunder */
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --transition: all 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            display: flex;
+        }
+
+        /* UTILITY CLASSES */
+        .highlight-green {
+            color: var(--accent-primary);
+        }
+
+        .highlight-yellow {
+            color: var(--accent-secondary);
+        }
+
+        /* SIDEBAR STYLES - Lebih kecil dan minimalis */
+        .sidebar {
+            width: 220px; /* Lebih kecil */
+            background-color: var(--secondary-bg);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 15px;
+            z-index: 10;
+            flex-shrink: 0;
+            height: 100vh;
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Logo Container - Minimalis */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 25px;
+            gap: 12px;
+            padding: 0 5px;
+        }
+
+        /* PERBAIKAN: Logo bulat sempurna */
+        .logo-img-container {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--accent-primary);
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .logo {
+            font-family: 'Galada', cursive;
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+
+        .logo-text {
+            color: var(--text-primary);
+        }
+
+        .logo-d {
+            color: var(--accent-secondary);
+        }
+
+        /* PERBAIKAN: Tombol "Buat Desain Baru" turun sedikit */
+        .btn-new-design {
+            background-color: var(--accent-primary);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 12px 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0 25px 0; /* PERBAIKAN: Margin atas lebih besar */
+            transition: var(--transition);
+        }
+
+        .btn-new-design:hover {
+            background-color: #3d8b40;
+        }
+
+        .btn-new-design i {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+
+        .menu-group {
+            margin-bottom: 25px;
+        }
+
+        .menu-group-title {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .menu-item.active {
+            background-color: rgba(76, 175, 80, 0.15);
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 12px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .menu-item.active i {
+            color: var(--accent-primary);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* MAIN CONTENT AREA */
+        .main-container {
+            flex: 1;
+            display: flex;
+            margin-left: 220px; /* Diperbarui sesuai lebar sidebar */
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        /* PERBAIKAN HEADER: Search bar di kiri, profil di kanan */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* PERBAIKAN: Search container diperpanjang dan dipindah ke kiri */
+        .search-container {
+            flex: 1;
+            max-width: 600px; /* PERBAIKAN: Lebih panjang */
+            margin-right: 20px;
+            order: 1; /* Pastikan di kiri */
+        }
+
+        /* PERBAIKAN: Search bar putih dan lebih menonjol */
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 45px; /* PERBAIKAN: Padding lebih besar */
+            background-color: #FFFFFF; /* PERBAIKAN: Warna putih */
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            color: #333333; /* PERBAIKAN: Teks gelap untuk kontras */
+            font-size: 0.95rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+
+        .search-box input::placeholder {
+            color: #666;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666; /* PERBAIKAN: Warna ikon abu-abu */
+            font-size: 1.1rem;
+            z-index: 1;
+        }
+
+        /* PERBAIKAN: Profil dipindah ke kanan */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            order: 2; /* Pastikan di kanan */
+            margin-left: auto;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-primary);
+        }
+
+        .user-info h2 {
+            font-size: 1.1rem;
+            margin-bottom: 3px;
+        }
+
+        .user-info p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* PERBAIKAN: Keterangan EzyPro */
+        .ezypro-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-secondary), #ff6b00);
+            color: var(--primary-bg);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* HAPUS: Header actions karena sudah ada di sidebar */
+        .header-actions {
+            display: none; /* PERBAIKAN: Sembunyikan karena duplikasi */
+        }
+
+        /* WELCOME SECTION - Minimalis tanpa gradient */
+        .welcome-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .welcome-section h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .welcome-section p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .btn-main-action {
+            background-color: var(--accent-primary);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-main-action:hover {
+            background-color: #3d8b40;
+        }
+
+        /* PROJECT FILTER - Minimalis */
+        .project-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background-color: var(--accent-primary);
+            color: var(--primary-bg);
+            border-color: var(--accent-primary);
+        }
+
+        /* RECENT PROJECTS - Minimalis */
+        .recent-projects {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+        }
+
+        .view-all {
+            color: var(--accent-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .view-all:hover {
+            color: #ffad33;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border-color: rgba(76, 175, 80, 0.3);
+        }
+
+        .project-thumbnail {
+            height: 140px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--primary-bg);
+        }
+
+        .project-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .project-thumbnail img {
+            transform: scale(1.03);
+        }
+
+        .project-thumbnail .fallback-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            width: 100%;
+            padding: 0 10px;
+            z-index: 1;
+        }
+
+        .project-info {
+            padding: 15px;
+        }
+
+        .project-info h3 {
+            margin-bottom: 6px;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .project-status {
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        .status-dalam-proses {
+            background-color: rgba(76, 175, 80, 0.15);
+            color: var(--accent-primary);
+        }
+
+        .status-draft {
+            background-color: rgba(255, 152, 0, 0.15);
+            color: var(--accent-secondary);
+        }
+
+        .status-selesai {
+            background-color: rgba(33, 150, 243, 0.15);
+            color: #2196F3;
+        }
+
+        /* RIGHT WIDGETS - Minimalis */
+        .right-widgets {
+            width: 300px;
+            padding: 25px 15px;
+            background-color: var(--secondary-bg);
+            flex-shrink: 0;
+            height: 100vh;
+            overflow-y: auto;
+            position: sticky;
+            top: 0;
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .widget {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .widget h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        /* STATS WIDGET - Minimalis */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-item:hover {
+            border-color: rgba(255, 152, 0, 0.3);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-secondary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* QUICK ACCESS WIDGET - Minimalis */
+        .quick-access-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .access-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .access-item:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+            transform: translateX(3px);
+            border-color: rgba(76, 175, 80, 0.3);
+        }
+
+        .access-item i {
+            color: var(--accent-primary);
+            font-size: 1.1rem;
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .access-item span {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        /* SECTION TAMBAHAN - Minimalis */
+        .additional-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .additional-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .tips-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tip-item i {
+            color: var(--accent-primary);
+            margin-right: 12px;
+            font-size: 1.1rem;
+            margin-top: 2px;
+        }
+
+        .tip-item h4 {
+            color: var(--text-primary);
+            margin-bottom: 3px;
+            font-size: 0.95rem;
+        }
+
+        .tip-item p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* PROJECT COUNTER */
+        .project-counter {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--accent-primary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* CUSTOM SCROLLBAR - Minimalis */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d8b40;
+        }
+
+        /* RESPONSIVE ADJUSTMENTS */
+        @media (max-width: 1200px) {
+            .right-widgets {
+                width: 280px;
+            }
+            
+            .search-container {
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+                margin-left: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 15px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            
+            .logo-container {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+            
+            .btn-new-design {
+                width: 100%;
+                margin: 20px 0 15px 0;
+            }
+            
+            .menu-group {
+                margin-bottom: 15px;
+                margin-right: 20px;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .right-widgets {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            
+            .main-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                max-width: 100%;
+                margin: 10px 0;
+                width: 100%;
+                order: 1;
+            }
+            
+            .user-profile {
+                order: 2;
+                margin-left: 0;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            
+            .logo-container {
+                gap: 8px;
+            }
+            
+            .logo {
+                font-size: 1.6rem;
+            }
+            
+            .main-header {
+                flex-direction: column;
+            }
+        }

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Akun Baru</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div id="page-container" class="bg-white rounded-xl shadow-2xl overflow-hidden w-full max-w-4xl">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+
+            <!-- KOLOM KIRI: DEKORATIF (HIJAU EMERALD) -->
+            <div class="hidden md:flex flex-col items-center justify-center p-10 bg-emerald-600 text-white space-y-6">
+                
+                <!-- Logo Menggunakan static/logo.png -->
+                <div class="bg-white p-3 rounded-full shadow-lg">
+                    <!-- Placeholder Logo -->
+                    <img src="../static/img/logo.png" alt="Logo Aplikasi" 
+                          class="w-24 h-24 rounded-full object-cover">
+                </div>
+
+                <h1 class="text-4xl font-extrabold text-center">Bergabunglah Sekarang!</h1>
+                <p class="text-center">
+                    Buat akun Anda dalam hitungan detik. Nikmati akses penuh ke semua fitur kami.
+                </p>
+            </div>
+
+            <!-- KOLOM KANAN: FORMULIR REGISTRASI -->
+            <div id="page-container" class="p-8 md:p-12 space-y-6 transition-all duration-700">
+                
+                <!-- HEADER FORMULIR -->
+                <div class="space-y-4">
+                    <div class="flex justify-center">
+                        <!-- Ikon Daftar (Add User) - Warna Hijau -->
+                        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M42 21V28M42 28V35M42 28H49M42 28H35M30.3333 16.3333C30.3333 18.8087 29.35 21.1827 27.5997 22.933C25.8493 24.6833 23.4754 25.6667 21 25.6667C18.5246 25.6667 16.1507 24.6833 14.4003 22.933C12.65 21.1827 11.6667 18.8087 11.6667 16.3333C11.6667 13.858 12.65 11.484 14.4003 9.73367C16.1507 7.98333 18.5246 7 21 7C23.4754 7 25.8493 7.98333 27.5997 9.73367C29.35 11.484 30.3333 13.858 30.3333 16.3333ZM7 46.6667C7 42.9536 8.475 39.3927 11.1005 36.7672C13.726 34.1417 17.287 32.6667 21 32.6667C24.713 32.6667 28.274 34.1417 30.8995 36.7672C33.525 39.3927 35 42.9536 35 46.6667V49H7V46.6667Z" stroke="#50C878" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-center text-gray-900">
+                        Buat Akun Baru
+                    </h2>
+                </div>
+
+                <!-- FORMULIR REGISTRASI -->
+                <!-- action diset ke placeholder /register, karena ini tidak akan diproses di statis HTML -->
+                <form class="space-y-4" action="/register" method="POST">
+                    
+                    <!-- Input Nama Lengkap -->
+                    <div>
+                        <label for="full_name" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+                        <div class="mt-1">
+                            <input id="full_name" name="full_name" type="text" autocomplete="name" required
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-violet-500 sm:text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Input Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Alamat Email</label>
+                        <div class="mt-1">
+                            <input id="email" name="email" type="email" autocomplete="email" required
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-violet-500 sm:text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Input Kata Sandi -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700">Kata Sandi</label>
+                        <div class="mt-1">
+                            <input id="password" name="password" type="password" autocomplete="new-password" required
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-violet-500 sm:text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Input Konfirmasi Kata Sandi -->
+                    <div>
+                        <label for="confirm_password" class="block text-sm font-medium text-gray-700">Konfirmasi Kata Sandi</label>
+                        <div class="mt-1">
+                            <input id="confirm_password" name="confirm_password" type="password" required
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-violet-500 sm:text-sm">
+                        </div>
+                    </div>
+                    
+                    <!-- Checkbox Syarat & Ketentuan -->
+                    <div class="flex items-center">
+                        <input id="terms" name="terms" type="checkbox" required
+                                 class="h-4 w-4 text-violet-600 focus:ring-yellow-400 border-gray-300 rounded">
+                        <label for="terms" class="ml-2 block text-sm text-gray-900">
+                            Saya setuju dengan 
+                            <a href="#" class="font-medium text-emerald-600 hover:text-yellow-500">Syarat dan Ketentuan</a>
+                        </label>
+                    </div>
+
+                    <!-- Tombol Daftar -->
+                    <div class="pt-4">
+                        <button type="submit" data-transition
+                                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 transition duration-150 ease-in-out">
+                            Daftar Sekarang
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Tautan Login -->
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Sudah punya akun?
+                        <!-- PERUBAHAN: Mengubah tautan ke login.html -->
+                        <a href="login.html" id="to-login" class="font-medium text-violet-600 hover:text-yellow-500">
+                            Masuk di sini
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

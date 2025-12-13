@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aset Marketplace - EzyDraw</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/aset.css">
+
+</head>
+<body>
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <div class="logo-img-container">
+                <img src="../static/img/logo.png" alt="EzyDraw Logo" class="logo-img">
+            </div>
+            <div class="logo">
+                <span class="logo-text">Ezy</span><span class="logo-d">D</span><span class="logo-text">raw</span>
+            </div>
+        </div>
+        
+        <button class="btn-new-design">
+            <i class="fas fa-plus-circle"></i> Buat Desain Baru
+        </button>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Alat Utama</div>
+            <div class="menu-item">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-puzzle-piece"></i> Plugin
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-th-large"></i> Templates
+            </div>
+            <div class="menu-item active">
+                <i class="fas fa-box-open"></i> Aset
+            </div>
+        </div>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Komunitas</div>
+            <div class="menu-item">
+                <i class="fas fa-users"></i> Contributors
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-graduation-cap"></i> EzyLearn
+            </div>
+        
+        <div class="menu-group sidebar-footer">
+            <div class="menu-group-title">Akun</div>
+            <div class="menu-item">
+                <i class="fas fa-info-circle"></i> Tentang Kami
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-star"></i> Rating EzyDraw
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-question-circle"></i> Pusat Bantuan
+            </div>
+        </div>
+    </aside>
+    
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-container">
+        <main class="main-content">
+            <!-- PAGE TITLE SECTION -->
+            <div class="page-title-section">
+                <h1 class="page-title">Aset Marketplace</h1>
+                <p class="page-subtitle">
+                    Temukan aset desain berkualitas tinggi: gambar, vektor, ikon, dan elemen visual lainnya untuk memperkaya proyek desain Anda.
+                </p>
+                
+                <!-- SEARCH BAR -->
+                <div class="search-section">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-input" placeholder="Cari aset berdasarkan nama, kategori, atau format...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- STATS BAR -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-icon" style="background-color: rgba(76, 175, 80, 0.2); color: var(--accent-primary);">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>4.2K</h3>
+                        <p>Aset Tersedia</p>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon" style="background-color: rgba(255, 152, 0, 0.2); color: var(--accent-secondary);">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>3.5K</h3>
+                        <p>Aset Gratis</p>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon" style="background-color: rgba(33, 150, 243, 0.2); color: var(--accent-blue);">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>89.2K</h3>
+                        <p>Total Download</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KATEGORI ASET DENGAN ANIMASI SMOOTH -->
+            <div class="categories-section">
+                <div class="categories-grid">
+                    <div class="category-chip active" data-filter="all">
+                        <i class="fas fa-layer-group"></i> Semua Aset
+                        <span class="category-count">4.2K</span>
+                    </div>
+                    <div class="category-chip" data-filter="free">
+                        <i class="fas fa-gift"></i> Gratis
+                        <span class="category-count">3.5K</span>
+                    </div>
+                    <div class="category-chip" data-filter="images">
+                        <i class="fas fa-image"></i> Gambar
+                        <span class="category-count">1.2K</span>
+                    </div>
+                    <div class="category-chip" data-filter="vectors">
+                        <i class="fas fa-draw-polygon"></i> Vektor
+                        <span class="category-count">980</span>
+                    </div>
+                    <div class="category-chip" data-filter="icons">
+                        <i class="fas fa-icons"></i> Ikon
+                        <span class="category-count">720</span>
+                    </div>
+                    <div class="category-chip" data-filter="backgrounds">
+                        <i class="fas fa-square"></i> Background
+                        <span class="category-count">580</span>
+                    </div>
+                    <div class="category-chip" data-filter="premium">
+                        <i class="fas fa-crown"></i> Premium
+                        <span class="category-count">700</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ASET GRID DENGAN ANIMASI FILTER YANG DIPERBAIKI -->
+            <div class="assets-grid" id="assets-container">
+                <!-- Aset 1 - Abstract Background (Gratis) -->
+                <div class="asset-card filter-visible" data-category="free images backgrounds" 
+                     data-id="1" data-likes="125" data-downloads="4520" data-saves="320" 
+                     data-description="Abstract gradient background dengan warna yang menarik dan modern. Cocok untuk berbagai keperluan desain.">
+                    <div class="asset-preview">
+                        <div class="asset-badge-corner">
+                            <span class="badge badge-free">Gratis</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1550686041-366ad85a1355?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Abstract Background" class="asset-preview-img">
+                        <div class="asset-overlay">
+                            <button class="btn-quick-preview" data-asset-id="1">
+                                <i class="fas fa-eye"></i> Quick Preview
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="asset-content">
+                        <div class="asset-header">
+                            <div class="asset-title-section">
+                                <h3 class="asset-title">Abstract Gradient Background</h3>
+                                <p class="asset-author">oleh <strong>VisualArts</strong></p>
+                            </div>
+                            <div class="asset-badge">
+                                <span class="badge badge-popular">Populer</span>
+                            </div>
+                        </div>
+                        
+                        <div class="asset-info">
+                            <div class="asset-info-item">
+                                <i class="fas fa-file-image"></i> JPG
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-expand-alt"></i> 4000x3000px
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-palette"></i> RGB
+                            </div>
+                        </div>
+                        
+                        <div class="asset-tags">
+                            <span class="asset-tag">gradient</span>
+                            <span class="asset-tag">abstract</span>
+                            <span class="asset-tag">background</span>
+                            <span class="asset-tag">modern</span>
+                        </div>
+                        
+                        <div class="asset-footer">
+                            <div class="asset-meta">
+                                <div class="asset-downloads">
+                                    <i class="fas fa-download"></i> 4,520+
+                                </div>
+                                <div class="asset-price price-free">Gratis</div>
+                            </div>
+                            
+                            <div class="asset-actions">
+                                <button class="btn-action btn-preview" data-asset-id="1">Preview</button>
+                                <button class="btn-action btn-primary download-btn" data-asset-id="1">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aset 2 - Business Icons Pack (Premium) -->
+                <div class="asset-card filter-visible" data-category="premium icons" 
+                     data-id="2" data-likes="89" data-downloads="2150" data-saves="150"
+                     data-description="Paket ikon bisnis dengan desain modern dan profesional. Tersedia dalam format SVG yang dapat diedit.">
+                    <div class="asset-preview">
+                        <div class="asset-badge-corner">
+                            <span class="badge badge-premium">Premium</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Business Icons Pack" class="asset-preview-img">
+                        <div class="asset-overlay">
+                            <button class="btn-quick-preview" data-asset-id="2">
+                                <i class="fas fa-eye"></i> Quick Preview
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="asset-content">
+                        <div class="asset-header">
+                            <div class="asset-title-section">
+                                <h3 class="asset-title">Business Icons Pack</h3>
+                                <p class="asset-author">oleh <strong>IconMasters</strong></p>
+                            </div>
+                            <div class="asset-badge">
+                                <span class="badge badge-new">Baru</span>
+                            </div>
+                        </div>
+                        
+                        <div class="asset-info">
+                            <div class="asset-info-item">
+                                <i class="fas fa-file-alt"></i> SVG
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-layer-group"></i> 100+ Icons
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-paint-brush"></i> Editable
+                            </div>
+                        </div>
+                        
+                        <div class="asset-tags">
+                            <span class="asset-tag">business</span>
+                            <span class="asset-tag">icons</span>
+                            <span class="asset-tag">vector</span>
+                            <span class="asset-tag">modern</span>
+                        </div>
+                        
+                        <div class="asset-footer">
+                            <div class="asset-meta">
+                                <div class="asset-downloads">
+                                    <i class="fas fa-download"></i> 2,150+
+                                </div>
+                                <div class="asset-price">Rp 75.000</div>
+                            </div>
+                            
+                            <div class="asset-actions">
+                                <button class="btn-action btn-preview" data-asset-id="2">Preview</button>
+                                <button class="btn-action btn-primary buy-btn" data-asset-id="2">Beli</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aset 3 - Nature Vector Pack (Gratis) -->
+                <div class="asset-card filter-visible" data-category="free vectors" 
+                     data-id="3" data-likes="210" data-downloads="6850" data-saves="450"
+                     data-description="Elemen vektor bertema alam dengan detail yang indah. Sempurna untuk desain dengan sentuhan natural.">
+                    <div class="asset-preview">
+                        <div class="asset-badge-corner">
+                            <span class="badge badge-free">Gratis</span>
+                            <span class="badge badge-trending">Trending</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nature Vector Pack" class="asset-preview-img">
+                        <div class="asset-overlay">
+                            <button class="btn-quick-preview" data-asset-id="3">
+                                <i class="fas fa-eye"></i> Quick Preview
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="asset-content">
+                        <div class="asset-header">
+                            <div class="asset-title-section">
+                                <h3 class="asset-title">Nature Vector Elements</h3>
+                                <p class="asset-author">oleh <strong>NatureDesign</strong></p>
+                            </div>
+                            <div class="asset-badge">
+                                <span class="badge badge-popular">Populer</span>
+                            </div>
+                        </div>
+                        
+                        <div class="asset-info">
+                            <div class="asset-info-item">
+                                <i class="fas fa-file-alt"></i> AI/EPS
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-layer-group"></i> 50+ Elements
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-paint-brush"></i> Scalable
+                            </div>
+                        </div>
+                        
+                        <div class="asset-tags">
+                            <span class="asset-tag">nature</span>
+                            <span class="asset-tag">vector</span>
+                            <span class="asset-tag">plants</span>
+                            <span class="asset-tag">leaves</span>
+                        </div>
+                        
+                        <div class="asset-footer">
+                            <div class="asset-meta">
+                                <div class="asset-downloads">
+                                    <i class="fas fa-download"></i> 6,850+
+                                </div>
+                                <div class="asset-price price-free">Gratis</div>
+                            </div>
+                            
+                            <div class="asset-actions">
+                                <button class="btn-action btn-preview" data-asset-id="3">Preview</button>
+                                <button class="btn-action btn-primary download-btn" data-asset-id="3">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aset 4 - Geometric Pattern Collection (Gratis) -->
+                <div class="asset-card filter-visible" data-category="free images backgrounds" 
+                     data-id="4" data-likes="180" data-downloads="8750" data-saves="520"
+                     data-description="Koleksi pola geometris yang seamless dan modern. Cocok untuk background website, undangan, atau presentasi.">
+                    <div class="asset-preview">
+                        <div class="asset-badge-corner">
+                            <span class="badge badge-free">Gratis</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pattern Collection" class="asset-preview-img">
+                        <div class="asset-overlay">
+                            <button class="btn-quick-preview" data-asset-id="4">
+                                <i class="fas fa-eye"></i> Quick Preview
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="asset-content">
+                        <div class="asset-header">
+                            <div class="asset-title-section">
+                                <h3 class="asset-title">Geometric Pattern Collection</h3>
+                                <p class="asset-author">oleh <strong>PatternLab</strong></p>
+                            </div>
+                            <div class="asset-badge">
+                                <span class="badge badge-popular">Trending</span>
+                            </div>
+                        </div>
+                        
+                        <div class="asset-info">
+                            <div class="asset-info-item">
+                                <i class="fas fa-file-image"></i> PNG
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-layer-group"></i> 30 Patterns
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-th-large"></i> Seamless
+                            </div>
+                        </div>
+                        
+                        <div class="asset-tags">
+                            <span class="asset-tag">pattern</span>
+                            <span class="asset-tag">geometric</span>
+                            <span class="asset-tag">texture</span>
+                            <span class="asset-tag">background</span>
+                        </div>
+                        
+                        <div class="asset-footer">
+                            <div class="asset-meta">
+                                <div class="asset-downloads">
+                                    <i class="fas fa-download"></i> 8,750+
+                                </div>
+                                <div class="asset-price price-free">Gratis</div>
+                            </div>
+                            
+                            <div class="asset-actions">
+                                <button class="btn-action btn-preview" data-asset-id="4">Preview</button>
+                                <button class="btn-action btn-primary download-btn" data-asset-id="4">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aset 5 - UI Icons Set (Gratis) -->
+                <div class="asset-card filter-visible" data-category="free icons" 
+                     data-id="5" data-likes="95" data-downloads="3100" data-saves="210"
+                     data-description="Set ikon UI modern dengan desain minimalis. Tersedia dalam berbagai format termasuk SVG yang dapat diedit.">
+                    <div class="asset-preview">
+                        <div class="asset-badge-corner">
+                            <span class="badge badge-free">Gratis</span>
+                            <span class="badge badge-new">Baru</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="UI Icons Set" class="asset-preview-img">
+                        <div class="asset-overlay">
+                            <button class="btn-quick-preview" data-asset-id="5">
+                                <i class="fas fa-eye"></i> Quick Preview
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="asset-content">
+                        <div class="asset-header">
+                            <div class="asset-title-section">
+                                <h3 class="asset-title">Madem UI Icons Set</h3>
+                                <p class="asset-author">oleh <strong>UILab</strong></p>
+                            </div>
+                            <div class="asset-badge">
+                                <span class="badge badge-trending">Terbaru</span>
+                            </div>
+                        </div>
+                        
+                        <div class="asset-info">
+                            <div class="asset-info-item">
+                                <i class="fas fa-file-alt"></i> SVG
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-layer-group"></i> 80+ Icons
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-paint-brush"></i> Editable
+                            </div>
+                        </div>
+                        
+                        <div class="asset-tags">
+                            <span class="asset-tag">UI</span>
+                            <span class="asset-tag">icons</span>
+                            <span class="asset-tag">interface</span>
+                            <span class="asset-tag">modern</span>
+                        </div>
+                        
+                        <div class="asset-footer">
+                            <div class="asset-meta">
+                                <div class="asset-downloads">
+                                    <i class="fas fa-download"></i> 3,100+
+                                </div>
+                                <div class="asset-price price-free">Gratis</div>
+                            </div>
+                            
+                            <div class="asset-actions">
+                                <button class="btn-action btn-preview" data-asset-id="5">Preview</button>
+                                <button class="btn-action btn-primary download-btn" data-asset-id="5">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aset 6 - Watercolor Texture Pack (Gratis) -->
+                <div class="asset-card filter-visible" data-category="free images backgrounds" 
+                     data-id="6" data-likes="310" data-downloads="7300" data-saves="680"
+                     data-description="Tekstur watercolor dengan transparansi. Sempurna untuk desain yang membutuhkan sentuhan artistik dan natural.">
+                    <div class="asset-preview">
+                        <div class="asset-badge-corner">
+                            <span class="badge badge-free">Gratis</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Watercolor Backgrounds" class="asset-preview-img">
+                        <div class="asset-overlay">
+                            <button class="btn-quick-preview" data-asset-id="6">
+                                <i class="fas fa-eye"></i> Quick Preview
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="asset-content">
+                        <div class="asset-header">
+                            <div class="asset-title-section">
+                                <h3 class="asset-title">Watercolor Texture Pack</h3>
+                                <p class="asset-author">oleh <strong>WatercolorArt</strong></p>
+                            </div>
+                            <div class="asset-badge">
+                                <span class="badge badge-trending">Trending</span>
+                            </div>
+                        </div>
+                        
+                        <div class="asset-info">
+                            <div class="asset-info-item">
+                                <i class="fas fa-file-image"></i> PNG (Transparent)
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-expand-alt"></i> 5000x5000px
+                            </div>
+                            <div class="asset-info-item">
+                                <i class="fas fa-palette"></i> High-Res
+                            </div>
+                        </div>
+                        
+                        <div class="asset-tags">
+                            <span class="asset-tag">watercolor</span>
+                            <span class="asset-tag">texture</span>
+                            <span class="asset-tag">background</span>
+                            <span class="asset-tag">artistic</span>
+                        </div>
+                        
+                        <div class="asset-footer">
+                            <div class="asset-meta">
+                                <div class="asset-downloads">
+                                    <i class="fas fa-download"></i> 7,300+
+                                </div>
+                                <div class="asset-price price-free">Gratis</div>
+                            </div>
+                            
+                            <div class="asset-actions">
+                                <button class="btn-action btn-preview" data-asset-id="6">Preview</button>
+                                <button class="btn-action btn-primary download-btn" data-asset-id="6">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LOAD MORE BUTTON -->
+            <div class="load-more-section">
+                <button class="btn-load-more" id="load-more-btn">
+                    <i class="fas fa-arrow-down"></i> Tampilkan Lebih Banyak Aset
+                </button>
+            </div>
+        </main>
+        
+        <!-- RIGHT SIDEBAR -->
+        <aside class="right-sidebar">
+            <!-- Recent Assets -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-history"></i> Aset Terbaru</h3>
+                <div class="recent-list">
+                    <div class="recent-item">
+                        <div class="recent-preview">
+                            <img src="https://images.unsplash.com/photo-1550686041-366ad85a1355?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Abstract Shapes" class="recent-preview-img">
+                        </div>
+                        <div class="recent-info">
+                            <h4>Abstract Shapes</h4>
+                            <p>1 jam lalu • Gratis</p>
+                        </div>
+                    </div>
+                    <div class="recent-item">
+                        <div class="recent-preview">
+                            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Tech Icons" class="recent-preview-img">
+                        </div>
+                        <div class="recent-info">
+                            <h4>Tech Icons Pack</h4>
+                            <p>3 jam lalu • Premium</p>
+                        </div>
+                    </div>
+                    <div class="recent-item">
+                        <div class="recent-preview">
+                            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Water Texture" class="recent-preview-img">
+                        </div>
+                        <div class="recent-info">
+                            <h4>Water Texture</h4>
+                            <p>5 jam lalu • Gratis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-chart-line"></i> Statistik Aset</h3>
+                <div class="quick-stats">
+                    <div class="stat-box">
+                        <h4>4.9</h4>
+                        <p>Rating Rata-rata</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>99%</h4>
+                        <p>Kualitas Aset</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>12j</h4>
+                        <p>Update Terakhir</p>
+                    </div>
+                    <div class="stat-box">
+                        <h4>342</h4>
+                        <p>Kontributor</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Format Support -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-file-export"></i> Format Didukung</h3>
+                <div class="formats-list">
+                    <span class="format-tag"><i class="fas fa-file-image"></i> JPG</span>
+                    <span class="format-tag"><i class="fas fa-file-image"></i> PNG</span>
+                    <span class="format-tag"><i class="fas fa-file-alt"></i> SVG</span>
+                    <span class="format-tag"><i class="fas fa-file-alt"></i> AI</span>
+                    <span class="format-tag"><i class="fas fa-file-alt"></i> EPS</span>
+                    <span class="format-tag"><i class="fas fa-file-image"></i> PSD</span>
+                    <span class="format-tag"><i class="fas fa-cube"></i> OBJ</span>
+                    <span class="format-tag"><i class="fas fa-file-image"></i> GIF</span>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 15px;">
+                    Semua aset tersedia dalam berbagai format untuk kompatibilitas maksimal.
+                </p>
+            </div>
+            
+            <!-- Upload Asset -->
+            <div class="sidebar-widget upload-widget">
+                <h3><i class="fas fa-cloud-upload-alt"></i> Upload Aset</h3>
+                <p style="color: rgba(255,255,255,0.9); margin-bottom: 15px; font-size: 0.95rem;">
+                    Bagikan aset desain Anda dan dapatkan penghasilan dari setiap download.
+                </p>
+                <button class="upload-asset-btn" id="open-upload-modal">
+                    <i class="fas fa-upload"></i> Upload Aset
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- MODAL PRATINJAU ASET -->
+    <div class="preview-modal-overlay" id="preview-modal">
+        <div class="preview-modal">
+            <button class="close-btn" id="close-preview-modal">&times;</button>
+            
+            <div class="preview-modal-body">
+                <div class="preview-image-container">
+                    <img id="preview-large-image" src="" alt="Preview Asset" class="preview-image">
+                </div>
+                
+                <div class="preview-info-container">
+                    <h2 id="preview-title" class="preview-title"></h2>
+                    <p id="preview-author" class="preview-author"></p>
+                    
+                    <div class="preview-stats">
+                        <div class="preview-stat">
+                            <i class="fas fa-heart"></i>
+                            <span id="preview-likes" class="preview-stat-value">0</span>
+                            <span class="preview-stat-label">Suka</span>
+                        </div>
+                        <div class="preview-stat">
+                            <i class="fas fa-download"></i>
+                            <span id="preview-downloads" class="preview-stat-value">0</span>
+                            <span class="preview-stat-label">Download</span>
+                        </div>
+                        <div class="preview-stat">
+                            <i class="fas fa-bookmark"></i>
+                            <span id="preview-saves" class="preview-stat-value">0</span>
+                            <span class="preview-stat-label">Simpan</span>
+                        </div>
+                    </div>
+                    
+                    <p id="preview-description" class="preview-description"></p>
+                    
+                    <div class="preview-actions">
+                        <button class="preview-action-btn like" id="preview-like-btn">
+                            <i class="fas fa-heart"></i> Suka
+                        </button>
+                        <button class="preview-action-btn download" id="preview-download-btn">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                        <button class="preview-action-btn share" id="preview-share-btn">
+                            <i class="fas fa-share-alt"></i> Bagikan
+                        </button>
+                        <button class="preview-action-btn save" id="preview-save-btn">
+                            <i class="fas fa-bookmark"></i> Simpan
+                        </button>
+                    </div>
+                    
+                    <div class="preview-tags" id="preview-tags"></div>
+                    
+                    <div class="preview-details">
+                        <div class="preview-detail-item">
+                            <i class="fas fa-file-image"></i>
+                            <span id="preview-format">Format: -</span>
+                        </div>
+                        <div class="preview-detail-item">
+                            <i class="fas fa-expand-alt"></i>
+                            <span id="preview-dimensions">Dimensi: -</span>
+                        </div>
+                        <div class="preview-detail-item">
+                            <i class="fas fa-layer-group"></i>
+                            <span id="preview-contents">Konten: -</span>
+                        </div>
+                    </div>
+                    
+                    <div id="preview-price" class="preview-price"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL UPLOAD -->
+    <div class="upload-modal-overlay" id="upload-modal">
+        <div class="upload-modal">
+            <button class="close-btn" id="close-upload-modal">&times;</button>
+            <h3><i class="fas fa-cloud-upload-alt"></i> Upload Aset Baru</h3>
+            
+            <form class="upload-form" id="upload-form">
+                <div class="form-group">
+                    <label for="asset-title">Judul Aset</label>
+                    <input type="text" id="asset-title" placeholder="Contoh: Abstract Gradient Background" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="asset-description">Deskripsi</label>
+                    <textarea id="asset-description" placeholder="Jelaskan aset Anda secara detail..." required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="asset-category">Kategori</label>
+                        <select id="asset-category" required>
+                            <option value="">Pilih Kategori</option>
+                            <option value="images">Gambar</option>
+                            <option value="vectors">Vektor</option>
+                            <option value="icons">Ikon</option>
+                            <option value="backgrounds">Background</option>
+                            <option value="3d">3D Objects</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="asset-format">Format File</label>
+                        <select id="asset-format" required>
+                            <option value="">Pilih Format</option>
+                            <option value="jpg">JPG</option>
+                            <option value="png">PNG</option>
+                            <option value="svg">SVG</option>
+                            <option value="ai">AI</option>
+                            <option value="eps">EPS</option>
+                            <option value="psd">PSD</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="asset-price">Harga</label>
+                        <select id="asset-price" required>
+                            <option value="free">Gratis</option>
+                            <option value="25000">Rp 25.000</option>
+                            <option value="50000">Rp 50.000</option>
+                            <option value="75000">Rp 75.000</option>
+                            <option value="100000">Rp 100.000</option>
+                            <option value="150000">Rp 150.000</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="asset-tags">Tag (pisahkan dengan koma)</label>
+                        <input type="text" id="asset-tags" placeholder="contoh: gradient, abstract, background">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Unggah File</label>
+                    <div class="file-upload-area" id="file-upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop file Anda di sini atau <span>klik untuk memilih</span></p>
+                        <p style="font-size: 0.8rem;">Maksimal ukuran file: 50MB</p>
+                        <input type="file" id="asset-file" style="display: none;" accept=".jpg,.jpeg,.png,.svg,.ai,.eps,.psd,.zip" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="upload-submit-btn">
+                    <i class="fas fa-upload"></i> Upload Aset
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL SHARE -->
+    <div class="upload-modal-overlay" id="share-modal">
+        <div class="share-modal">
+            <button class="close-btn" id="close-share-modal">&times;</button>
+            <h3><i class="fas fa-share-alt"></i> Bagikan Aset</h3>
+            
+            <div class="share-options">
+                <div class="share-option share-whatsapp" data-platform="whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </div>
+                <div class="share-option share-instagram" data-platform="instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </div>
+                <div class="share-option share-facebook" data-platform="facebook">
+                    <i class="fab fa-facebook"></i>
+                    <span>Facebook</span>
+                </div>
+                <div class="share-option share-twitter" data-platform="twitter">
+                    <i class="fab fa-twitter"></i>
+                    <span>Twitter</span>
+                </div>
+            </div>
+            
+            <div class="share-link-container">
+                <input type="text" class="share-link" id="share-link" value="https://ezydraw.com/asset/abstract-background" readonly>
+                <button class="copy-link-btn" id="copy-link-btn">Salin Link</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION CONTAINER -->
+    <div id="notification-container"></div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // ==================== SISTEM FILTER YANG DIPERBAIKI ====================
+    const categoryChips = document.querySelectorAll('.category-chip');
+    const assetsGrid = document.getElementById('assets-container');
+    let assetCards = document.querySelectorAll('.asset-card');
+    
+    // Function untuk filter aset dengan REORDER grid yang benar
+    function filterAssets(filterType) {
+        let visibleCards = [];
+        const assetCardsArray = Array.from(assetCards);
+        
+        // Tentukan kartu mana yang harus ditampilkan
+        assetCardsArray.forEach((card, index) => {
+            const categories = card.getAttribute('data-category');
+            const isFree = categories.includes('free');
+            const isImages = categories.includes('images');
+            const isVectors = categories.includes('vectors');
+            const isIcons = categories.includes('icons');
+            const isBackgrounds = categories.includes('backgrounds');
+            const isPremium = categories.includes('premium');
+            
+            let shouldShow = false;
+            
+            switch(filterType) {
+                case 'all':
+                    shouldShow = true;
+                    break;
+                case 'free':
+                    shouldShow = isFree;
+                    break;
+                case 'images':
+                    shouldShow = isImages;
+                    break;
+                case 'vectors':
+                    shouldShow = isVectors;
+                    break;
+                case 'icons':
+                    shouldShow = isIcons;
+                    break;
+                case 'backgrounds':
+                    shouldShow = isBackgrounds;
+                    break;
+                case 'premium':
+                    shouldShow = isPremium;
+                    break;
+                default:
+                    shouldShow = true;
+            }
+            
+            // Reset semua kelas dan style
+            card.classList.remove('hidden', 'visible');
+            card.style.cssText = '';
+            
+            if (shouldShow) {
+                card.classList.add('visible');
+                visibleCards.push(card);
+                
+                // Sembunyikan dulu untuk animasi
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px) scale(0.95)';
+            } else {
+                card.classList.add('hidden');
+                card.style.display = 'none';
+            }
+        });
+        
+        // REORDER GRID: Hapus semua kartu dari grid
+        assetCardsArray.forEach(card => {
+            card.remove();
+        });
+        
+        // Tambahkan kembali kartu yang visible dengan urutan yang benar
+        visibleCards.forEach((card, index) => {
+            assetsGrid.appendChild(card);
+            
+            // Animasikan setiap kartu dengan delay bertahap
+            setTimeout(() => {
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, 50);
+            }, index * 50);
+        });
+        
+        // Update counter
+        updateFilterCount(filterType, visibleCards.length);
+        
+        // Tampilkan notifikasi
+        const filterNames = {
+            'all': 'Semua Aset',
+            'free': 'Aset Gratis',
+            'images': 'Gambar',
+            'vectors': 'Vektor',
+            'icons': 'Ikon',
+            'backgrounds': 'Background',
+            'premium': 'Premium'
+        };
+        
+        showNotification('info', 'Filter Aktif', `Menampilkan ${visibleCards.length} aset: ${filterNames[filterType] || 'Semua Aset'}`);
+    }
+    
+    // Function untuk update counter
+    function updateFilterCount(filterType, count) {
+        categoryChips.forEach(chip => {
+            if (chip.getAttribute('data-filter') === filterType) {
+                const countElement = chip.querySelector('.category-count');
+                if (countElement) {
+                    // Animasi untuk update counter
+                    countElement.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        countElement.textContent = count.toLocaleString();
+                        countElement.style.transform = 'scale(1)';
+                    }, 150);
+                }
+            }
+        });
+    }
+    
+    // Event listener untuk kategori filter
+    categoryChips.forEach(chip => {
+        chip.addEventListener('click', function() {
+            // Animasi untuk chip yang tidak aktif
+            categoryChips.forEach(c => {
+                if (c !== this && c.classList.contains('active')) {
+                    c.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        c.style.transform = '';
+                    }, 300);
+                }
+            });
+            
+            // Hapus active class dari semua chip
+            categoryChips.forEach(c => {
+                c.classList.remove('active');
+                c.style.transform = '';
+            });
+            
+            // Tambahkan active class dengan animasi
+            this.classList.add('active');
+            this.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 300);
+            
+            const filterType = this.getAttribute('data-filter');
+            filterAssets(filterType);
+        });
+    });
+    
+    // ==================== SISTEM PENCARIAN DIPERBAIKI ====================
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        
+        // Jika kosong, reset ke filter aktif
+        if (searchTerm === '') {
+            const activeFilter = document.querySelector('.category-chip.active');
+            if (activeFilter) {
+                filterAssets(activeFilter.getAttribute('data-filter'));
+            } else {
+                filterAssets('all');
+            }
+            return;
+        }
+        
+        // Filter berdasarkan pencarian
+        let visibleCount = 0;
+        assetCards = document.querySelectorAll('.asset-card');
+        
+        assetCards.forEach((card, index) => {
+            const title = card.querySelector('.asset-title').textContent.toLowerCase();
+            const tags = Array.from(card.querySelectorAll('.asset-tag')).map(tag => tag.textContent.toLowerCase());
+            const author = card.querySelector('.asset-author').textContent.toLowerCase();
+            const description = card.getAttribute('data-description').toLowerCase();
+            
+            const matchesSearch = title.includes(searchTerm) || 
+                                tags.some(tag => tag.includes(searchTerm)) || 
+                                author.includes(searchTerm) ||
+                                description.includes(searchTerm);
+            
+            card.classList.remove('hidden', 'visible');
+            card.style.cssText = '';
+            
+            if (matchesSearch) {
+                card.classList.add('visible');
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px) scale(0.95)';
+                card.style.order = visibleCount;
+                visibleCount++;
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, 50 + (index * 20));
+            } else {
+                card.classList.add('hidden');
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px) scale(0.95)';
+            }
+        });
+        
+        if (searchTerm) {
+            showNotification('info', 'Pencarian', `Menampilkan ${visibleCount} hasil untuk: "${searchTerm}"`);
+        }
+    });
+    
+    // ==================== SISTEM PRATINJAU ASET ====================
+    const previewModal = document.getElementById('preview-modal');
+    const closePreviewModalBtn = document.getElementById('close-preview-modal');
+    const previewLikeBtn = document.getElementById('preview-like-btn');
+    const previewDownloadBtn = document.getElementById('preview-download-btn');
+    const previewShareBtn = document.getElementById('preview-share-btn');
+    const previewSaveBtn = document.getElementById('preview-save-btn');
+    
+    let currentAssetId = null;
+    let likedAssets = JSON.parse(localStorage.getItem('likedAssets') || '[]');
+    let savedAssets = JSON.parse(localStorage.getItem('savedAssets') || '[]');
+    
+    // Function untuk membuka modal pratinjau
+    function openPreviewModal(assetId) {
+        const assetCard = document.querySelector(`.asset-card[data-id="${assetId}"]`);
+        if (!assetCard) return;
+        
+        currentAssetId = assetId;
+        
+        // Ambil data dari asset card
+        const title = assetCard.querySelector('.asset-title').textContent;
+        const author = assetCard.querySelector('.asset-author').textContent;
+        const imageSrc = assetCard.querySelector('.asset-preview-img').src;
+        const description = assetCard.getAttribute('data-description');
+        const likes = parseInt(assetCard.getAttribute('data-likes'));
+        const downloads = parseInt(assetCard.getAttribute('data-downloads'));
+        const saves = parseInt(assetCard.getAttribute('data-saves'));
+        const tags = Array.from(assetCard.querySelectorAll('.asset-tag')).map(tag => tag.textContent);
+        const priceElement = assetCard.querySelector('.asset-price');
+        const price = priceElement.textContent;
+        const isFree = priceElement.classList.contains('price-free');
+        
+        // Ambil info tambahan
+        const formatItems = assetCard.querySelectorAll('.asset-info-item');
+        let format = '-';
+        let dimensions = '-';
+        let contents = '-';
+        
+        if (formatItems.length > 0) format = formatItems[0].textContent.trim();
+        if (formatItems.length > 1) dimensions = formatItems[1].textContent.trim();
+        if (formatItems.length > 2) contents = formatItems[2].textContent.trim();
+        
+        // Isi data ke modal
+        document.getElementById('preview-title').textContent = title;
+        document.getElementById('preview-author').innerHTML = author;
+        document.getElementById('preview-large-image').src = imageSrc;
+        document.getElementById('preview-description').textContent = description;
+        document.getElementById('preview-likes').textContent = likes.toLocaleString();
+        document.getElementById('preview-downloads').textContent = downloads.toLocaleString();
+        document.getElementById('preview-saves').textContent = saves.toLocaleString();
+        document.getElementById('preview-format').textContent = `Format: ${format}`;
+        document.getElementById('preview-dimensions').textContent = `Dimensi: ${dimensions}`;
+        document.getElementById('preview-contents').textContent = `Konten: ${contents}`;
+        
+        // Isi tags
+        const tagsContainer = document.getElementById('preview-tags');
+        tagsContainer.innerHTML = '';
+        tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'preview-tag';
+            tagElement.textContent = tag;
+            tagsContainer.appendChild(tagElement);
+        });
+        
+        // Atur harga
+        const priceContainer = document.getElementById('preview-price');
+        priceContainer.textContent = price;
+        priceContainer.className = isFree ? 'preview-price free' : 'preview-price';
+        
+        // Atur status like dan save
+        updateLikeButtonStatus();
+        updateSaveButtonStatus();
+        
+        // Tampilkan modal
+        previewModal.style.display = 'flex';
+        setTimeout(() => {
+            previewModal.style.opacity = '1';
+        }, 10);
+    }
+    
+    // Function untuk update status like button
+    function updateLikeButtonStatus() {
+        if (likedAssets.includes(currentAssetId)) {
+            previewLikeBtn.classList.add('active');
+            previewLikeBtn.innerHTML = '<i class="fas fa-heart"></i> Disukai';
+        } else {
+            previewLikeBtn.classList.remove('active');
+            previewLikeBtn.innerHTML = '<i class="fas fa-heart"></i> Suka';
+        }
+    }
+    
+    // Function untuk update status save button
+    function updateSaveButtonStatus() {
+        if (savedAssets.includes(currentAssetId)) {
+            previewSaveBtn.classList.add('active');
+            previewSaveBtn.innerHTML = '<i class="fas fa-bookmark"></i> Disimpan';
+        } else {
+            previewSaveBtn.classList.remove('active');
+            previewSaveBtn.innerHTML = '<i class="fas fa-bookmark"></i> Simpan';
+        }
+    }
+    
+    // Event listener untuk tombol preview
+    document.addEventListener('click', function(e) {
+        // Untuk tombol preview di card
+        if (e.target.closest('.btn-preview') || e.target.closest('.btn-quick-preview')) {
+            const btn = e.target.closest('.btn-preview') || e.target.closest('.btn-quick-preview');
+            const assetId = btn.getAttribute('data-asset-id');
+            openPreviewModal(assetId);
+        }
+    });
+    
+    // Tutup modal pratinjau
+    closePreviewModalBtn.addEventListener('click', function() {
+        previewModal.style.opacity = '0';
+        setTimeout(() => {
+            previewModal.style.display = 'none';
+        }, 300);
+    });
+    
+    previewModal.addEventListener('click', function(e) {
+        if (e.target === previewModal) {
+            previewModal.style.opacity = '0';
+            setTimeout(() => {
+                previewModal.style.display = 'none';
+            }, 300);
+        }
+    });
+    
+    // Like button
+    previewLikeBtn.addEventListener('click', function() {
+        if (!currentAssetId) return;
+        
+        const assetCard = document.querySelector(`.asset-card[data-id="${currentAssetId}"]`);
+        let currentLikes = parseInt(assetCard.getAttribute('data-likes'));
+        
+        if (likedAssets.includes(currentAssetId)) {
+            // Unlike
+            likedAssets = likedAssets.filter(id => id !== currentAssetId);
+            currentLikes--;
+            showNotification('info', 'Like Dihapus', 'Anda tidak lagi menyukai aset ini');
+        } else {
+            // Like
+            likedAssets.push(currentAssetId);
+            currentLikes++;
+            showNotification('success', 'Disukai', 'Anda menyukai aset ini');
+        }
+        
+        // Update data di card dan modal
+        assetCard.setAttribute('data-likes', currentLikes);
+        document.getElementById('preview-likes').textContent = currentLikes.toLocaleString();
+        
+        // Update local storage
+        localStorage.setItem('likedAssets', JSON.stringify(likedAssets));
+        
+        // Update button status
+        updateLikeButtonStatus();
+    });
+    
+    // Save button
+    previewSaveBtn.addEventListener('click', function() {
+        if (!currentAssetId) return;
+        
+        const assetCard = document.querySelector(`.asset-card[data-id="${currentAssetId}"]`);
+        let currentSaves = parseInt(assetCard.getAttribute('data-saves'));
+        
+        if (savedAssets.includes(currentAssetId)) {
+            // Unsave
+            savedAssets = savedAssets.filter(id => id !== currentAssetId);
+            currentSaves--;
+            showNotification('info', 'Tidak Disimpan', 'Aset dihapus dari daftar simpan');
+        } else {
+            // Save
+            savedAssets.push(currentAssetId);
+            currentSaves++;
+            showNotification('success', 'Disimpan', 'Aset berhasil disimpan ke koleksi Anda');
+        }
+        
+        // Update data di card dan modal
+        assetCard.setAttribute('data-saves', currentSaves);
+        document.getElementById('preview-saves').textContent = currentSaves.toLocaleString();
+        
+        // Update local storage
+        localStorage.setItem('savedAssets', JSON.stringify(savedAssets));
+        
+        // Update button status
+        updateSaveButtonStatus();
+    });
+    
+    // Download button di modal
+    previewDownloadBtn.addEventListener('click', function() {
+        if (!currentAssetId) return;
+        
+        const assetCard = document.querySelector(`.asset-card[data-id="${currentAssetId}"]`);
+        const assetName = assetCard.querySelector('.asset-title').textContent;
+        const isFree = assetCard.querySelector('.badge-free');
+        let currentDownloads = parseInt(assetCard.getAttribute('data-downloads'));
+        
+        if (isFree) {
+            // Update download count
+            currentDownloads++;
+            assetCard.setAttribute('data-downloads', currentDownloads);
+            document.getElementById('preview-downloads').textContent = currentDownloads.toLocaleString();
+            
+            // Update download count di card
+            const downloadsElement = assetCard.querySelector('.asset-downloads');
+            downloadsElement.innerHTML = `<i class="fas fa-download"></i> ${currentDownloads.toLocaleString()}+`;
+            
+            showNotification('success', 'Download Berhasil', `"${assetName}" berhasil didownload`);
+        } else {
+            const price = assetCard.querySelector('.asset-price').textContent;
+            if (confirm(`Anda akan membeli aset: ${assetName}\nHarga: ${price}\n\nApakah Anda ingin melanjutkan?`)) {
+                // Update download count
+                currentDownloads++;
+                assetCard.setAttribute('data-downloads', currentDownloads);
+                document.getElementById('preview-downloads').textContent = currentDownloads.toLocaleString();
+                
+                // Update download count di card
+                const downloadsElement = assetCard.querySelector('.asset-downloads');
+                downloadsElement.innerHTML = `<i class="fas fa-download"></i> ${currentDownloads.toLocaleString()}+`;
+                
+                showNotification('success', 'Pembelian Berhasil', `"${assetName}" berhasil dibeli`);
+            }
+        }
+    });
+    
+    // Share button di modal
+    previewShareBtn.addEventListener('click', function() {
+        if (!currentAssetId) return;
+        
+        // Buka modal share
+        const shareModal = document.getElementById('share-modal');
+        shareModal.style.display = 'flex';
+        setTimeout(() => {
+            shareModal.style.opacity = '1';
+        }, 10);
+    });
+    
+    // ==================== FITUR INTERAKSI ====================
+    
+    // Tombol Download/Beli di card
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.download-btn') || e.target.closest('.buy-btn')) {
+            const btn = e.target.closest('.download-btn') || e.target.closest('.buy-btn');
+            const assetId = btn.getAttribute('data-asset-id');
+            const assetCard = document.querySelector(`.asset-card[data-id="${assetId}"]`);
+            const assetName = assetCard.querySelector('.asset-title').textContent;
+            const isFree = assetCard.querySelector('.badge-free');
+            
+            // Animasi klik
+            btn.style.transform = 'scale(0.95)';
+            
+            if (isFree) {
+                // Update download count
+                let currentDownloads = parseInt(assetCard.getAttribute('data-downloads'));
+                currentDownloads++;
+                assetCard.setAttribute('data-downloads', currentDownloads);
+                
+                // Update tampilan
+                const downloadsElement = assetCard.querySelector('.asset-downloads');
+                downloadsElement.innerHTML = `<i class="fas fa-download"></i> ${currentDownloads.toLocaleString()}+`;
+                
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-check"></i> Terdownload';
+                    btn.style.backgroundColor = '#666';
+                    btn.disabled = true;
+                    btn.style.transform = 'scale(1)';
+                    showNotification('success', 'Download Berhasil', `"${assetName}" berhasil didownload`);
+                }, 150);
+            } else {
+                const price = assetCard.querySelector('.asset-price').textContent;
+                setTimeout(() => {
+                    btn.style.transform = 'scale(1)';
+                    if (confirm(`Anda akan membeli aset: ${assetName}\nHarga: ${price}\n\nApakah Anda ingin melanjutkan?`)) {
+                        // Update download count
+                        let currentDownloads = parseInt(assetCard.getAttribute('data-downloads'));
+                        currentDownloads++;
+                        assetCard.setAttribute('data-downloads', currentDownloads);
+                        
+                        // Update tampilan
+                        const downloadsElement = assetCard.querySelector('.asset-downloads');
+                        downloadsElement.innerHTML = `<i class="fas fa-download"></i> ${currentDownloads.toLocaleString()}+`;
+                        
+                        showNotification('success', 'Pembelian Berhasil', `"${assetName}" berhasil dibeli`);
+                    }
+                }, 150);
+            }
+        }
+    });
+    
+    // ==================== MODAL UPLOAD ====================
+    const uploadModal = document.getElementById('upload-modal');
+    const openUploadModalBtn = document.getElementById('open-upload-modal');
+    const closeUploadModalBtn = document.getElementById('close-upload-modal');
+    const uploadForm = document.getElementById('upload-form');
+    const fileUploadArea = document.getElementById('file-upload-area');
+    const fileInput = document.getElementById('asset-file');
+    
+    if (openUploadModalBtn) {
+        openUploadModalBtn.addEventListener('click', function() {
+            uploadModal.style.display = 'flex';
+            setTimeout(() => {
+                uploadModal.style.opacity = '1';
+            }, 10);
+        });
+    }
+    
+    if (closeUploadModalBtn) {
+        closeUploadModalBtn.addEventListener('click', function() {
+            uploadModal.style.opacity = '0';
+            setTimeout(() => {
+                uploadModal.style.display = 'none';
+            }, 300);
+        });
+    }
+    
+    if (uploadModal) {
+        uploadModal.addEventListener('click', function(e) {
+            if (e.target === uploadModal) {
+                uploadModal.style.opacity = '0';
+                setTimeout(() => {
+                    uploadModal.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+    
+    if (fileUploadArea) {
+        fileUploadArea.addEventListener('click', function() {
+            fileInput.click();
+        });
+        
+        fileUploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = 'var(--accent-primary)';
+            this.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
+            this.style.transform = 'scale(1.02)';
+        });
+        
+        fileUploadArea.addEventListener('dragleave', function() {
+            this.style.borderColor = 'rgba(76, 175, 80, 0.3)';
+            this.style.backgroundColor = 'transparent';
+            this.style.transform = 'scale(1)';
+        });
+        
+        fileUploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = 'rgba(76, 175, 80, 0.3)';
+            this.style.backgroundColor = 'transparent';
+            this.style.transform = 'scale(1)';
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                showNotification('info', 'File Dipilih', `${files[0].name} siap diupload`);
+            }
+        });
+    }
+    
+    if (uploadForm) {
+        uploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const assetTitle = document.getElementById('asset-title').value;
+            const assetPrice = document.getElementById('asset-price').value;
+            const isFree = assetPrice === 'free';
+            
+            showNotification('info', 'Upload Dimulai', `Mengupload "${assetTitle}"...`);
+            
+            setTimeout(() => {
+                uploadModal.style.opacity = '0';
+                setTimeout(() => {
+                    uploadModal.style.display = 'none';
+                }, 300);
+                uploadForm.reset();
+                showNotification('success', 'Upload Berhasil', 
+                    `"${assetTitle}" berhasil diupload${isFree ? ' (Gratis)' : ` seharga Rp ${parseInt(assetPrice).toLocaleString('id-ID')}`}`);
+            }, 2000);
+        });
+    }
+    
+    // ==================== MODAL SHARE ====================
+    const shareModal = document.getElementById('share-modal');
+    const closeShareModalBtn = document.getElementById('close-share-modal');
+    const copyLinkBtn = document.getElementById('copy-link-btn');
+    const shareLinkInput = document.getElementById('share-link');
+    const shareOptions = document.querySelectorAll('.share-option');
+    
+    if (closeShareModalBtn) {
+        closeShareModalBtn.addEventListener('click', function() {
+            shareModal.style.opacity = '0';
+            setTimeout(() => {
+                shareModal.style.display = 'none';
+            }, 300);
+        });
+    }
+    
+    if (shareModal) {
+        shareModal.addEventListener('click', function(e) {
+            if (e.target === shareModal) {
+                shareModal.style.opacity = '0';
+                setTimeout(() => {
+                    shareModal.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+    
+    if (shareOptions) {
+        shareOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const platform = this.getAttribute('data-platform');
+                const shareUrl = shareLinkInput.value;
+                const shareText = `Lihat aset desain keren ini di EzyDraw: ${shareUrl}`;
+                
+                let shareWindowUrl = '';
+                
+                switch(platform) {
+                    case 'whatsapp':
+                        shareWindowUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+                        break;
+                    case 'facebook':
+                        shareWindowUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+                        break;
+                    case 'twitter':
+                        shareWindowUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+                        break;
+                    case 'instagram':
+                        showNotification('info', 'Bagikan ke Instagram', 'Salin link dan tempel di bio atau story Instagram Anda');
+                        return;
+                }
+                
+                window.open(shareWindowUrl, '_blank', 'width=600,height=400');
+                showNotification('success', 'Berhasil Dibagikan', `Aset dibagikan ke ${platform}`);
+            });
+        });
+    }
+    
+    if (copyLinkBtn && shareLinkInput) {
+        copyLinkBtn.addEventListener('click', function() {
+            shareLinkInput.select();
+            shareLinkInput.setSelectionRange(0, 99999);
+            
+            navigator.clipboard.writeText(shareLinkInput.value)
+                .then(() => {
+                    showNotification('success', 'Link Disalin', 'Link telah disalin ke clipboard');
+                })
+                .catch(() => {
+                    document.execCommand('copy');
+                    showNotification('success', 'Link Disalin', 'Link telah disalin ke clipboard');
+                });
+        });
+    }
+    
+    // ==================== SISTEM NOTIFIKASI ====================
+    function showNotification(type, title, message) {
+        const notificationContainer = document.getElementById('notification-container');
+        
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <div class="notification-icon">
+                ${type === 'success' ? '<i class="fas fa-check"></i>' : 
+                  type === 'info' ? '<i class="fas fa-info-circle"></i>' : 
+                  '<i class="fas fa-exclamation-triangle"></i>'}
+            </div>
+            <div class="notification-content">
+                <h4>${title}</h4>
+                <p>${message}</p>
+            </div>
+        `;
+        
+        notificationContainer.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notificationContainer.removeChild(notification);
+                }
+            }, 400);
+        }, 5000);
+    }
+    
+    // ==================== FITUR LAINNYA ====================
+    
+    // Load more button
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            showNotification('info', 'Memuat Aset', 'Menampilkan lebih banyak aset...');
+            
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memuat...';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-arrow-down"></i> Tampilkan Lebih Banyak Aset';
+                this.disabled = false;
+                showNotification('success', 'Aset Dimuat', '10 aset tambahan berhasil dimuat!');
+            }, 1500);
+        });
+    }
+    
+    // Card hover effect
+    document.addEventListener('mouseover', function(e) {
+        if (e.target.closest('.asset-card')) {
+            const card = e.target.closest('.asset-card');
+            if (!card.classList.contains('hidden')) {
+                card.style.transform = 'translateY(-5px) scale(1.02)';
+            }
+        }
+    });
+    
+    document.addEventListener('mouseout', function(e) {
+        if (e.target.closest('.asset-card')) {
+            const card = e.target.closest('.asset-card');
+            if (!card.classList.contains('hidden')) {
+                card.style.transform = 'translateY(0) scale(1)';
+            }
+        }
+    });
+    
+    // Inisialisasi filter
+    filterAssets('all');
+    
+    // Re-fetch asset cards setelah filter diinisialisasi
+    setTimeout(() => {
+        assetCards = document.querySelectorAll('.asset-card');
+    }, 100);
+});
+    </script>
+</body>
+</html>

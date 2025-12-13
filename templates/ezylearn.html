@@ -1,0 +1,2290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EzyLearn - Kursus Desain Grafis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== VARIABLES & RESET ==================== */
+        :root {
+            --primary-bg: #0F051F;
+            --secondary-bg: #1A0A33;
+            --card-bg: #241242;
+            --accent-primary: #4CAF50;
+            --accent-secondary: #FF9800;
+            --accent-blue: #2196F3;
+            --accent-purple: #9C27B0;
+            --accent-pink: #E91E63;
+            --accent-gold: #FFD700;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0A8CC;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            --transition: all 0.3s ease;
+            --sidebar-width: 220px;
+            --sidebar-collapsed: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            display: flex;
+        }
+
+        /* ==================== SIDEBAR NAVIGATION ==================== */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--secondary-bg);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 15px;
+            z-index: 10;
+            flex-shrink: 0;
+            height: 100vh;
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 25px;
+            gap: 12px;
+            padding: 0 5px;
+            position: relative;
+        }
+
+        .logo-img-container {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--accent-primary);
+            flex-shrink: 0;
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .logo {
+            font-family: 'Galada', cursive;
+            font-size: 1.8rem;
+            font-weight: 400;
+            transition: var(--transition);
+            opacity: 1;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .logo {
+            opacity: 0;
+            width: 0;
+        }
+
+        .logo-text {
+            color: var(--text-primary);
+        }
+
+        .logo-d {
+            color: var(--accent-secondary);
+        }
+
+        .toggle-btn {
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--accent-primary);
+            color: var(--primary-bg);
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            z-index: 20;
+            transition: var(--transition);
+        }
+
+        .toggle-btn:hover {
+            background-color: #3d8b40;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .sidebar.collapsed .toggle-btn i {
+            transform: rotate(180deg);
+        }
+
+        .btn-new-design {
+            background-color: var(--accent-primary);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 12px 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0 25px 0;
+            transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .btn-new-design {
+            padding: 12px;
+            justify-content: center;
+        }
+
+        .sidebar.collapsed .btn-new-design span {
+            display: none;
+        }
+
+        .btn-new-design:hover {
+            background-color: #3d8b40;
+        }
+
+        .btn-new-design i {
+            margin-right: 8px;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .sidebar.collapsed .btn-new-design i {
+            margin-right: 0;
+        }
+
+        .menu-group {
+            margin-bottom: 25px;
+        }
+
+        .menu-group-title {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            transition: var(--transition);
+            opacity: 1;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .menu-group-title {
+            opacity: 0;
+            height: 0;
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .menu-item.active {
+            background-color: rgba(76, 175, 80, 0.15);
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 12px;
+            text-align: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .menu-item span {
+            transition: var(--transition);
+            opacity: 1;
+        }
+
+        .sidebar.collapsed .menu-item span {
+            opacity: 0;
+            width: 0;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* ==================== MAIN CONTENT AREA ==================== */
+        .main-container {
+            flex: 1;
+            display: flex;
+            margin-left: var(--sidebar-width);
+            height: 100vh;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed ~ .main-container {
+            margin-left: var(--sidebar-collapsed);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .page-title-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+
+        /* ==================== LIFE SYSTEM ==================== */
+        .life-system-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .life-system {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .life-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .life-counter {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .life-icon {
+            color: var(--accent-secondary);
+            font-size: 1.2rem;
+        }
+
+        .life-count {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .life-recharge {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-upgrade {
+            background: linear-gradient(135deg, var(--accent-secondary), #E65100);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .btn-upgrade:hover {
+            background: linear-gradient(135deg, #E65100, var(--accent-secondary));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.3);
+        }
+
+        /* ==================== SEARCH BAR ==================== */
+        .search-section {
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 800px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 25px 16px 55px;
+            background-color: #FFFFFF;
+            border: 2px solid transparent;
+            border-radius: var(--border-radius);
+            color: #333333;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3), 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-box input::placeholder {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-primary);
+            font-size: 1.3rem;
+            z-index: 1;
+        }
+
+        /* ==================== COURSE CATEGORIES ==================== */
+        .course-categories {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 12px 20px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .category-btn:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+            color: var(--text-primary);
+        }
+
+        .category-btn.active {
+            background-color: var(--accent-primary);
+            color: #000;
+            font-weight: 600;
+            border-color: var(--accent-primary);
+        }
+
+        .category-btn i {
+            font-size: 1rem;
+        }
+
+        /* ==================== COURSES GRID ==================== */
+        .courses-section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .courses-section-title i {
+            color: var(--accent-primary);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .course-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(76, 175, 80, 0.3);
+        }
+
+        .course-header {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .course-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .course-card:hover .course-thumbnail {
+            transform: scale(1.05);
+        }
+
+        .course-level {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent-secondary);
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .course-pro-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--accent-gold);
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .course-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .course-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            align-items: center;
+        }
+
+        .course-contributor {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .course-contributor:hover {
+            opacity: 0.9;
+        }
+
+        .contributor-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-primary);
+        }
+
+        .contributor-name {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .course-certified {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--accent-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .course-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .btn-preview, .btn-enroll, .btn-save {
+            padding: 10px 16px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            border: none;
+        }
+
+        .btn-preview {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-preview:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .btn-enroll {
+            background-color: var(--accent-primary);
+            color: white;
+        }
+
+        .btn-enroll:hover {
+            background-color: #3d8b40;
+            transform: translateY(-2px);
+        }
+
+        .btn-enroll.disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+
+        .btn-enroll.disabled:hover {
+            transform: none;
+            background-color: #666;
+        }
+
+        .btn-save {
+            background-color: transparent;
+            color: var(--accent-secondary);
+            border: 1px solid var(--accent-secondary);
+        }
+
+        .btn-save.saved {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: var(--accent-secondary);
+        }
+
+        .btn-save:hover {
+            background-color: rgba(255, 152, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ==================== EZYLEARN ACADEMIC BANNER ==================== */
+        .academic-banner {
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.9), rgba(40, 53, 147, 0.9));
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .academic-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .academic-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .academic-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .academic-content p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .academic-features {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+        }
+
+        .feature i {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+        }
+
+        .btn-get-academic {
+            background: linear-gradient(135deg, var(--accent-gold), #FFAB00);
+            color: #000;
+            border: none;
+            padding: 14px 28px;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+
+        .btn-get-academic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        /* ==================== MODAL PROFIL CONTRIBUTOR ==================== */
+        .profile-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .profile-modal {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(36, 18, 66, 0.9), rgba(26, 10, 51, 0.9));
+        }
+
+        .profile-modal-header h3 {
+            font-size: 1.8rem;
+            color: var(--accent-primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--text-primary);
+        }
+
+        .profile-modal-body {
+            padding: 30px;
+        }
+
+        .profile-main-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--accent-primary);
+            flex-shrink: 0;
+        }
+
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-title {
+            color: var(--accent-primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .profile-bio {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .profile-badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .profile-badge {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--accent-primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: var(--border-radius);
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            display: block;
+        }
+
+        .profile-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: block;
+            margin-top: 5px;
+        }
+
+        .profile-courses {
+            margin-top: 20px;
+        }
+
+        .profile-courses h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--accent-primary);
+        }
+
+        .course-item {
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .course-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
+        }
+
+        .course-item-info h5 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .course-item-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ==================== MODAL EZYLEARN ACADEMIC ==================== */
+        .academic-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .academic-modal {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .academic-modal-header {
+            padding: 25px 30px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 152, 0, 0.1));
+            text-align: center;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .academic-modal-header h3 {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .academic-modal-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .academic-modal-body {
+            padding: 30px;
+        }
+
+        .pricing-plans {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .pricing-plan {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .pricing-plan:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .pricing-plan.recommended {
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 152, 0, 0.05));
+        }
+
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .plan-badge {
+            background-color: var(--accent-gold);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .plan-features li {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .plan-features li i {
+            color: var(--accent-primary);
+        }
+
+        .plan-select-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .plan-select-btn:hover {
+            background-color: #3d8b40;
+            transform: translateY(-2px);
+        }
+
+        .academic-modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* ==================== NOTIFICATION SYSTEM ==================== */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 350px;
+        }
+
+        .notification {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--accent-primary);
+            transform: translateX(100%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .notification-success .notification-icon {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: var(--accent-primary);
+        }
+
+        .notification-error .notification-icon {
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+        }
+
+        .notification-warning .notification-icon {
+            background-color: rgba(255, 152, 0, 0.2);
+            color: var(--accent-secondary);
+        }
+
+        .notification-info .notification-icon {
+            background-color: rgba(33, 150, 243, 0.2);
+            color: var(--accent-blue);
+        }
+
+        .notification-content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .notification-content p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1200px) {
+            .courses-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: var(--sidebar-width);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+                width: var(--sidebar-width);
+            }
+            
+            .sidebar.collapsed.show {
+                transform: translateX(0);
+            }
+            
+            .main-container {
+                margin-left: 0 !important;
+                width: 100%;
+            }
+            
+            .mobile-toggle-btn {
+                display: block !important;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .life-system-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-categories {
+                justify-content: center;
+            }
+            
+            .category-btn {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .academic-features {
+                flex-direction: column;
+            }
+            
+            .profile-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .profile-main-info {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* MOBILE TOGGLE BUTTON */
+        .mobile-toggle-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d8b40;
+        }
+    </style>
+</head>
+<body>
+    <!-- MOBILE TOGGLE BUTTON -->
+    <button class="mobile-toggle-btn" id="mobileToggleBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- SIDEBAR NAVIGATION (Sama persis dengan halaman Aset) -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-container">
+            <div class="logo-img-container">
+                <img src="https://via.placeholder.com/45/4CAF50/FFFFFF?text=ED" alt="EzyDraw Logo" class="logo-img">
+            </div>
+            <div class="logo">
+                <span class="logo-text">Ezy</span><span class="logo-d">D</span><span class="logo-text">raw</span>
+            </div>
+            <button class="toggle-btn" id="toggleBtn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+        
+        <button class="btn-new-design">
+            <i class="fas fa-plus-circle"></i>
+            <span>Buat Desain Baru</span>
+        </button>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Alat Utama</div>
+            <a href="#" class="menu-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-puzzle-piece"></i>
+                <span>Plugin</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-th-large"></i>
+                <span>Templates</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-box-open"></i>
+                <span>Aset</span>
+            </a>
+        </div>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Komunitas</div>
+            <a href="#" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>Contributors</span>
+            </a>
+            <a href="#" class="menu-item active">
+                <i class="fas fa-graduation-cap"></i>
+                <span>EzyLearn</span>
+            </a>
+        </div>
+        
+        <div class="menu-group sidebar-footer">
+            <div class="menu-group-title">Akun</div>
+            <a href="#" class="menu-item">
+                <i class="fas fa-info-circle"></i>
+                <span>Tentang Kami</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-star" style="color: var(--accent-secondary);"></i>
+                <span>Rating EzyDraw</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-question-circle"></i>
+                <span>Pusat Bantuan</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- NOTIFICATION CONTAINER -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-container" id="mainContainer">
+        <main class="main-content">
+            <!-- PAGE TITLE SECTION -->
+            <div class="page-title-section">
+                <h1 class="page-title">EzyLearn</h1>
+                <p class="page-subtitle">
+                    Kursus desain grafis dengan kontributor profesional dan bersertifikat. Pelajari dari nol hingga mahir dengan sistem gamifikasi yang menyenangkan.
+                </p>
+                
+                <!-- SEARCH BAR -->
+                <div class="search-section">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Cari kursus berdasarkan nama, kontributor, atau kategori...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LIFE SYSTEM -->
+            <div class="page-header">
+                <div class="life-system-container">
+                    <div class="life-system">
+                        <div class="life-title">Nyawa:</div>
+                        <div class="life-counter">
+                            <i class="fas fa-heart life-icon"></i>
+                            <span class="life-count" id="lifeCount">5</span>
+                        </div>
+                        <div class="life-recharge">
+                            <i class="fas fa-clock"></i>
+                            <span id="rechargeTimer">20 menit lagi</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-upgrade" id="btnUpgrade">
+                        <i class="fas fa-crown"></i>
+                        <span id="upgradeText">Upgrade ke EzyPro</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- CATEGORI KURSUS -->
+            <div class="course-categories" id="courseCategories">
+                <button class="category-btn active" data-category="all">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Semua Kursus</span>
+                </button>
+                <button class="category-btn" data-category="design">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>Desain Grafis</span>
+                </button>
+                <button class="category-btn" data-category="uiux">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>UI/UX Design</span>
+                </button>
+                <button class="category-btn" data-category="illustration">
+                    <i class="fas fa-pen-nib"></i>
+                    <span>Ilustrasi Digital</span>
+                </button>
+                <button class="category-btn" data-category="motion">
+                    <i class="fas fa-film"></i>
+                    <span>Motion Graphics</span>
+                </button>
+            </div>
+            
+            <!-- KURSUS GRID -->
+            <h2 class="courses-section-title">
+                <i class="fas fa-fire"></i>
+                <span>Kursus Populer</span>
+            </h2>
+            
+            <div class="courses-grid" id="coursesContainer">
+                <!-- Courses akan di-load oleh JavaScript -->
+            </div>
+            
+            <!-- EZYLEARN ACADEMIC BANNER -->
+            <div class="academic-banner" id="academicBanner">
+                <div class="academic-content">
+                    <h3>EzyLearn Academic</h3>
+                    <p>Upgrade ke EzyPro untuk mendapatkan akses penuh ke semua kursus premium, nyawa tak terbatas, sertifikat resmi, dan fitur gamifikasi lengkap. Hanya sekali bayar, akses seumur hidup!</p>
+                    
+                    <div class="academic-features">
+                        <div class="feature">
+                            <i class="fas fa-infinity"></i>
+                            <span>Nyawa Tak Terbatas</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-gem"></i>
+                            <span>Akses Semua Kursus Premium</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-trophy"></i>
+                            <span>Sertifikat Resmi</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-gamepad"></i>
+                            <span>Gamifikasi Lengkap</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-get-academic" id="btnGetAcademic">
+                        <i class="fas fa-crown"></i>
+                        <span>Dapatkan EzyLearn Academic Sekarang</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- KURSUS LAINNYA -->
+            <h2 class="courses-section-title">
+                <i class="fas fa-chart-line"></i>
+                <span>Kursus Terbaru</span>
+            </h2>
+            
+            <div class="courses-grid" id="moreCoursesContainer">
+                <!-- More courses akan di-load oleh JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL PROFIL CONTRIBUTOR -->
+    <div class="profile-modal-overlay" id="profileModal">
+        <div class="profile-modal">
+            <div class="profile-modal-header">
+                <h3>Profil Kontributor</h3>
+                <button class="close-modal" onclick="closeModal('profileModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="profile-modal-body" id="profileModalBody">
+                <!-- Profile content akan di-load oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EZYLEARN ACADEMIC -->
+    <div class="academic-modal-overlay" id="academicModal">
+        <div class="academic-modal">
+            <div class="academic-modal-header">
+                <h3>Upgrade ke EzyLearn Academic</h3>
+                <p>Akses penuh ke semua fitur premium dengan sekali bayar</p>
+            </div>
+            <div class="academic-modal-body">
+                <div class="pricing-plans">
+                    <div class="pricing-plan recommended">
+                        <div class="plan-header">
+                            <div class="plan-name">EzyLearn Academic</div>
+                            <div class="plan-badge">REKOMENDASI</div>
+                        </div>
+                        <div class="plan-price">Rp 499.000<span>/sekali bayar</span></div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> <span>Akses seumur hidup ke semua kursus premium</span></li>
+                            <li><i class="fas fa-check"></i> <span>Nyawa tak terbatas (unlimited lives)</span></li>
+                            <li><i class="fas fa-check"></i> <span>Sertifikat resmi untuk setiap kursus</span></li>
+                            <li><i class="fas fa-check"></i> <span>Fitur gamifikasi lengkap dengan leaderboard</span></li>
+                            <li><i class="fas fa-check"></i> <span>Akses ke komunitas EzyPro eksklusif</span></li>
+                            <li><i class="fas fa-check"></i> <span>Dukungan prioritas dari kontributor</span></li>
+                        </ul>
+                        <button class="plan-select-btn" onclick="upgradeToAcademic()" id="upgradeAcademicBtn">
+                            Upgrade Sekarang
+                        </button>
+                    </div>
+                    
+                    <div class="pricing-plan">
+                        <div class="plan-header">
+                            <div class="plan-name">EzyLearn Gratis</div>
+                            <div class="plan-badge">TERBATAS</div>
+                        </div>
+                        <div class="plan-price">Gratis</div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> <span>Akses ke kursus dasar terbatas</span></li>
+                            <li><i class="fas fa-check"></i> <span>5 nyawa (diisi ulang setiap 20 menit)</span></li>
+                            <li><i class="fas fa-times"></i> <span>Tidak ada sertifikat</span></li>
+                            <li><i class="fas fa-check"></i> <span>Fitur gamifikasi dasar</span></li>
+                            <li><i class="fas fa-times"></i> <span>Tidak ada akses komunitas premium</span></li>
+                            <li><i class="fas fa-times"></i> <span>Dukungan standar</span></li>
+                        </ul>
+                        <button class="plan-select-btn" style="background-color: var(--text-secondary);" disabled id="currentPlanBtn">
+                            Plan Saat Ini
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="academic-modal-footer">
+                <button class="close-modal" onclick="closeModal('academicModal')">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== DATA KURSUS ====================
+        const coursesData = [
+            {
+                id: 1,
+                title: "Fundamental Desain Grafis untuk Pemula",
+                description: "Pelajari prinsip-prinsip dasar desain grafis, teori warna, tipografi, dan komposisi visual untuk menciptakan desain yang menarik.",
+                category: "design",
+                instructor: {
+                    id: 1,
+                    name: "Andre Wijaya",
+                    title: "Senior Graphic Designer & Instructor",
+                    bio: "Desainer grafis dengan pengalaman 10+ tahun di industri kreatif. Spesialis dalam branding, ilustrasi digital, dan tipografi. Telah mengajar lebih dari 5.000 siswa di platform EzyLearn dengan rating 4.9/5.0.",
+                    image: "https://randomuser.me/api/portraits/men/32.jpg"
+                },
+                isPro: true,
+                level: "Pemula",
+                thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                certified: true
+            },
+            {
+                id: 2,
+                title: "Mastering Adobe Photoshop dari Nol",
+                description: "Kuasai teknik-teknik editing foto profesional, manipulasi gambar, dan pembuatan desain digital menggunakan Adobe Photoshop.",
+                category: "design",
+                instructor: {
+                    id: 2,
+                    name: "Sari Dewi",
+                    title: "Adobe Certified Expert & Digital Artist",
+                    bio: "Spesialis Adobe Photoshop dengan sertifikasi internasional. Mengajar teknik editing foto profesional dan manipulasi gambar digital sejak 2015. Karya telah dipublikasikan di berbagai majalah desain internasional.",
+                    image: "https://randomuser.me/api/portraits/women/44.jpg"
+                },
+                isPro: false,
+                level: "Menengah",
+                thumbnail: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                certified: true
+            },
+            {
+                id: 3,
+                title: "UI/UX Design: Dari Research ke Prototype",
+                description: "Pelajari proses lengkap perancangan pengalaman pengguna, dari penelitian, wireframing, hingga prototype interaktif.",
+                category: "uiux",
+                instructor: {
+                    id: 3,
+                    name: "Budi Santoso",
+                    title: "UI/UX Lead Designer & Product Strategist",
+                    bio: "Lead designer dengan pengalaman di berbagai startup teknologi. Spesialis dalam user experience design, product strategy, dan design thinking. Pernah bekerja di perusahaan teknologi terkemuka di Silicon Valley.",
+                    image: "https://randomuser.me/api/portraits/men/22.jpg"
+                },
+                isPro: true,
+                level: "Lanjutan",
+                thumbnail: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                certified: true
+            },
+            {
+                id: 4,
+                title: "Membuat Ilustrasi Vector dengan Adobe Illustrator",
+                description: "Pelajari teknik pembuatan ilustrasi vector yang scalable untuk logo, ikon, dan desain grafis lainnya.",
+                category: "illustration",
+                instructor: {
+                    id: 4,
+                    name: "Ratna Pertiwi",
+                    title: "Vector Illustrator & Graphic Designer",
+                    bio: "Ilustrator vector profesional dengan spesialisasi dalam pembuatan karakter, ikon, dan ilustrasi untuk branding. Karya telah digunakan oleh berbagai perusahaan besar di Indonesia dan internasional.",
+                    image: "https://randomuser.me/api/portraits/women/68.jpg"
+                },
+                isPro: false,
+                level: "Menengah",
+                thumbnail: "https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                certified: true
+            },
+            {
+                id: 5,
+                title: "Motion Graphics dengan After Effects",
+                description: "Buat animasi motion graphics yang menakjubkan untuk video, presentasi, dan konten digital menggunakan Adobe After Effects.",
+                category: "motion",
+                instructor: {
+                    id: 5,
+                    name: "David Kurniawan",
+                    title: "Motion Graphics Artist & Video Editor",
+                    bio: "Motion graphics artist dengan pengalaman lebih dari 9 tahun di industri perfilman dan iklan. Spesialis dalam After Effects dan Cinema 4D. Telah menghasilkan karya untuk berbagai brand ternama.",
+                    image: "https://randomuser.me/api/portraits/men/67.jpg"
+                },
+                isPro: true,
+                level: "Lanjutan",
+                thumbnail: "https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                certified: true
+            },
+            {
+                id: 6,
+                title: "Strategi Branding dan Identitas Visual",
+                description: "Pelajari cara membangun identitas merek yang kuat dan konsisten melalui desain logo, warna, tipografi, dan elemen visual lainnya.",
+                category: "design",
+                instructor: {
+                    id: 6,
+                    name: "Lina Hartanto",
+                    title: "Branding Specialist & Creative Director",
+                    bio: "Creative director dengan fokus pada branding dan identitas visual. Memiliki pengalaman membangun lebih dari 50 brand untuk berbagai industri. Pendekatan desainnya menggabungkan strategi bisnis dengan kreativitas visual.",
+                    image: "https://randomuser.me/api/portraits/women/33.jpg"
+                },
+                isPro: false,
+                level: "Menengah",
+                thumbnail: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                certified: true
+            }
+        ];
+
+        // ==================== STATE MANAGEMENT ====================
+        let state = {
+            lives: 5,
+            isEzyPro: false,
+            savedCourses: [],
+            enrolledCourses: [],
+            currentCategory: 'all',
+            rechargeTime: 20 * 60, // 20 menit dalam detik
+            sidebarCollapsed: false,
+            sidebarMobileVisible: false,
+            timerInterval: null
+        };
+
+        // ==================== INISIALISASI ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStateFromStorage();
+            renderCourses();
+            renderMoreCourses();
+            setupEventListeners();
+            startLifeTimer();
+            updateSidebarToggleIcon();
+            
+            // Jika user sudah EzyPro, hide academic banner
+            if (state.isEzyPro) {
+                document.getElementById('academicBanner').style.display = 'none';
+            }
+        });
+
+        // ==================== LOCAL STORAGE ====================
+        function saveStateToStorage() {
+            localStorage.setItem('ezylearn_state', JSON.stringify(state));
+        }
+
+        function loadStateFromStorage() {
+            const saved = localStorage.getItem('ezylearn_state');
+            if (saved) {
+                state = JSON.parse(saved);
+                updateLifeDisplay();
+                updateUpgradeButton();
+                
+                // Apply sidebar state
+                if (state.sidebarCollapsed) {
+                    document.getElementById('sidebar').classList.add('collapsed');
+                }
+            }
+        }
+
+        // ==================== SIDEBAR FUNCTIONS ====================
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            state.sidebarCollapsed = !state.sidebarCollapsed;
+            
+            if (state.sidebarCollapsed) {
+                sidebar.classList.add('collapsed');
+            } else {
+                sidebar.classList.remove('collapsed');
+            }
+            
+            updateSidebarToggleIcon();
+            saveStateToStorage();
+        }
+
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            state.sidebarMobileVisible = !state.sidebarMobileVisible;
+            
+            if (state.sidebarMobileVisible) {
+                sidebar.classList.add('show');
+            } else {
+                sidebar.classList.remove('show');
+            }
+        }
+
+        function updateSidebarToggleIcon() {
+            const toggleBtn = document.getElementById('toggleBtn');
+            if (toggleBtn) {
+                if (state.sidebarCollapsed) {
+                    toggleBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                } else {
+                    toggleBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                }
+            }
+        }
+
+        // ==================== LIFE SYSTEM ====================
+        function updateLifeDisplay() {
+            const lifeCount = document.getElementById('lifeCount');
+            const rechargeTimer = document.getElementById('rechargeTimer');
+            
+            if (lifeCount) {
+                lifeCount.textContent = state.isEzyPro ? '∞' : state.lives;
+            }
+            
+            if (rechargeTimer) {
+                if (state.isEzyPro) {
+                    rechargeTimer.textContent = 'Tak Terbatas';
+                } else {
+                    const minutes = Math.floor(state.rechargeTime / 60);
+                    const seconds = state.rechargeTime % 60;
+                    rechargeTimer.textContent = state.lives < 5 
+                        ? `${minutes}:${seconds.toString().padStart(2, '0')}`
+                        : 'Penuh';
+                }
+            }
+        }
+
+        function useLife() {
+            if (state.isEzyPro) return true;
+            
+            if (state.lives > 0) {
+                state.lives--;
+                state.rechargeTime = 20 * 60; // Reset timer
+                updateLifeDisplay();
+                saveStateToStorage();
+                
+                if (state.lives === 0) {
+                    showNotification(
+                        'Nyawa habis!',
+                        'Tunggu 20 menit untuk pengisian ulang otomatis.',
+                        'warning'
+                    );
+                }
+                return true;
+            } else {
+                showNotification(
+                    'Nyawa habis!',
+                    'Tunggu 20 menit untuk pengisian ulang.',
+                    'warning'
+                );
+                return false;
+            }
+        }
+
+        function startLifeTimer() {
+            // Hapus timer sebelumnya jika ada
+            if (state.timerInterval) {
+                clearInterval(state.timerInterval);
+            }
+            
+            // Start timer baru
+            state.timerInterval = setInterval(() => {
+                if (!state.isEzyPro && state.lives < 5) {
+                    state.rechargeTime--;
+                    
+                    if (state.rechargeTime <= 0) {
+                        state.lives = Math.min(5, state.lives + 1);
+                        state.rechargeTime = 20 * 60; // Reset to 20 minutes
+                        updateLifeDisplay();
+                        saveStateToStorage();
+                        
+                        if (state.lives === 5) {
+                            showNotification(
+                                'Nyawa penuh!',
+                                'Semua nyawa telah diisi ulang.',
+                                'success'
+                            );
+                        }
+                    }
+                    
+                    updateLifeDisplay();
+                }
+            }, 1000);
+        }
+
+        // ==================== COURSE FUNCTIONS ====================
+        function renderCourses() {
+            const container = document.getElementById('coursesContainer');
+            const filteredCourses = state.currentCategory === 'all' 
+                ? coursesData.slice(0, 3) // Tampilkan 3 kursus pertama
+                : coursesData.filter(course => course.category === state.currentCategory).slice(0, 3);
+
+            container.innerHTML = filteredCourses.map(course => createCourseCard(course)).join('');
+        }
+
+        function renderMoreCourses() {
+            const container = document.getElementById('moreCoursesContainer');
+            const filteredCourses = state.currentCategory === 'all' 
+                ? coursesData.slice(3) // Tampilkan sisanya
+                : coursesData.filter(course => course.category === state.currentCategory).slice(3);
+
+            container.innerHTML = filteredCourses.map(course => createCourseCard(course)).join('');
+        }
+
+        function createCourseCard(course) {
+            const isSaved = state.savedCourses.includes(course.id);
+            const isEnrolled = state.enrolledCourses.includes(course.id);
+            const canEnroll = state.isEzyPro || !course.isPro;
+            
+            return `
+                <div class="course-card" data-course-id="${course.id}">
+                    <div class="course-header">
+                        <img src="${course.thumbnail}" alt="${course.title}" class="course-thumbnail">
+                        <div class="course-level">${course.level}</div>
+                        ${course.isPro ? `
+                            <div class="course-pro-badge">
+                                <i class="fas fa-crown"></i>
+                                <span>EzyPro</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="course-body">
+                        <h3 class="course-title">${course.title}</h3>
+                        <p class="course-description">${course.description}</p>
+                        
+                        <div class="course-meta">
+                            <div class="course-contributor" onclick="showContributorProfile(${course.instructor.id})">
+                                <img src="${course.instructor.image}" alt="${course.instructor.name}" class="contributor-avatar">
+                                <span class="contributor-name">${course.instructor.name}</span>
+                            </div>
+                            ${course.certified ? `
+                                <div class="course-certified">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>Bersertifikat</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="course-actions">
+                            <button class="btn-preview" onclick="previewCourse(${course.id})">
+                                <i class="fas fa-eye"></i>
+                                <span>Pratinjau</span>
+                            </button>
+                            <button class="btn-enroll ${!canEnroll ? 'disabled' : ''} ${isEnrolled ? 'disabled' : ''}" 
+                                    onclick="${canEnroll ? `enrollCourse(${course.id})` : 'openModal(\"academicModal\")'}"
+                                    ${isEnrolled ? 'disabled' : ''}>
+                                <i class="fas ${isEnrolled ? 'fa-check' : 'fa-sign-in-alt'}"></i>
+                                <span>${isEnrolled ? 'Sudah Diikuti' : 'Masuk Kursus'}</span>
+                            </button>
+                            <button class="btn-save ${isSaved ? 'saved' : ''}" onclick="toggleSaveCourse(${course.id}, this)">
+                                <i class="fas ${isSaved ? 'fa-bookmark' : 'fa-bookmark'}"></i>
+                                <span>${isSaved ? 'Disimpan' : 'Simpan'}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function previewCourse(courseId) {
+            const course = coursesData.find(c => c.id === courseId);
+            showNotification(
+                'Membuka Pratinjau',
+                `Membuka pratinjau kursus "${course.title}"`,
+                'info'
+            );
+        }
+
+        function enrollCourse(courseId) {
+            const course = coursesData.find(c => c.id === courseId);
+            
+            // Cek jika sudah terdaftar
+            if (state.enrolledCourses.includes(courseId)) {
+                showNotification(
+                    'Sudah Terdaftar',
+                    `Anda sudah terdaftar di kursus "${course.title}"`,
+                    'info'
+                );
+                return;
+            }
+
+            // Gunakan nyawa untuk user biasa
+            if (!state.isEzyPro) {
+                const hasLife = useLife();
+                if (!hasLife) return;
+            }
+
+            // Daftar ke kursus
+            state.enrolledCourses.push(courseId);
+            saveStateToStorage();
+            
+            // Update UI
+            const courseCard = document.querySelector(`[data-course-id="${courseId}"]`);
+            if (courseCard) {
+                const enrollBtn = courseCard.querySelector('.btn-enroll');
+                enrollBtn.innerHTML = '<i class="fas fa-check"></i><span>Sudah Diikuti</span>';
+                enrollBtn.classList.add('disabled');
+                enrollBtn.disabled = true;
+            }
+            
+            showNotification(
+                'Berhasil Daftar!',
+                `Anda sekarang terdaftar di "${course.title}"`,
+                'success'
+            );
+        }
+
+        function toggleSaveCourse(courseId, button) {
+            const course = coursesData.find(c => c.id === courseId);
+            const index = state.savedCourses.indexOf(courseId);
+            
+            if (index === -1) {
+                // Simpan kursus
+                state.savedCourses.push(courseId);
+                button.innerHTML = '<i class="fas fa-bookmark"></i><span>Disimpan</span>';
+                button.classList.add('saved');
+                showNotification(
+                    'Disimpan!',
+                    `"${course.title}" telah disimpan ke daftar belajar`,
+                    'success'
+                );
+            } else {
+                // Hapus dari simpanan
+                state.savedCourses.splice(index, 1);
+                button.innerHTML = '<i class="fas fa-bookmark"></i><span>Simpan</span>';
+                button.classList.remove('saved');
+                showNotification(
+                    'Dihapus',
+                    `"${course.title}" dihapus dari daftar belajar`,
+                    'info'
+                );
+            }
+            
+            saveStateToStorage();
+        }
+
+        // ==================== PROFILE FUNCTIONS ====================
+        function showContributorProfile(instructorId) {
+            const instructor = coursesData.find(c => c.instructor.id === instructorId)?.instructor;
+            if (!instructor) return;
+
+            // Filter courses by this instructor
+            const instructorCourses = coursesData.filter(course => course.instructor.id === instructorId);
+            
+            const coursesHtml = instructorCourses.map(course => `
+                <div class="course-item">
+                    <div class="course-item-info">
+                        <h5>${course.title}</h5>
+                        <p>${course.description.substring(0, 100)}...</p>
+                    </div>
+                    <div class="course-certified">
+                        <i class="fas fa-certificate"></i>
+                        <span>Bersertifikat</span>
+                    </div>
+                </div>
+            `).join('');
+
+            const modalBody = document.getElementById('profileModalBody');
+            modalBody.innerHTML = `
+                <div class="profile-main-info">
+                    <div class="profile-avatar-large">
+                        <img src="${instructor.image}" alt="${instructor.name}">
+                    </div>
+                    <div class="profile-details">
+                        <h2 class="profile-name">${instructor.name}</h2>
+                        <div class="profile-title">${instructor.title}</div>
+                        <div class="profile-bio">${instructor.bio}</div>
+                        <div class="profile-badges">
+                            <div class="profile-badge">
+                                <i class="fas fa-certificate"></i>
+                                <span>Kontributor Premium</span>
+                            </div>
+                            <div class="profile-badge pro">
+                                <i class="fas fa-crown"></i>
+                                <span>EzyPro Instructor</span>
+                            </div>
+                            <div class="profile-badge verified">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Terverifikasi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <span class="profile-stat-value">${instructorCourses.length}</span>
+                        <span class="profile-stat-label">Kursus</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value">5.2K</span>
+                        <span class="profile-stat-label">Siswa</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value">4.9</span>
+                        <span class="profile-stat-label">Rating</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value">10+</span>
+                        <span class="profile-stat-label">Tahun</span>
+                    </div>
+                </div>
+                
+                ${instructorCourses.length > 0 ? `
+                    <div class="profile-courses">
+                        <h4>Kursus yang Diajarkan</h4>
+                        ${coursesHtml}
+                    </div>
+                ` : ''}
+            `;
+
+            openModal('profileModal');
+        }
+
+        // ==================== UPGRADE FUNCTIONS ====================
+        function updateUpgradeButton() {
+            const upgradeBtn = document.getElementById('btnUpgrade');
+            const upgradeText = document.getElementById('upgradeText');
+            
+            if (state.isEzyPro) {
+                upgradeBtn.innerHTML = '<i class="fas fa-crown"></i><span>EzyPro Member</span>';
+                upgradeBtn.style.background = 'linear-gradient(135deg, var(--accent-gold), #FFAB00)';
+                upgradeBtn.style.color = '#000';
+                upgradeBtn.disabled = true;
+                
+                // Hide academic banner for EzyPro users
+                document.getElementById('academicBanner').style.display = 'none';
+            }
+        }
+
+        function upgradeToAcademic() {
+            state.isEzyPro = true;
+            state.lives = 999; // Unlimited lives
+            saveStateToStorage();
+            
+            updateLifeDisplay();
+            updateUpgradeButton();
+            closeModal('academicModal');
+            
+            // Hide academic banner
+            document.getElementById('academicBanner').style.display = 'none';
+            
+            showNotification(
+                'Selamat! 🎉',
+                'Upgrade ke EzyPro Academic berhasil!',
+                'success'
+            );
+            
+            // Update semua course cards untuk menghilangkan disabled state
+            document.querySelectorAll('.btn-enroll.disabled').forEach(btn => {
+                if (btn.classList.contains('disabled') && !btn.disabled) {
+                    btn.classList.remove('disabled');
+                    btn.disabled = false;
+                    btn.onclick = function() {
+                        const courseId = this.closest('.course-card').dataset.courseId;
+                        enrollCourse(parseInt(courseId));
+                    };
+                }
+            });
+        }
+
+        // ==================== MODAL FUNCTIONS ====================
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById(modalId).style.opacity = '1';
+            }, 10);
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById(modalId).style.display = 'none';
+            }, 300);
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        function setupEventListeners() {
+            // Sidebar toggle button
+            document.getElementById('toggleBtn').addEventListener('click', toggleSidebar);
+            
+            // Mobile sidebar toggle button
+            document.getElementById('mobileToggleBtn').addEventListener('click', toggleMobileSidebar);
+            
+            // Category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active state
+                    document.querySelectorAll('.category-btn').forEach(b => 
+                        b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Filter courses
+                    state.currentCategory = btn.dataset.category;
+                    renderCourses();
+                    renderMoreCourses();
+                });
+            });
+
+            // Upgrade buttons
+            document.getElementById('btnUpgrade').addEventListener('click', () => openModal('academicModal'));
+            document.getElementById('btnGetAcademic').addEventListener('click', () => openModal('academicModal'));
+
+            // Close modals when clicking outside
+            window.addEventListener('click', (event) => {
+                if (event.target.classList.contains('profile-modal-overlay')) {
+                    closeModal('profileModal');
+                }
+                if (event.target.classList.contains('academic-modal-overlay')) {
+                    closeModal('academicModal');
+                }
+                
+                // Close mobile sidebar when clicking outside on mobile
+                if (window.innerWidth <= 992 && 
+                    state.sidebarMobileVisible && 
+                    !event.target.closest('.sidebar') && 
+                    !event.target.closest('#mobileToggleBtn')) {
+                    toggleMobileSidebar();
+                }
+            });
+
+            // Menu items click
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Remove active class from all items
+                    document.querySelectorAll('.menu-item').forEach(i => 
+                        i.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    item.classList.add('active');
+                    
+                    // Close mobile sidebar on click
+                    if (window.innerWidth <= 992) {
+                        toggleMobileSidebar();
+                    }
+                    
+                    // Show notification for non-EzyLearn items
+                    if (!item.classList.contains('active')) {
+                        const menuText = item.querySelector('span').textContent;
+                        showNotification(
+                            'Menu Dipilih',
+                            `Membuka halaman: ${menuText}`,
+                            'info'
+                        );
+                    }
+                });
+            });
+
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                if (searchTerm === '') {
+                    renderCourses();
+                    renderMoreCourses();
+                    return;
+                }
+                
+                // Filter courses based on search
+                const filteredCourses = coursesData.filter(course => 
+                    course.title.toLowerCase().includes(searchTerm) ||
+                    course.description.toLowerCase().includes(searchTerm) ||
+                    course.instructor.name.toLowerCase().includes(searchTerm) ||
+                    course.category.toLowerCase().includes(searchTerm)
+                );
+                
+                // Update containers
+                const coursesContainer = document.getElementById('coursesContainer');
+                const moreCoursesContainer = document.getElementById('moreCoursesContainer');
+                
+                if (filteredCourses.length > 0) {
+                    coursesContainer.innerHTML = filteredCourses.slice(0, 3).map(course => createCourseCard(course)).join('');
+                    moreCoursesContainer.innerHTML = filteredCourses.slice(3).map(course => createCourseCard(course)).join('');
+                } else {
+                    coursesContainer.innerHTML = '<p class="no-results">Tidak ada kursus yang ditemukan.</p>';
+                    moreCoursesContainer.innerHTML = '';
+                }
+            });
+
+            // Close sidebar on resize to desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 992 && state.sidebarMobileVisible) {
+                    state.sidebarMobileVisible = false;
+                    document.getElementById('sidebar').classList.remove('show');
+                }
+            });
+        }
+
+        // ==================== NOTIFICATION SYSTEM ====================
+        function showNotification(title, message, type = 'info') {
+            const notificationContainer = document.getElementById('notificationContainer');
+            const notificationId = 'notification-' + Date.now();
+            
+            const icons = {
+                success: 'check-circle',
+                error: 'exclamation-triangle',
+                warning: 'exclamation-circle',
+                info: 'info-circle'
+            };
+            
+            const notification = document.createElement('div');
+            notification.id = notificationId;
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-icon">
+                    <i class="fas fa-${icons[type] || 'info-circle'}"></i>
+                </div>
+                <div class="notification-content">
+                    <h4>${type === 'success' ? 'Berhasil!' : type === 'error' ? 'Error!' : type === 'warning' ? 'Peringatan!' : 'Info'}</h4>
+                    <p>${message}</p>
+                </div>
+            `;
+            
+            notificationContainer.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Remove notification after 5 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 400);
+            }, 5000);
+            
+            return notificationId;
+        }
+    </script>
+</body>
+</html>

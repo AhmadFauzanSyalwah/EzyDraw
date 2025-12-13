@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plugin Marketplace - EzyDraw</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/plugins.css">
+</head>
+<body>
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <div class="logo-img-container">
+                <img src="../static/img/logo.png" alt="EzyDraw Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/45/4CAF50/FFFFFF?text=ED'">
+            </div>
+            <div class="logo">
+                <span class="logo-text">Ezy</span><span class="logo-d">D</span><span class="logo-text">raw</span>
+            </div>
+        </div>
+        
+        <button class="btn-new-design">
+            <i class="fas fa-plus-circle"></i> Buat Desain Baru
+        </button>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Alat Utama</div>
+            <div class="menu-item">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </div>
+            <div class="menu-item active">
+                <i class="fas fa-puzzle-piece"></i> Plugin
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-th-large"></i> Templates
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-box-open"></i> Aset
+            </div>
+        </div>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Komunitas</div>
+            <div class="menu-item">
+                <i class="fas fa-users"></i> Contributors
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-graduation-cap"></i> EzyLearn
+            </div>
+        </div>
+        
+        <div class="menu-group sidebar-footer">
+            <div class="menu-group-title">Akun</div>
+            <div class="menu-item">
+                <i class="fas fa-info-circle"></i> Tentang Kami
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-star" style="color: var(--accent-secondary);"></i> Rating EzyDraw
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-question-circle"></i> Pusat Bantuan
+            </div>
+        </div>
+    </aside>
+    
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-container">
+        <main class="main-content">
+            <!-- PAGE TITLE SECTION -->
+            <div class="page-title-section">
+                <h1 class="page-title">Plugin Marketplace</h1>
+                <p class="page-subtitle">Temukan plugin untuk meningkatkan produktivitas desain Anda. Semua plugin dibuat oleh komunitas kontributor EzyDraw.</p>
+                
+                <!-- SEARCH BAR - Menonjol dan di bawah judul -->
+                <div class="search-section">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Cari plugin berdasarkan nama, kategori, atau fitur...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- STATS BAR -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-icon" style="background-color: rgba(76, 175, 80, 0.2); color: var(--accent-primary);">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>156</h3>
+                        <p>Plugin Tersedia</p>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon" style="background-color: rgba(255, 152, 0, 0.2); color: var(--accent-secondary);">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>124</h3>
+                        <p>Plugin Gratis</p>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon" style="background-color: rgba(33, 150, 243, 0.2); color: var(--accent-blue);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>89</h3>
+                        <p>Kontributor</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KATEGORI FILTER - PERBAIKAN: Count badge putih ketika tidak aktif -->
+            <div class="categories-section">
+                <div class="categories-grid">
+                    <div class="category-chip active" data-filter="all">
+                        <i class="fas fa-layer-group"></i> Semua Plugin
+                        <span class="category-count">156</span>
+                    </div>
+                    <div class="category-chip" data-filter="free">
+                        <i class="fas fa-gift"></i> Gratis
+                        <span class="category-count">124</span>
+                    </div>
+                    <div class="category-chip" data-filter="premium">
+                        <i class="fas fa-crown"></i> Premium
+                        <span class="category-count">32</span>
+                    </div>
+                    <div class="category-chip" data-filter="ai">
+                        <i class="fas fa-robot"></i> AI Tools
+                        <span class="category-count">24</span>
+                    </div>
+                    <div class="category-chip" data-filter="design">
+                        <i class="fas fa-palette"></i> Design
+                        <span class="category-count">58</span>
+                    </div>
+                    <div class="category-chip" data-filter="productivity">
+                        <i class="fas fa-bolt"></i> Produktivitas
+                        <span class="category-count">42</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PLUGINS GRID -->
+            <div class="plugins-grid" id="plugins-container">
+                <!-- Plugin 1 - AI Image Enhancer (Premium) -->
+                <div class="plugin-card" data-category="premium ai">
+                    <div class="plugin-header">
+                        <div class="plugin-title-section">
+                            <h3 class="plugin-title">AI Image Enhancer</h3>
+                            <p class="plugin-author">oleh <strong>TechVision AI</strong></p>
+                        </div>
+                        <div class="plugin-badge">
+                            <span class="badge badge-premium">Premium</span>
+                            <span class="badge badge-new">Baru</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Plugin -->
+                    <div class="plugin-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-value">4.8</span>
+                        <span class="rating-count">(1,250 ulasan)</span>
+                    </div>
+                    
+                    <p class="plugin-description">
+                        Meningkatkan kualitas gambar secara otomatis menggunakan kecerdasan buatan. 
+                        Mendukung upscaling 4K, noise reduction, dan color correction.
+                    </p>
+                    
+                    <div class="plugin-tags">
+                        <span class="plugin-tag">AI</span>
+                        <span class="plugin-tag">Foto</span>
+                        <span class="plugin-tag">Enhancement</span>
+                        <span class="plugin-tag">Otomatis</span>
+                    </div>
+                    
+                    <div class="plugin-footer">
+                        <div class="plugin-meta">
+                            <div class="plugin-downloads">
+                                <i class="fas fa-download"></i> 1,250+
+                            </div>
+                            <div class="plugin-price">Rp 89.000</div>
+                        </div>
+                        
+                        <div class="plugin-actions">
+                            <button class="btn-action btn-preview">Preview</button>
+                            <button class="btn-action btn-primary">Beli</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plugin 2 - Gradient Master (Gratis) -->
+                <div class="plugin-card" data-category="free design">
+                    <div class="plugin-header">
+                        <div class="plugin-title-section">
+                            <h3 class="plugin-title">Gradient Master</h3>
+                            <p class="plugin-author">oleh <strong>ColorStudio</strong></p>
+                        </div>
+                        <div class="plugin-badge">
+                            <span class="badge badge-free">Gratis</span>
+                            <span class="badge badge-popular">Populer</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Plugin -->
+                    <div class="plugin-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="rating-value">5.0</span>
+                        <span class="rating-count">(3,200 ulasan)</span>
+                    </div>
+                    
+                    <p class="plugin-description">
+                        Generator gradient dengan 500+ preset profesional. 
+                        Ekspor dalam format CSS, SVG, atau PNG. Dukungan gradient animasi.
+                    </p>
+                    
+                    <div class="plugin-tags">
+                        <span class="plugin-tag">Warna</span>
+                        <span class="plugin-tag">Gradient</span>
+                        <span class="plugin-tag">Generator</span>
+                        <span class="plugin-tag">CSS</span>
+                    </div>
+                    
+                    <div class="plugin-footer">
+                        <div class="plugin-meta">
+                            <div class="plugin-downloads">
+                                <i class="fas fa-download"></i> 3,200+
+                            </div>
+                            <div class="plugin-price price-free">Gratis</div>
+                        </div>
+                        
+                        <div class="plugin-actions">
+                            <button class="btn-action btn-preview">Preview</button>
+                            <button class="btn-action btn-primary">Install</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plugin 3 - Social Media Toolkit (Premium) -->
+                <div class="plugin-card" data-category="premium design">
+                    <div class="plugin-header">
+                        <div class="plugin-title-section">
+                            <h3 class="plugin-title">Social Media Toolkit</h3>
+                            <p class="plugin-author">oleh <strong>SocialPro</strong></p>
+                        </div>
+                        <div class="plugin-badge">
+                            <span class="badge badge-premium">Premium</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Plugin -->
+                    <div class="plugin-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="rating-value">4.0</span>
+                        <span class="rating-count">(2,100 ulasan)</span>
+                    </div>
+                    
+                    <p class="plugin-description">
+                        Template siap pakai untuk semua platform media sosial. 
+                        Auto-resize untuk Instagram, Facebook, Twitter, LinkedIn, dan TikTok.
+                    </p>
+                    
+                    <div class="plugin-tags">
+                        <span class="plugin-tag">Social Media</span>
+                        <span class="plugin-tag">Template</span>
+                        <span class="plugin-tag">Marketing</span>
+                        <span class="plugin-tag">Otomatis</span>
+                    </div>
+                    
+                    <div class="plugin-footer">
+                        <div class="plugin-meta">
+                            <div class="plugin-downloads">
+                                <i class="fas fa-download"></i> 2,100+
+                            </div>
+                            <div class="plugin-price">Rp 75.000</div>
+                        </div>
+                        
+                        <div class="plugin-actions">
+                            <button class="btn-action btn-preview">Preview</button>
+                            <button class="btn-action btn-primary">Beli</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plugin 4 - Typography Assistant (Gratis) -->
+                <div class="plugin-card" data-category="free design">
+                    <div class="plugin-header">
+                        <div class="plugin-title-section">
+                            <h3 class="plugin-title">Typography Assistant</h3>
+                            <p class="plugin-author">oleh <strong>FontCraft</strong></p>
+                        </div>
+                        <div class="plugin-badge">
+                            <span class="badge badge-free">Gratis</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Plugin -->
+                    <div class="plugin-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-value">4.7</span>
+                        <span class="rating-count">(1,850 ulasan)</span>
+                    </div>
+                    
+                    <p class="plugin-description">
+                        Alat untuk pairing font yang sempurna. 
+                        Akses ke 1000+ font Google dengan preview langsung.
+                        Rekomendasi kombinasi font otomatis.
+                    </p>
+                    
+                    <div class="plugin-tags">
+                        <span class="plugin-tag">Typography</span>
+                        <span class="plugin-tag">Font</span>
+                        <span class="plugin-tag">Pairing</span>
+                        <span class="plugin-tag">Google Fonts</span>
+                    </div>
+                    
+                    <div class="plugin-footer">
+                        <div class="plugin-meta">
+                            <div class="plugin-downloads">
+                                <i class="fas fa-download"></i> 1,850+
+                            </div>
+                            <div class="plugin-price price-free">Gratis</div>
+                        </div>
+                        
+                        <div class="plugin-actions">
+                            <button class="btn-action btn-preview">Preview</button>
+                            <button class="btn-action btn-primary">Install</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plugin 5 - Vectorize Pro (Gratis) -->
+                <div class="plugin-card" data-category="free design">
+                    <div class="plugin-header">
+                        <div class="plugin-title-section">
+                            <h3 class="plugin-title">Vectorize Pro</h3>
+                            <p class="plugin-author">oleh <strong>VectorMasters</strong></p>
+                        </div>
+                        <div class="plugin-badge">
+                            <span class="badge badge-free">Gratis</span>
+                            <span class="badge badge-popular">Populer</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Plugin -->
+                    <div class="plugin-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="rating-value">5.0</span>
+                        <span class="rating-count">(4,500 ulasan)</span>
+                    </div>
+                    
+                    <p class="plugin-description">
+                        Konversi gambar bitmap ke vektor dengan satu klik. 
+                        Presisi tinggi dengan kontrol penuh atas detail dan smoothing.
+                    </p>
+                    
+                    <div class="plugin-tags">
+                        <span class="plugin-tag">Vector</span>
+                        <span class="plugin-tag">Konversi</span>
+                        <span class="plugin-tag">SVG</span>
+                        <span class="plugin-tag">Otomatis</span>
+                    </div>
+                    
+                    <div class="plugin-footer">
+                        <div class="plugin-meta">
+                            <div class="plugin-downloads">
+                                <i class="fas fa-download"></i> 4,500+
+                            </div>
+                            <div class="plugin-price price-free">Gratis</div>
+                        </div>
+                        
+                        <div class="plugin-actions">
+                            <button class="btn-action btn-preview">Preview</button>
+                            <button class="btn-action btn-primary">Install</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plugin 6 - Color Palette Generator (Gratis) -->
+                <div class="plugin-card" data-category="free design">
+                    <div class="plugin-header">
+                        <div class="plugin-title-section">
+                            <h3 class="plugin-title">Color Palette Generator</h3>
+                            <p class="plugin-author">oleh <strong>PalettePro</strong></p>
+                        </div>
+                        <div class="plugin-badge">
+                            <span class="badge badge-free">Gratis</span>
+                            <span class="badge badge-new">Baru</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Plugin -->
+                    <div class="plugin-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="rating-value">4.2</span>
+                        <span class="rating-count">(2,800 ulasan)</span>
+                    </div>
+                    
+                    <p class="plugin-description">
+                        Generate palet warna dari gambar atau warna favorit Anda. 
+                        Ekspor ke berbagai format termasuk Adobe, Sketch, dan Figma.
+                    </p>
+                    
+                    <div class="plugin-tags">
+                        <span class="plugin-tag">Warna</span>
+                        <span class="plugin-tag">Palette</span>
+                        <span class="plugin-tag">Generator</span>
+                        <span class="plugin-tag">Design</span>
+                    </div>
+                    
+                    <div class="plugin-footer">
+                        <div class="plugin-meta">
+                            <div class="plugin-downloads">
+                                <i class="fas fa-download"></i> 2,800+
+                            </div>
+                            <div class="plugin-price price-free">Gratis</div>
+                        </div>
+                        
+                        <div class="plugin-actions">
+                            <button class="btn-action btn-preview">Preview</button>
+                            <button class="btn-action btn-primary">Install</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plugin 7 - PDF Export Assistant (Gratis) -->
+                <div class="plugin-card" data-category="free productivity">
+                    <div class="plugin-header">
+                        <div class="plugin-title-section">
+                            <h3 class="plugin-title">PDF Export Assistant</h3>
+                            <p class="plugin-author">oleh <strong>DocTools</strong></p>
+                        </div>
+                        <div class="plugin-badge">
+                            <span class="badge badge-free">Gratis</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Plugin -->
+                    <div class="plugin-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-value">4.6</span>
+                        <span class="rating-count">(3,100 ulasan)</span>
+                    </div>
+                    
+                    <p class="plugin-description">
+                        Ekspor desain ke PDF dengan kontrol lengkap. 
+                        Dukungan untuk hyperlink, bookmark, dan kompresi optimal.
+                    </p>
+                    
+                    <div class="plugin-tags">
+                        <span class="plugin-tag">PDF</span>
+                        <span class="plugin-tag">Export</span>
+                        <span class="plugin-tag">Dokumen</span>
+                        <span class="plugin-tag">Produktivitas</span>
+                    </div>
+                    
+                    <div class="plugin-footer">
+                        <div class="plugin-meta">
+                            <div class="plugin-downloads">
+                                <i class="fas fa-download"></i> 3,100+
+                            </div>
+                            <div class="plugin-price price-free">Gratis</div>
+                        </div>
+                        
+                        <div class="plugin-actions">
+                            <button class="btn-action btn-preview">Preview</button>
+                            <button class="btn-action btn-primary">Install</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plugin 8 - Grid System Builder (Gratis) -->
+                <div class="plugin-card" data-category="free design">
+                    <div class="plugin-header">
+                        <div class="plugin-title-section">
+                            <h3 class="plugin-title">Grid System Builder</h3>
+                            <p class="plugin-author">oleh <strong>LayoutMasters</strong></p>
+                        </div>
+                        <div class="plugin-badge">
+                            <span class="badge badge-free">Gratis</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Plugin -->
+                    <div class="plugin-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="rating-value">4.1</span>
+                        <span class="rating-count">(2,300 ulasan)</span>
+                    </div>
+                    
+                    <p class="plugin-description">
+                        Buat grid system custom untuk layout yang konsisten. 
+                        Dukungan untuk bootstrap grid, CSS grid, dan flexbox.
+                    </p>
+                    
+                    <div class="plugin-tags">
+                        <span class="plugin-tag">Grid</span>
+                        <span class="plugin-tag">Layout</span>
+                        <span class="plugin-tag">CSS</span>
+                        <span class="plugin-tag">Responsive</span>
+                    </div>
+                    
+                    <div class="plugin-footer">
+                        <div class="plugin-meta">
+                            <div class="plugin-downloads">
+                                <i class="fas fa-download"></i> 2,300+
+                            </div>
+                            <div class="plugin-price price-free">Gratis</div>
+                        </div>
+                        
+                        <div class="plugin-actions">
+                            <button class="btn-action btn-preview">Preview</button>
+                            <button class="btn-action btn-primary">Install</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plugin 9 - AI Background Remover (Premium) -->
+                <div class="plugin-card" data-category="premium ai">
+                    <div class="plugin-header">
+                        <div class="plugin-title-section">
+                            <h3 class="plugin-title">AI Background Remover</h3>
+                            <p class="plugin-author">oleh <strong>AI Studio</strong></p>
+                        </div>
+                        <div class="plugin-badge">
+                            <span class="badge badge-premium">Premium</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Plugin -->
+                    <div class="plugin-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-value">4.7</span>
+                        <span class="rating-count">(950 ulasan)</span>
+                    </div>
+                    
+                    <p class="plugin-description">
+                        Hapus background gambar secara instan dengan AI. 
+                        Presisi tinggi untuk rambut, bulu, dan detail kompleks.
+                    </p>
+                    
+                    <div class="plugin-tags">
+                        <span class="plugin-tag">AI</span>
+                        <span class="plugin-tag">Background</span>
+                        <span class="plugin-tag">Foto</span>
+                        <span class="plugin-tag">Editing</span>
+                    </div>
+                    
+                    <div class="plugin-footer">
+                        <div class="plugin-meta">
+                            <div class="plugin-downloads">
+                                <i class="fas fa-download"></i> 950+
+                            </div>
+                            <div class="plugin-price">Rp 65.000</div>
+                        </div>
+                        
+                        <div class="plugin-actions">
+                            <button class="btn-action btn-preview">Preview</button>
+                            <button class="btn-action btn-primary">Beli</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plugin 10 - Mockup Generator (Gratis) -->
+                <div class="plugin-card" data-category="free design">
+                    <div class="plugin-header">
+                        <div class="plugin-title-section">
+                            <h3 class="plugin-title">Mockup Generator</h3>
+                            <p class="plugin-author">oleh <strong>MockupPro</strong></p>
+                        </div>
+                        <div class="plugin-badge">
+                            <span class="badge badge-free">Gratis</span>
+                            <span class="badge badge-popular">Populer</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Plugin -->
+                    <div class="plugin-rating">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="rating-value">5.0</span>
+                        <span class="rating-count">(5,200 ulasan)</span>
+                    </div>
+                    
+                    <p class="plugin-description">
+                        500+ template mockup untuk produk digital dan fisik. 
+                        Preview desain Anda di berbagai device dan media.
+                    </p>
+                    
+                    <div class="plugin-tags">
+                        <span class="plugin-tag">Mockup</span>
+                        <span class="plugin-tag">Template</span>
+                        <span class="plugin-tag">Preview</span>
+                        <span class="plugin-tag">Design</span>
+                    </div>
+                    
+                    <div class="plugin-footer">
+                        <div class="plugin-meta">
+                            <div class="plugin-downloads">
+                                <i class="fas fa-download"></i> 5,200+
+                            </div>
+                            <div class="plugin-price price-free">Gratis</div>
+                        </div>
+                        
+                        <div class="plugin-actions">
+                            <button class="btn-action btn-preview">Preview</button>
+                            <button class="btn-action btn-primary">Install</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LOAD MORE BUTTON -->
+            <div class="load-more-section">
+                <button class="btn-load-more">
+                    <i class="fas fa-arrow-down"></i> Tampilkan Lebih Banyak Plugin
+                </button>
+            </div>
+        </main>
+        
+        <!-- RIGHT SIDEBAR -->
+        <aside class="right-sidebar">
+            <!-- Kontrol Tampilan Rating -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-eye"></i> Kontrol Tampilan</h3>
+                <div class="toggle-container">
+                    <span class="toggle-label">Tampilkan Rating</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggle-rating" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 10px;">
+                    Aktifkan atau nonaktifkan tampilan rating pada plugin.
+                </p>
+            </div>
+            
+            <!-- Installed Plugins -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-check-circle"></i> Plugin Terinstall</h3>
+                <div class="installed-list">
+                    <div class="installed-item">
+                        <i class="fas fa-fill-drip"></i>
+                        <div class="installed-info">
+                            <h4>Gradient Master</h4>
+                            <p>Versi 2.1.0</p>
+                        </div>
+                    </div>
+                    <div class="installed-item">
+                        <i class="fas fa-font"></i>
+                        <div class="installed-info">
+                            <h4>Typography Assistant</h4>
+                            <p>Versi 1.5.3</p>
+                        </div>
+                    </div>
+                    <div class="installed-item">
+                        <i class="fas fa-file-export"></i>
+                        <div class="installed-info">
+                            <h4>PDF Export Assistant</h4>
+                            <p>Versi 1.2.1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Become Contributor -->
+            <div class="sidebar-widget contributor-widget">
+                <h3><i class="fas fa-user-plus"></i> Jadilah Kontributor</h3>
+                <p style="color: rgba(255,255,255,0.9); margin-bottom: 15px; font-size: 0.95rem;">
+                    Bagikan plugin Anda kepada komunitas dan dapatkan penghasilan.
+                </p>
+                <button class="btn-contributor">
+                    <i class="fas fa-upload"></i> Upload Plugin
+                </button>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-chart-line"></i> Statistik Cepat</h3>
+                <div class="installed-list">
+                    <div class="installed-item">
+                        <i class="fas fa-star" style="color: var(--accent-secondary);"></i>
+                        <div class="installed-info">
+                            <h4>Rating Rata-rata</h4>
+                            <p>4.7 dari 5.0</p>
+                        </div>
+                    </div>
+                    <div class="installed-item">
+                        <i class="fas fa-clock" style="color: var(--accent-blue);"></i>
+                        <div class="installed-info">
+                            <h4>Update Terakhir</h4>
+                            <p>2 hari lalu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="../static/js/plugins.js"></script>
+</body>
+</html>
