@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Editor - Tools Terpisah</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* VARIABLES & RESET */
+        :root {
+            --primary-bg: #0F051F;
+            --secondary-bg: #1A0A33;
+            --card-bg: #241242;
+            --accent-primary: #4CAF50;
+            --accent-secondary: #FF9800;
+            --accent-blue: #2196F3;
+            --accent-purple: #9C27B0;
+            --accent-pink: #E91E63;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0A8CC;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            display: flex;
+        }
+
+        /* UTILITY */
+        .hidden {
+            display: none !important;
+        }
+
+        /* SIDEBAR - DASHBOARD BUTTON */
+        .sidebar {
+            width: 70px;
+            background-color: var(--secondary-bg);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            z-index: 10;
+            flex-shrink: 0;
+            height: 100vh;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            align-items: center;
+        }
+
+        .sidebar-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--border-radius);
+            background: var(--card-bg);
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-btn:hover {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .sidebar-btn.active {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+        }
+
+        /* MAIN CONTAINER */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            height: 60px;
+            background-color: var(--secondary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .document-name {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .document-name input {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            min-width: 200px;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+
+        .document-name input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .header-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 5px;
+            background: var(--card-bg);
+            padding: 8px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .tool-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .tool-btn.active {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-export {
+            background: rgba(33, 150, 243, 0.2);
+            color: var(--accent-blue);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+
+        .btn-export:hover {
+            background: rgba(33, 150, 243, 0.3);
+        }
+
+        .btn-share {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+        }
+
+        .btn-share:hover {
+            background: #3d8b40;
+        }
+
+        /* CONTENT AREA */
+        .content-area {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT PANEL - TEMPLATES, PLUGINS, ASSETS (TERPISAH) */
+        .left-panel {
+            width: 320px;
+            background-color: var(--secondary-bg);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0 20px;
+        }
+
+        .panel-tab {
+            padding: 15px 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+        }
+
+        .panel-tab:hover {
+            color: var(--text-primary);
+        }
+
+        .panel-tab.active {
+            color: var(--accent-primary);
+        }
+
+        .panel-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        /* TEMPLATES SECTION */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .template-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow);
+        }
+
+        .template-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: var(--accent-primary);
+            font-size: 1.2rem;
+        }
+
+        .template-name {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        /* TOOLS SECTION - DESIGN ELEMENTS TERPISAH */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            cursor: grab;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: var(--shadow);
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+        }
+
+        .tool-name {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        /* PLUGINS SECTION */
+        .plugins-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .plugin-item {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .plugin-item:hover {
+            border-color: var(--accent-purple);
+            background: rgba(156, 39, 176, 0.1);
+        }
+
+        .plugin-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(156, 39, 176, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-purple);
+        }
+
+        .plugin-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .plugin-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ASSETS SECTION */
+        .assets-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .asset-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            cursor: grab;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .asset-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-pink);
+            box-shadow: var(--shadow);
+        }
+
+        .asset-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(233, 30, 99, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: var(--accent-pink);
+            font-size: 1.2rem;
+        }
+
+        .asset-name {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        /* CANVAS AREA */
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .canvas-header {
+            height: 50px;
+            background: var(--secondary-bg);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .canvas-zoom {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+        }
+
+        .zoom-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            background: var(--card-bg);
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .zoom-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            overflow: auto;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .canvas-paper {
+            width: 794px; /* A4 width */
+            height: 1123px; /* A4 height */
+            background: white;
+            margin: 20px auto;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            background-image: 
+                linear-gradient(45deg, #f5f5f5 25%, transparent 25%),
+                linear-gradient(-45deg, #f5f5f5 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #f5f5f5 75%),
+                linear-gradient(-45deg, transparent 75%, #f5f5f5 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        /* Canvas Elements */
+        .canvas-element {
+            position: absolute;
+            cursor: move;
+            user-select: none;
+        }
+
+        .canvas-element.selected {
+            outline: 2px solid var(--accent-primary);
+        }
+
+        .text-element {
+            min-width: 100px;
+            padding: 5px;
+            font-family: inherit;
+        }
+
+        .shape-element {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* RIGHT PANEL - PROPERTIES */
+        .right-panel {
+            width: 280px;
+            background-color: var(--secondary-bg);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .properties-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .properties-header h3 {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .properties-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .property-group {
+            margin-bottom: 25px;
+        }
+
+        .property-group h4 {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .property-row {
+            margin-bottom: 15px;
+        }
+
+        .property-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px 15px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        /* Color Picker */
+        .color-picker {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: white;
+            box-shadow: 0 0 0 2px var(--accent-primary);
+        }
+
+        /* Slider */
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            height: 4px;
+            background: var(--card-bg);
+            border-radius: 2px;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            cursor: pointer;
+        }
+
+        .slider-value {
+            min-width: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* STATUS BAR */
+        .status-bar {
+            height: 40px;
+            background: var(--secondary-bg);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .status-left, .status-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d8b40;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Minimalis dengan Tombol Dashboard -->
+    <div class="sidebar">
+        <button class="sidebar-btn active" title="Dashboard" onclick="window.location.href='dashboard.html'">
+            <i class="fas fa-home"></i>
+        </button>
+        <button class="sidebar-btn" title="Templates" onclick="showPanel('templates')">
+            <i class="fas fa-layer-group"></i>
+        </button>
+        <button class="sidebar-btn" title="Tools" onclick="showPanel('tools')">
+            <i class="fas fa-pen-ruler"></i>
+        </button>
+        <button class="sidebar-btn" title="Plugins" onclick="showPanel('plugins')">
+            <i class="fas fa-puzzle-piece"></i>
+        </button>
+        <button class="sidebar-btn" title="Assets" onclick="showPanel('assets')">
+            <i class="fas fa-images"></i>
+        </button>
+        <div style="flex: 1;"></div>
+        <button class="sidebar-btn" title="Settings" onclick="showSettings()">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">DesignEditor</div>
+                <div class="document-name">
+                    <i class="fas fa-file"></i>
+                    <input type="text" value="My Design" id="docName">
+                </div>
+            </div>
+            
+            <div class="header-center">
+                <div class="toolbar">
+                    <button class="tool-btn active" title="Select">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </button>
+                    <button class="tool-btn" title="Text Tool">
+                        <i class="fas fa-font"></i>
+                    </button>
+                    <button class="tool-btn" title="Shape Tool">
+                        <i class="fas fa-shapes"></i>
+                    </button>
+                    <button class="tool-btn" title="Drawing Tool">
+                        <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.1); margin: 0 5px;"></div>
+                    <button class="tool-btn" title="Undo">
+                        <i class="fas fa-undo"></i>
+                    </button>
+                    <button class="tool-btn" title="Redo">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <button class="tool-btn" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <button class="action-btn btn-export" onclick="exportDesign()">
+                    <i class="fas fa-download"></i>
+                    Export
+                </button>
+                <button class="action-btn btn-share" onclick="shareDesign()">
+                    <i class="fas fa-share"></i>
+                    Share
+                </button>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Left Panel -->
+            <div class="left-panel">
+                <div class="panel-tabs">
+                    <button class="panel-tab active" data-tab="templates">Templates</button>
+                    <button class="panel-tab" data-tab="tools">Tools</button>
+                    <button class="panel-tab" data-tab="plugins">Plugins</button>
+                    <button class="panel-tab" data-tab="assets">Assets</button>
+                </div>
+                
+                <!-- Templates Panel -->
+                <div class="panel-content" id="templatesContent">
+                    <div class="template-grid">
+                        <div class="template-card" data-template="presentation">
+                            <div class="template-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="template-name">Business</div>
+                        </div>
+                        <div class="template-card" data-template="social">
+                            <div class="template-icon">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <div class="template-name">Social Media</div>
+                        </div>
+                        <div class="template-card" data-template="education">
+                            <div class="template-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="template-name">Education</div>
+                        </div>
+                        <div class="template-card" data-template="marketing">
+                            <div class="template-icon">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <div class="template-name">Marketing</div>
+                        </div>
+                        <div class="template-card" data-template="resume">
+                            <div class="template-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="template-name">Resume</div>
+                        </div>
+                        <div class="template-card" data-template="poster">
+                            <div class="template-icon">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <div class="template-name">Poster</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tools Panel - Design Elements Terpisah -->
+                <div class="panel-content hidden" id="toolsContent">
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">Text Tools</h4>
+                        <div class="tools-grid">
+                            <div class="tool-card" draggable="true" data-type="text" data-content="Heading 1">
+                                <div class="tool-icon">
+                                    <i class="fas fa-heading"></i>
+                                </div>
+                                <div class="tool-name">Heading 1</div>
+                            </div>
+                            <div class="tool-card" draggable="true" data-type="text" data-content="Heading 2">
+                                <div class="tool-icon">
+                                    <i class="fas fa-heading"></i>
+                                </div>
+                                <div class="tool-name">Heading 2</div>
+                            </div>
+                            <div class="tool-card" draggable="true" data-type="text" data-content="Paragraph">
+                                <div class="tool-icon">
+                                    <i class="fas fa-paragraph"></i>
+                                </div>
+                                <div class="tool-name">Paragraph</div>
+                            </div>
+                            <div class="tool-card" draggable="true" data-type="text" data-content="Quote">
+                                <div class="tool-icon">
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                                <div class="tool-name">Quote</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">Shape Tools</h4>
+                        <div class="tools-grid">
+                            <div class="tool-card" draggable="true" data-type="shape" data-shape="rectangle">
+                                <div class="tool-icon">
+                                    <i class="fas fa-square"></i>
+                                </div>
+                                <div class="tool-name">Rectangle</div>
+                            </div>
+                            <div class="tool-card" draggable="true" data-type="shape" data-shape="circle">
+                                <div class="tool-icon">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                                <div class="tool-name">Circle</div>
+                            </div>
+                            <div class="tool-card" draggable="true" data-type="shape" data-shape="triangle">
+                                <div class="tool-icon">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <div class="tool-name">Triangle</div>
+                            </div>
+                            <div class="tool-card" draggable="true" data-type="shape" data-shape="star">
+                                <div class="tool-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="tool-name">Star</div>
+                            </div>
+                            <div class="tool-card" draggable="true" data-type="shape" data-shape="line">
+                                <div class="tool-icon">
+                                    <i class="fas fa-minus"></i>
+                                </div>
+                                <div class="tool-name">Line</div>
+                            </div>
+                            <div class="tool-card" draggable="true" data-type="shape" data-shape="arrow">
+                                <div class="tool-icon">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="tool-name">Arrow</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">Other Tools</h4>
+                        <div class="tools-grid">
+                            <div class="tool-card" draggable="true" data-type="button" data-content="Button">
+                                <div class="tool-icon">
+                                    <i class="fas fa-square"></i>
+                                </div>
+                                <div class="tool-name">Button</div>
+                            </div>
+                            <div class="tool-card" draggable="true" data-type="icon" data-icon="star">
+                                <div class="tool-icon">
+                                    <i class="fas fa-icons"></i>
+                                </div>
+                                <div class="tool-name">Icon</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Plugins Panel -->
+                <div class="panel-content hidden" id="pluginsContent">
+                    <div class="plugins-list">
+                        <div class="plugin-item">
+                            <div class="plugin-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <div class="plugin-info">
+                                <h4>Chart Generator</h4>
+                                <p>Create beautiful charts and graphs</p>
+                            </div>
+                        </div>
+                        <div class="plugin-item">
+                            <div class="plugin-icon">
+                                <i class="fas fa-icons"></i>
+                            </div>
+                            <div class="plugin-info">
+                                <h4>Icon Library</h4>
+                                <p>Access 5000+ icons</p>
+                            </div>
+                        </div>
+                        <div class="plugin-item">
+                            <div class="plugin-icon">
+                                <i class="fas fa-photo-video"></i>
+                            </div>
+                            <div class="plugin-info">
+                                <h4>Photo Editor</h4>
+                                <p>Advanced image editing tools</p>
+                            </div>
+                        </div>
+                        <div class="plugin-item">
+                            <div class="plugin-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div class="plugin-info">
+                                <h4>Color Palette</h4>
+                                <p>Smart color suggestions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Assets Panel -->
+                <div class="panel-content hidden" id="assetsContent">
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">Images</h4>
+                        <div class="assets-grid">
+                            <div class="asset-card" draggable="true" data-type="image" data-src="nature">
+                                <div class="asset-icon">
+                                    <i class="fas fa-mountain"></i>
+                                </div>
+                                <div class="asset-name">Nature</div>
+                            </div>
+                            <div class="asset-card" draggable="true" data-type="image" data-src="business">
+                                <div class="asset-icon">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <div class="asset-name">Business</div>
+                            </div>
+                            <div class="asset-card" draggable="true" data-type="image" data-src="technology">
+                                <div class="asset-icon">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                                <div class="asset-name">Technology</div>
+                            </div>
+                            <div class="asset-card" draggable="true" data-type="image" data-src="abstract">
+                                <div class="asset-icon">
+                                    <i class="fas fa-shapes"></i>
+                                </div>
+                                <div class="asset-name">Abstract</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">Icons</h4>
+                        <div class="assets-grid">
+                            <div class="asset-card" draggable="true" data-type="icon" data-icon="heart">
+                                <div class="asset-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="asset-name">Heart</div>
+                            </div>
+                            <div class="asset-card" draggable="true" data-type="icon" data-icon="star">
+                                <div class="asset-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="asset-name">Star</div>
+                            </div>
+                            <div class="asset-card" draggable="true" data-type="icon" data-icon="check">
+                                <div class="asset-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="asset-name">Check</div>
+                            </div>
+                            <div class="asset-card" draggable="true" data-type="icon" data-icon="arrow">
+                                <div class="asset-icon">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="asset-name">Arrow</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas Area -->
+            <div class="canvas-area">
+                <div class="canvas-header">
+                    <div class="canvas-zoom">
+                        <button class="zoom-btn" onclick="zoomOut()">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                        <span id="zoomLevel">100%</span>
+                        <button class="zoom-btn" onclick="zoomIn()">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="canvas-container">
+                    <div class="canvas-paper" id="canvas">
+                        <!-- Default elements on canvas -->
+                        <div class="canvas-element text-element selected" style="left: 100px; top: 100px; font-size: 36px; font-weight: bold; color: #1A0A33;">
+                            Welcome to Design Editor
+                        </div>
+                        <div class="canvas-element text-element" style="left: 100px; top: 150px; font-size: 18px; color: #666;">
+                            Drag tools from the left panel to start designing
+                        </div>
+                        <div class="canvas-element shape-element" style="left: 100px; top: 250px; width: 120px; height: 120px; background: linear-gradient(135deg, #4CAF50, #2196F3); border-radius: 10px;">
+                            <i class="fas fa-star" style="color: white; font-size: 40px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Properties -->
+            <div class="right-panel">
+                <div class="properties-header">
+                    <h3><i class="fas fa-sliders-h"></i> Properties</h3>
+                </div>
+                
+                <div class="properties-content">
+                    <div class="property-group">
+                        <h4>Text Properties</h4>
+                        <div class="property-row">
+                            <label class="property-label">Content</label>
+                            <input type="text" id="textContent" value="Welcome to Design Editor">
+                        </div>
+                        <div class="property-row">
+                            <label class="property-label">Font Size</label>
+                            <div class="slider-container">
+                                <input type="range" id="fontSize" min="8" max="72" value="36">
+                                <span class="slider-value" id="fontSizeValue">36px</span>
+                            </div>
+                        </div>
+                        <div class="property-row">
+                            <label class="property-label">Color</label>
+                            <div class="color-picker">
+                                <div class="color-option active" style="background: #1A0A33;" data-color="#1A0A33"></div>
+                                <div class="color-option" style="background: #4CAF50;" data-color="#4CAF50"></div>
+                                <div class="color-option" style="background: #2196F3;" data-color="#2196F3"></div>
+                                <div class="color-option" style="background: #FF9800;" data-color="#FF9800"></div>
+                                <div class="color-option" style="background: #9C27B0;" data-color="#9C27B0"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="property-group">
+                        <h4>Shape Properties</h4>
+                        <div class="property-row">
+                            <label class="property-label">Background Color</label>
+                            <div class="color-picker">
+                                <div class="color-option" style="background: linear-gradient(135deg, #4CAF50, #2196F3);" data-bgcolor="linear-gradient(135deg, #4CAF50, #2196F3)"></div>
+                                <div class="color-option active" style="background: #FF9800;" data-bgcolor="#FF9800"></div>
+                                <div class="color-option" style="background: #E91E63;" data-bgcolor="#E91E63"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span>Canvas Size: 794 × 1123px</span>
+                <span id="mouseCoords">X: 0, Y: 0</span>
+            </div>
+            <div class="status-right">
+                <span id="selectedElement">Selected: Text Element</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let selectedElement = null;
+        let zoomLevel = 100;
+        let isDragging = false;
+        let dragOffset = { x: 0, y: 0 };
+        let currentPanel = 'templates';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up panel tabs
+            setupPanelTabs();
+            
+            // Set up element drag and drop
+            setupDragAndDrop();
+            
+            // Set up canvas interactions
+            setupCanvas();
+            
+            // Set up property listeners
+            setupPropertyListeners();
+            
+            // Select initial element
+            selectElement(document.querySelector('.canvas-element'));
+        });
+
+        // Panel Management
+        function showPanel(panel) {
+            // Hide all panels
+            document.getElementById('templatesContent').classList.add('hidden');
+            document.getElementById('toolsContent').classList.add('hidden');
+            document.getElementById('pluginsContent').classList.add('hidden');
+            document.getElementById('assetsContent').classList.add('hidden');
+            
+            // Remove active from all tabs
+            document.querySelectorAll('.panel-tab').forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected panel
+            document.getElementById(panel + 'Content').classList.remove('hidden');
+            document.querySelector(`.panel-tab[data-tab="${panel}"]`).classList.add('active');
+            
+            // Update sidebar button
+            document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            currentPanel = panel;
+        }
+
+        function setupPanelTabs() {
+            document.querySelectorAll('.panel-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const panel = this.getAttribute('data-tab');
+                    showPanel(panel);
+                });
+            });
+        }
+
+        // Drag and Drop Setup
+        function setupDragAndDrop() {
+            // Setup for tool cards
+            const toolCards = document.querySelectorAll('.tool-card[draggable="true"]');
+            toolCards.forEach(card => {
+                card.addEventListener('dragstart', function(e) {
+                    const type = this.getAttribute('data-type');
+                    const data = this.getAttribute('data-content') || 
+                                 this.getAttribute('data-shape') || 
+                                 this.getAttribute('data-icon');
+                    
+                    e.dataTransfer.setData('elementType', type);
+                    e.dataTransfer.setData('elementData', data);
+                });
+                
+                card.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    const data = this.getAttribute('data-content') || 
+                                 this.getAttribute('data-shape') || 
+                                 this.getAttribute('data-icon');
+                    
+                    addElementToCanvas(type, data, 200, 200);
+                });
+            });
+            
+            // Setup for asset cards
+            const assetCards = document.querySelectorAll('.asset-card[draggable="true"]');
+            assetCards.forEach(card => {
+                card.addEventListener('dragstart', function(e) {
+                    const type = this.getAttribute('data-type');
+                    const data = this.getAttribute('data-src') || 
+                                 this.getAttribute('data-icon');
+                    
+                    e.dataTransfer.setData('elementType', type);
+                    e.dataTransfer.setData('elementData', data);
+                });
+                
+                card.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    const data = this.getAttribute('data-src') || 
+                                 this.getAttribute('data-icon');
+                    
+                    addElementToCanvas(type, data, 200, 200);
+                });
+            });
+            
+            // Setup for template cards
+            const templateCards = document.querySelectorAll('.template-card');
+            templateCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const template = this.getAttribute('data-template');
+                    loadTemplate(template);
+                });
+            });
+        }
+
+        // Canvas Setup
+        function setupCanvas() {
+            const canvas = document.getElementById('canvas');
+            
+            // Allow drop
+            canvas.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+            
+            // Handle drop
+            canvas.addEventListener('drop', function(e) {
+                e.preventDefault();
+                const elementType = e.dataTransfer.getData('elementType');
+                const elementData = e.dataTransfer.getData('elementData');
+                
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                addElementToCanvas(elementType, elementData, x, y);
+            });
+            
+            // Mouse events for dragging elements
+            canvas.addEventListener('mousedown', handleCanvasMouseDown);
+            canvas.addEventListener('mousemove', handleCanvasMouseMove);
+            canvas.addEventListener('mouseup', handleCanvasMouseUp);
+            
+            // Update mouse coordinates
+            canvas.addEventListener('mousemove', function(e) {
+                const rect = canvas.getBoundingClientRect();
+                const x = Math.round(e.clientX - rect.left);
+                const y = Math.round(e.clientY - rect.top);
+                document.getElementById('mouseCoords').textContent = `X: ${x}, Y: ${y}`;
+            });
+        }
+
+        function handleCanvasMouseDown(e) {
+            if (e.target.classList.contains('canvas-element') || 
+                e.target.closest('.canvas-element')) {
+                const element = e.target.classList.contains('canvas-element') 
+                    ? e.target 
+                    : e.target.closest('.canvas-element');
+                
+                e.stopPropagation();
+                selectElement(element);
+                
+                if (!e.target.classList.contains('fa-arrows-alt')) {
+                    startDrag(element, e);
+                }
+            } else {
+                selectElement(null);
+            }
+        }
+
+        function handleCanvasMouseMove(e) {
+            if (!isDragging || !selectedElement) return;
+            
+            const canvas = document.getElementById('canvas');
+            const rect = canvas.getBoundingClientRect();
+            
+            const x = e.clientX - rect.left - dragOffset.x;
+            const y = e.clientY - rect.top - dragOffset.y;
+            
+            const maxX = canvas.clientWidth - selectedElement.offsetWidth;
+            const maxY = canvas.clientHeight - selectedElement.offsetHeight;
+            
+            selectedElement.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
+            selectedElement.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
+        }
+
+        function handleCanvasMouseUp() {
+            isDragging = false;
+            document.body.style.cursor = 'default';
+        }
+
+        function startDrag(element, e) {
+            isDragging = true;
+            
+            const rect = element.getBoundingClientRect();
+            const canvasRect = document.getElementById('canvas').getBoundingClientRect();
+            
+            dragOffset.x = e.clientX - rect.left;
+            dragOffset.y = e.clientY - rect.top;
+            
+            document.body.style.cursor = 'grabbing';
+        }
+
+        // Element Creation
+        function addElementToCanvas(type, data, x = 100, y = 100) {
+            const canvas = document.getElementById('canvas');
+            let newElement;
+            
+            if (type === 'text') {
+                newElement = document.createElement('div');
+                newElement.className = 'canvas-element text-element';
+                newElement.style.left = x + 'px';
+                newElement.style.top = y + 'px';
+                newElement.style.fontSize = '24px';
+                newElement.style.color = '#1A0A33';
+                newElement.textContent = data;
+                
+                // Double-click to edit
+                newElement.addEventListener('dblclick', function() {
+                    this.contentEditable = true;
+                    this.focus();
+                });
+                
+                newElement.addEventListener('blur', function() {
+                    this.contentEditable = false;
+                    document.getElementById('textContent').value = this.textContent;
+                });
+            }
+            else if (type === 'shape') {
+                newElement = document.createElement('div');
+                newElement.className = 'canvas-element shape-element';
+                newElement.style.left = x + 'px';
+                newElement.style.top = y + 'px';
+                newElement.style.width = '100px';
+                newElement.style.height = '100px';
+                
+                if (data === 'rectangle') {
+                    newElement.style.borderRadius = '8px';
+                    newElement.style.background = 'linear-gradient(135deg, #4CAF50, #2196F3)';
+                } else if (data === 'circle') {
+                    newElement.style.borderRadius = '50%';
+                    newElement.style.background = 'linear-gradient(135deg, #FF9800, #E91E63)';
+                } else if (data === 'triangle') {
+                    newElement.style.borderRadius = '0';
+                    newElement.style.background = 'transparent';
+                    newElement.style.width = '0';
+                    newElement.style.height = '0';
+                    newElement.style.borderLeft = '50px solid transparent';
+                    newElement.style.borderRight = '50px solid transparent';
+                    newElement.style.borderBottom = '100px solid #9C27B0';
+                } else if (data === 'star') {
+                    newElement.style.background = 'linear-gradient(135deg, #9C27B0, #2196F3)';
+                    newElement.style.borderRadius = '8px';
+                    const starIcon = document.createElement('i');
+                    starIcon.className = 'fas fa-star';
+                    starIcon.style.color = 'white';
+                    starIcon.style.fontSize = '40px';
+                    newElement.appendChild(starIcon);
+                } else if (data === 'line') {
+                    newElement.style.width = '200px';
+                    newElement.style.height = '4px';
+                    newElement.style.background = '#4CAF50';
+                    newElement.style.borderRadius = '2px';
+                } else if (data === 'arrow') {
+                    newElement.style.width = '150px';
+                    newElement.style.height = '4px';
+                    newElement.style.background = '#FF9800';
+                    newElement.style.borderRadius = '2px';
+                    newElement.style.position = 'relative';
+                    
+                    const arrowHead = document.createElement('div');
+                    arrowHead.style.position = 'absolute';
+                    arrowHead.style.right = '-10px';
+                    arrowHead.style.top = '-8px';
+                    arrowHead.style.width = '0';
+                    arrowHead.style.height = '0';
+                    arrowHead.style.borderTop = '10px solid transparent';
+                    arrowHead.style.borderBottom = '10px solid transparent';
+                    arrowHead.style.borderLeft = '10px solid #FF9800';
+                    newElement.appendChild(arrowHead);
+                }
+            }
+            else if (type === 'button') {
+                newElement = document.createElement('div');
+                newElement.className = 'canvas-element text-element';
+                newElement.style.left = x + 'px';
+                newElement.style.top = y + 'px';
+                newElement.style.fontSize = '16px';
+                newElement.style.color = 'white';
+                newElement.style.background = '#4CAF50';
+                newElement.style.padding = '10px 20px';
+                newElement.style.borderRadius = '8px';
+                newElement.style.textAlign = 'center';
+                newElement.style.cursor = 'pointer';
+                newElement.textContent = 'Button';
+                newElement.style.minWidth = '120px';
+            }
+            else if (type === 'icon' || type === 'image') {
+                newElement = document.createElement('div');
+                newElement.className = 'canvas-element';
+                newElement.style.left = x + 'px';
+                newElement.style.top = y + 'px';
+                newElement.style.width = '100px';
+                newElement.style.height = '100px';
+                newElement.style.background = 'linear-gradient(135deg, #4CAF50, #2196F3)';
+                newElement.style.borderRadius = '8px';
+                newElement.style.display = 'flex';
+                newElement.style.alignItems = 'center';
+                newElement.style.justifyContent = 'center';
+                
+                const icon = document.createElement('i');
+                icon.className = type === 'icon' ? `fas fa-${data}` : 'fas fa-image';
+                icon.style.color = 'white';
+                icon.style.fontSize = '40px';
+                newElement.appendChild(icon);
+            }
+            
+            // Add click listener
+            newElement.addEventListener('mousedown', function(e) {
+                e.stopPropagation();
+                selectElement(this);
+                
+                if (!e.target.classList.contains('fa-arrows-alt')) {
+                    startDrag(this, e);
+                }
+            });
+            
+            canvas.appendChild(newElement);
+            selectElement(newElement);
+        }
+
+        // Template Loading
+        function loadTemplate(template) {
+            const canvas = document.getElementById('canvas');
+            
+            // Clear existing elements (keep first 3 default ones)
+            const elements = canvas.querySelectorAll('.canvas-element');
+            for (let i = 3; i < elements.length; i++) {
+                elements[i].remove();
+            }
+            
+            // Add template-specific elements
+            if (template === 'presentation') {
+                addElementToCanvas('text', 'Business Presentation', 200, 200);
+                addElementToCanvas('text', 'Quarterly Report 2024', 200, 250);
+                addElementToCanvas('shape', 'rectangle', 400, 200);
+            } else if (template === 'social') {
+                addElementToCanvas('text', 'Social Media Post', 200, 200);
+                addElementToCanvas('icon', 'heart', 200, 300);
+                addElementToCanvas('icon', 'share-alt', 250, 300);
+            }
+            
+            alert(`Template "${template}" loaded!`);
+        }
+
+        // Element Selection
+        function selectElement(element) {
+            // Remove selection from all elements
+            document.querySelectorAll('.canvas-element').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Update selectedElement
+            selectedElement = element;
+            
+            if (element) {
+                element.classList.add('selected');
+                updatePropertyPanel(element);
+                updateStatusBar(element);
+            } else {
+                clearPropertyPanel();
+            }
+        }
+
+        function updatePropertyPanel(element) {
+            if (element.classList.contains('text-element')) {
+                document.getElementById('textContent').value = element.textContent;
+                const fontSize = parseInt(element.style.fontSize) || 24;
+                document.getElementById('fontSize').value = fontSize;
+                document.getElementById('fontSizeValue').textContent = fontSize + 'px';
+                
+                // Update color picker
+                const color = element.style.color || '#1A0A33';
+                updateActiveColorPicker(color);
+            } else if (element.classList.contains('shape-element')) {
+                // Update shape properties
+            }
+        }
+
+        function updateActiveColorPicker(color) {
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.getAttribute('data-color') === color || 
+                    option.style.background === color) {
+                    option.classList.add('active');
+                }
+            });
+        }
+
+        function clearPropertyPanel() {
+            document.getElementById('textContent').value = '';
+        }
+
+        function updateStatusBar(element) {
+            const elementType = element.classList.contains('text-element') ? 'Text Element' :
+                               element.classList.contains('shape-element') ? 'Shape Element' : 'Element';
+            document.getElementById('selectedElement').textContent = `Selected: ${elementType}`;
+        }
+
+        // Property Listeners
+        function setupPropertyListeners() {
+            // Text content
+            document.getElementById('textContent').addEventListener('input', function() {
+                if (selectedElement && selectedElement.classList.contains('text-element')) {
+                    selectedElement.textContent = this.value;
+                }
+            });
+            
+            // Font size
+            const fontSizeSlider = document.getElementById('fontSize');
+            const fontSizeValue = document.getElementById('fontSizeValue');
+            
+            fontSizeSlider.addEventListener('input', function() {
+                fontSizeValue.textContent = this.value + 'px';
+                if (selectedElement && selectedElement.classList.contains('text-element')) {
+                    selectedElement.style.fontSize = this.value + 'px';
+                }
+            });
+            
+            // Color picker
+            document.querySelectorAll('.color-option[data-color]').forEach(option => {
+                option.addEventListener('click', function() {
+                    if (selectedElement && selectedElement.classList.contains('text-element')) {
+                        const color = this.getAttribute('data-color');
+                        selectedElement.style.color = color;
+                        updateActiveColorPicker(color);
+                    }
+                });
+            });
+        }
+
+        // Zoom Functions
+        function zoomIn() {
+            zoomLevel = Math.min(zoomLevel + 25, 300);
+            updateZoom();
+        }
+
+        function zoomOut() {
+            zoomLevel = Math.max(zoomLevel - 25, 50);
+            updateZoom();
+        }
+
+        function updateZoom() {
+            document.getElementById('zoomLevel').textContent = zoomLevel + '%';
+        }
+
+        // Settings Modal (placeholder)
+        function showSettings() {
+            alert('Settings dialog would open here');
+        }
+
+        // Export and Share Functions
+        function exportDesign() {
+            alert('Export functionality would be implemented here');
+        }
+
+        function shareDesign() {
+            alert('Share functionality would be implemented here');
+        }
+    </script>
+</body>
+</html>

@@ -20,51 +20,50 @@
             </div>
         </div>
         
-        <button class="btn-new-design">
+        <a href="design.html" class="btn-new-design">
             <i class="fas fa-plus-circle"></i> Buat Desain Baru
-        </button>
+        </a>
         
         <div class="menu-group">
             <div class="menu-group-title">Alat Utama</div>
-            <div class="menu-item">
+            <a href="dashboard.html" class="menu-item">
                 <i class="fas fa-tachometer-alt"></i> Dashboard
-                <a href="dashboard.html" class="btn-link"></a>
-            </div>
-            <div class="menu-item">
+            </a>
+            <a href="plugins.html" class="menu-item">
                 <i class="fas fa-puzzle-piece"></i> Plugin
-                <a href="plugins.html" class="btn-link"></a>
-            </div>
-            <div class="menu-item active">
+            </a>
+            <a href="templates.html" class="menu-item active">
                 <i class="fas fa-th-large"></i> Templates
-            </div>
-            <div class="menu-item">
+            </a>
+            <a href="aset.html" class="menu-item">
                 <i class="fas fa-box-open"></i> Aset
-                <a href="aset.html" class="btn-link"></a>
-            </div>
+            </a>
         </div>
         
         <div class="menu-group">
             <div class="menu-group-title">Komunitas</div>
-            <div class="menu-item">
+            <a href="contributor.html" class="menu-item">
                 <i class="fas fa-users"></i> Contributors
-                <a href="contributor.html" class="btn-link"></a>
-            </div>
-            <div class="menu-item">
+            </a>
+            <a href="ezylearn.html" class="menu-item">
                 <i class="fas fa-graduation-cap"></i> EzyLearn
-            </div>
+            </a>
         </div>
         
         <div class="menu-group sidebar-footer">
             <div class="menu-group-title">Akun</div>
-            <div class="menu-item">
+            <a href="about_us.html" class="menu-item">
                 <i class="fas fa-info-circle"></i> Tentang Kami
-            </div>
-            <div class="menu-item">
+            </a>
+            <a href="rate.html" class="menu-item">
                 <i class="fas fa-star" style="color: var(--accent-secondary);"></i> Rating EzyDraw
-            </div>
-            <div class="menu-item">
+            </a>
+            <a href="help.html" class="menu-item">
                 <i class="fas fa-question-circle"></i> Pusat Bantuan
-            </div>
+            </a>
+            <a href="login.html" class="menu-item">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
         </div>
     </aside>
     
@@ -81,7 +80,7 @@
                     <div class="search-container">
                         <div class="search-box">
                             <i class="fas fa-search"></i>
-                            <input type="text" placeholder="Cari template berdasarkan nama, kategori, atau penggunaan...">
+                            <input type="text" id="search-input" placeholder="Cari template berdasarkan nama, kategori, atau penggunaan...">
                         </div>
                     </div>
                 </div>
@@ -153,521 +152,385 @@
             <!-- TEMPLATES GRID -->
             <div class="templates-grid" id="templates-container">
                 <!-- Template 1 - Instagram Carousel (Gratis) -->
-                <div class="template-card" data-category="free social">
+                <div class="template-card filter-visible" data-category="free social" data-id="1">
                     <div class="template-preview">
                         <div class="template-badge-corner">
                             <span class="badge badge-free">Gratis</span>
                         </div>
                         <img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Instagram Carousel Template" class="template-preview-img">
                         <div class="template-overlay">
-                            <button class="btn-quick-preview">
+                            <button class="btn-quick-preview" data-template-id="1">
                                 <i class="fas fa-eye"></i> Quick Preview
                             </button>
                         </div>
                     </div>
                     
-                    <div class="template-content">
-                        <div class="template-header">
-                            <div class="template-title-section">
-                                <h3 class="template-title">Instagram Carousel Pack</h3>
-                                <p class="template-author">oleh <strong>SocialDesign Co.</strong></p>
-                            </div>
-                            <div class="template-badge">
-                                <span class="badge badge-trending">Trending</span>
-                            </div>
+                    <div class="template-header">
+                        <div class="template-title-section">
+                            <h3 class="template-title">Instagram Carousel Pack</h3>
+                            <p class="template-author">oleh <strong>SocialDesign Co.</strong></p>
                         </div>
-                        
-                        <p class="template-description">
-                            15 template carousel Instagram yang dapat disesuaikan untuk konten edukasi, promosi, dan storytelling. Format siap pakai untuk feed yang konsisten.
-                        </p>
-                        
-                        <div class="template-features">
-                            <span class="template-feature"><i class="fas fa-check"></i> 15 Layout</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Customizable</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> 1080x1080px</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Figma/XD</span>
+                        <div class="template-badge">
+                            <span class="badge badge-trending">Trending</span>
                         </div>
-                        
-                        <div class="template-footer">
-                            <div class="template-meta">
-                                <div class="template-downloads">
-                                    <i class="fas fa-download"></i> 4,250+
+                    </div>
+                    
+                    <div class="template-info">
+                        <div class="template-info-item">
+                            <i class="fas fa-layer-group"></i> 15 Layout
+                        </div>
+                        <div class="template-info-item">
+                            <i class="fas fa-palette"></i> Customizable
+                        </div>
+                        <div class="template-info-item">
+                            <i class="fas fa-expand"></i> 1080x1080px
+                        </div>
+                    </div>
+                    
+                    <div class="template-tags">
+                        <span class="template-tag">Social Media</span>
+                        <span class="template-tag">Instagram</span>
+                        <span class="template-tag">Carousel</span>
+                    </div>
+                    
+                    <div class="template-footer">
+                        <div class="template-meta">
+                            <div class="template-stats">
+                                <div class="template-stat like" data-template-id="1">
+                                    <i class="far fa-heart"></i>
+                                    <span>245</span>
                                 </div>
-                                <div class="template-price price-free">Gratis</div>
+                                <div class="template-stat save" data-template-id="1">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>89</span>
+                                </div>
                             </div>
-                            
-                            <div class="template-actions">
-                                <button class="btn-action btn-preview">Preview</button>
-                                <button class="btn-action btn-primary">Gunakan</button>
-                            </div>
+                            <div class="template-price price-free">Gratis</div>
+                        </div>
+                        
+                        <div class="template-actions">
+                            <button class="btn-action btn-preview" data-template-id="1">Preview</button>
+                            <button class="btn-action btn-primary" data-template-id="1">Gunakan</button>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Template 2 - Business Presentation (Premium) -->
-                <div class="template-card" data-category="premium business presentation">
+                <div class="template-card filter-visible" data-category="premium business presentation" data-id="2">
                     <div class="template-preview">
                         <div class="template-badge-corner">
                             <span class="badge badge-premium">Premium</span>
                         </div>
                         <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Business Presentation Template" class="template-preview-img">
                         <div class="template-overlay">
-                            <button class="btn-quick-preview">
+                            <button class="btn-quick-preview" data-template-id="2">
                                 <i class="fas fa-eye"></i> Quick Preview
                             </button>
                         </div>
                     </div>
                     
-                    <div class="template-content">
-                        <div class="template-header">
-                            <div class="template-title-section">
-                                <h3 class="template-title">Modern Business Presentation</h3>
-                                <p class="template-author">oleh <strong>SlideMasters</strong></p>
-                            </div>
-                            <div class="template-badge">
-                                <span class="badge badge-new">Baru</span>
-                            </div>
+                    <div class="template-header">
+                        <div class="template-title-section">
+                            <h3 class="template-title">Modern Business Presentation</h3>
+                            <p class="template-author">oleh <strong>SlideMasters</strong></p>
                         </div>
-                        
-                        <p class="template-description">
-                            40 slide presentasi bisnis profesional dengan grafik dinamis, timeline, dan infografis. Cocok untuk pitch deck, laporan tahunan, dan presentasi korporat.
-                        </p>
-                        
-                        <div class="template-features">
-                            <span class="template-feature"><i class="fas fa-check"></i> 40 Slides</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Animasi</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Grafik</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> PPTX/Keynote</span>
+                        <div class="template-badge">
+                            <span class="badge badge-new">Baru</span>
                         </div>
-                        
-                        <div class="template-footer">
-                            <div class="template-meta">
-                                <div class="template-downloads">
-                                    <i class="fas fa-download"></i> 1,850+
+                    </div>
+                    
+                    <div class="template-info">
+                        <div class="template-info-item">
+                            <i class="fas fa-sliders-h"></i> 40 Slides
+                        </div>
+                        <div class="template-info-item">
+                            <i class="fas fa-play-circle"></i> Animasi
+                        </div>
+                        <div class="template-info-item">
+                            <i class="fas fa-chart-bar"></i> Grafik
+                        </div>
+                    </div>
+                    
+                    <div class="template-tags">
+                        <span class="template-tag">Presentation</span>
+                        <span class="template-tag">Business</span>
+                        <span class="template-tag">Professional</span>
+                    </div>
+                    
+                    <div class="template-footer">
+                        <div class="template-meta">
+                            <div class="template-stats">
+                                <div class="template-stat like" data-template-id="2">
+                                    <i class="far fa-heart"></i>
+                                    <span>189</span>
                                 </div>
-                                <div class="template-price">Rp 125.000</div>
+                                <div class="template-stat save" data-template-id="2">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>67</span>
+                                </div>
                             </div>
-                            
-                            <div class="template-actions">
-                                <button class="btn-action btn-preview">Preview</button>
-                                <button class="btn-action btn-primary">Beli</button>
-                            </div>
+                            <div class="template-price">Rp 125.000</div>
+                        </div>
+                        
+                        <div class="template-actions">
+                            <button class="btn-action btn-preview" data-template-id="2">Preview</button>
+                            <button class="btn-action btn-primary" data-template-id="2">Beli</button>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Template 3 - Brand Identity Kit (Gratis) -->
-                <div class="template-card" data-category="free business">
+                <div class="template-card filter-visible" data-category="free business" data-id="3">
                     <div class="template-preview">
                         <div class="template-badge-corner">
                             <span class="badge badge-free">Gratis</span>
                         </div>
                         <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Brand Identity Kit" class="template-preview-img">
                         <div class="template-overlay">
-                            <button class="btn-quick-preview">
+                            <button class="btn-quick-preview" data-template-id="3">
                                 <i class="fas fa-eye"></i> Quick Preview
                             </button>
                         </div>
                     </div>
                     
-                    <div class="template-content">
-                        <div class="template-header">
-                            <div class="template-title-section">
-                                <h3 class="template-title">Brand Identity Starter Kit</h3>
-                                <p class="template-author">oleh <strong>BrandCrafters</strong></p>
-                            </div>
-                            <div class="template-badge">
-                                <span class="badge badge-popular">Populer</span>
-                            </div>
+                    <div class="template-header">
+                        <div class="template-title-section">
+                            <h3 class="template-title">Brand Identity Starter Kit</h3>
+                            <p class="template-author">oleh <strong>BrandCrafters</strong></p>
                         </div>
-                        
-                        <p class="template-description">
-                            Toolkit lengkap untuk identitas merek: logo, kartu nama, kop surat, palette warna, dan panduan tipografi. Sempurna untuk startup dan UMKM.
-                        </p>
-                        
-                        <div class="template-features">
-                            <span class="template-feature"><i class="fas fa-check"></i> Logo Templates</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Business Cards</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Style Guide</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> AI/EPS/SVG</span>
+                        <div class="template-badge">
+                            <span class="badge badge-popular">Populer</span>
                         </div>
-                        
-                        <div class="template-footer">
-                            <div class="template-meta">
-                                <div class="template-downloads">
-                                    <i class="fas fa-download"></i> 8,900+
+                    </div>
+                    
+                    <div class="template-info">
+                        <div class="template-info-item">
+                            <i class="fas fa-palette"></i> Logo Templates
+                        </div>
+                        <div class="template-info-item">
+                            <i class="fas fa-id-card"></i> Business Cards
+                        </div>
+                        <div class="template-info-item">
+                            <i class="fas fa-book"></i> Style Guide
+                        </div>
+                    </div>
+                    
+                    <div class="template-tags">
+                        <span class="template-tag">Branding</span>
+                        <span class="template-tag">Logo</span>
+                        <span class="template-tag">Identity</span>
+                    </div>
+                    
+                    <div class="template-footer">
+                        <div class="template-meta">
+                            <div class="template-stats">
+                                <div class="template-stat like" data-template-id="3">
+                                    <i class="far fa-heart"></i>
+                                    <span>421</span>
                                 </div>
-                                <div class="template-price price-free">Gratis</div>
+                                <div class="template-stat save" data-template-id="3">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>156</span>
+                                </div>
                             </div>
-                            
-                            <div class="template-actions">
-                                <button class="btn-action btn-preview">Preview</button>
-                                <button class="btn-action btn-primary">Gunakan</button>
-                            </div>
+                            <div class="template-price price-free">Gratis</div>
+                        </div>
+                        
+                        <div class="template-actions">
+                            <button class="btn-action btn-preview" data-template-id="3">Preview</button>
+                            <button class="btn-action btn-primary" data-template-id="3">Gunakan</button>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Template 4 - E-commerce Banner Pack (Premium) -->
-                <div class="template-card" data-category="premium marketing">
+                <div class="template-card filter-visible" data-category="premium marketing" data-id="4">
                     <div class="template-preview">
                         <div class="template-badge-corner">
                             <span class="badge badge-premium">Premium</span>
                         </div>
                         <img src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="E-commerce Banner Pack" class="template-preview-img">
                         <div class="template-overlay">
-                            <button class="btn-quick-preview">
+                            <button class="btn-quick-preview" data-template-id="4">
                                 <i class="fas fa-eye"></i> Quick Preview
                             </button>
                         </div>
                     </div>
                     
-                    <div class="template-content">
-                        <div class="template-header">
-                            <div class="template-title-section">
-                                <h3 class="template-title">E-commerce Banner Pack</h3>
-                                <p class="template-author">oleh <strong>ShopDesign Pro</strong></p>
-                            </div>
-                            <div class="template-badge">
-                                <span class="badge badge-trending">Trending</span>
-                            </div>
+                    <div class="template-header">
+                        <div class="template-title-section">
+                            <h3 class="template-title">E-commerce Banner Pack</h3>
+                            <p class="template-author">oleh <strong>ShopDesign Pro</strong></p>
                         </div>
-                        
-                        <p class="template-description">
-                            50+ banner e-commerce untuk berbagai platform: Shopee, Tokopedia, Instagram, Facebook. Template untuk flash sale, produk baru, dan event spesial.
-                        </p>
-                        
-                        <div class="template-features">
-                            <span class="template-feature"><i class="fas fa-check"></i> 50+ Banner</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Responsive</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> CTA Buttons</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> PSD/AI</span>
+                        <div class="template-badge">
+                            <span class="badge badge-trending">Trending</span>
                         </div>
-                        
-                        <div class="template-footer">
-                            <div class="template-meta">
-                                <div class="template-downloads">
-                                    <i class="fas fa-download"></i> 3,200+
+                    </div>
+                    
+                    <div class="template-info">
+                        <div class="template-info-item">
+                            <i class="fas fa-images"></i> 50+ Banner
+                        </div>
+                        <div class="template-info-item">
+                            <i class="fas fa-mobile-alt"></i> Responsive
+                        </div>
+                        <div class="template-info-item">
+                            <i class="fas fa-shopping-cart"></i> CTA Buttons
+                        </div>
+                    </div>
+                    
+                    <div class="template-tags">
+                        <span class="template-tag">E-commerce</span>
+                        <span class="template-tag">Banner</span>
+                        <span class="template-tag">Marketing</span>
+                    </div>
+                    
+                    <div class="template-footer">
+                        <div class="template-meta">
+                            <div class="template-stats">
+                                <div class="template-stat like" data-template-id="4">
+                                    <i class="far fa-heart"></i>
+                                    <span>312</span>
                                 </div>
-                                <div class="template-price">Rp 89.000</div>
+                                <div class="template-stat save" data-template-id="4">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>124</span>
+                                </div>
                             </div>
-                            
-                            <div class="template-actions">
-                                <button class="btn-action btn-preview">Preview</button>
-                                <button class="btn-action btn-primary">Beli</button>
-                            </div>
+                            <div class="template-price">Rp 89.000</div>
+                        </div>
+                        
+                        <div class="template-actions">
+                            <button class="btn-action btn-preview" data-template-id="4">Preview</button>
+                            <button class="btn-action btn-primary" data-template-id="4">Beli</button>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Template 5 - Resume & CV Template (Gratis) -->
-                <div class="template-card" data-category="free business">
+                <div class="template-card filter-visible" data-category="free business" data-id="5">
                     <div class="template-preview">
                         <div class="template-badge-corner">
                             <span class="badge badge-free">Gratis</span>
                         </div>
                         <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Resume & CV Template" class="template-preview-img">
                         <div class="template-overlay">
-                            <button class="btn-quick-preview">
+                            <button class="btn-quick-preview" data-template-id="5">
                                 <i class="fas fa-eye"></i> Quick Preview
                             </button>
                         </div>
                     </div>
                     
-                    <div class="template-content">
-                        <div class="template-header">
-                            <div class="template-title-section">
-                                <h3 class="template-title">Modern Resume & CV Pack</h3>
-                                <p class="template-author">oleh <strong>CareerDesign</strong></p>
-                            </div>
-                            <div class="template-badge">
-                                <span class="badge badge-new">Baru</span>
-                            </div>
+                    <div class="template-header">
+                        <div class="template-title-section">
+                            <h3 class="template-title">Modern Resume & CV Pack</h3>
+                            <p class="template-author">oleh <strong>CareerDesign</strong></p>
                         </div>
-                        
-                        <p class="template-description">
-                            12 template CV dan resume profesional dengan desain minimalis dan kreatif. Format ATS-friendly dan mudah disesuaikan dengan pengalaman Anda.
-                        </p>
-                        
-                        <div class="template-features">
-                            <span class="template-feature"><i class="fas fa-check"></i> 12 Template</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> ATS Friendly</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Customizable</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Word/PDF</span>
+                        <div class="template-badge">
+                            <span class="badge badge-new">Baru</span>
                         </div>
-                        
-                        <div class="template-footer">
-                            <div class="template-meta">
-                                <div class="template-downloads">
-                                    <i class="fas fa-download"></i> 12,500+
+                    </div>
+                    
+                    <div class="template-info">
+                        <div class="template-info-item">
+                            <i class="fas fa-file-alt"></i> 12 Template
+                        </div>
+                        <div class="template-info-item">
+                            <i class="fas fa-robot"></i> ATS Friendly
+                        </div>
+                        <div class="template-info-item">
+                            <i class="fas fa-edit"></i> Customizable
+                        </div>
+                    </div>
+                    
+                    <div class="template-tags">
+                        <span class="template-tag">Resume</span>
+                        <span class="template-tag">CV</span>
+                        <span class="template-tag">Career</span>
+                    </div>
+                    
+                    <div class="template-footer">
+                        <div class="template-meta">
+                            <div class="template-stats">
+                                <div class="template-stat like" data-template-id="5">
+                                    <i class="far fa-heart"></i>
+                                    <span>567</span>
                                 </div>
-                                <div class="template-price price-free">Gratis</div>
+                                <div class="template-stat save" data-template-id="5">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>234</span>
+                                </div>
                             </div>
-                            
-                            <div class="template-actions">
-                                <button class="btn-action btn-preview">Preview</button>
-                                <button class="btn-action btn-primary">Gunakan</button>
-                            </div>
+                            <div class="template-price price-free">Gratis</div>
+                        </div>
+                        
+                        <div class="template-actions">
+                            <button class="btn-action btn-preview" data-template-id="5">Preview</button>
+                            <button class="btn-action btn-primary" data-template-id="5">Gunakan</button>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Template 6 - Social Media Content Calendar (Premium) -->
-                <div class="template-card" data-category="premium social marketing">
+                <div class="template-card filter-visible" data-category="premium social marketing" data-id="6">
                     <div class="template-preview">
                         <div class="template-badge-corner">
                             <span class="badge badge-premium">Premium</span>
                         </div>
                         <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Social Media Content Calendar" class="template-preview-img">
                         <div class="template-overlay">
-                            <button class="btn-quick-preview">
+                            <button class="btn-quick-preview" data-template-id="6">
                                 <i class="fas fa-eye"></i> Quick Preview
                             </button>
                         </div>
                     </div>
                     
-                    <div class="template-content">
-                        <div class="template-header">
-                            <div class="template-title-section">
-                                <h3 class="template-title">Social Media Content Calendar</h3>
-                                <p class="template-author">oleh <strong>ContentPlanner Pro</strong></p>
-                            </div>
-                            <div class="template-badge">
-                                <span class="badge badge-popular">Populer</span>
-                            </div>
+                    <div class="template-header">
+                        <div class="template-title-section">
+                            <h3 class="template-title">Social Media Content Calendar</h3>
+                            <p class="template-author">oleh <strong>ContentPlanner Pro</strong></p>
                         </div>
-                        
-                        <p class="template-description">
-                            Kalender konten lengkap untuk 6 platform sosial media. Termasuk template posting, jadwal, analisis engagement, dan ide konten untuk 30 hari.
-                        </p>
-                        
-                        <div class="template-features">
-                            <span class="template-feature"><i class="fas fa-check"></i> 6 Platforms</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> 30-Day Plan</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Analytics</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Excel/Sheets</span>
-                        </div>
-                        
-                        <div class="template-footer">
-                            <div class="template-meta">
-                                <div class="template-downloads">
-                                    <i class="fas fa-download"></i> 2,800+
-                                </div>
-                                <div class="template-price">Rp 75.000</div>
-                            </div>
-                            
-                            <div class="template-actions">
-                                <button class="btn-action btn-preview">Preview</button>
-                                <button class="btn-action btn-primary">Beli</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Template 7 - YouTube Thumbnail Pack (Gratis) -->
-                <div class="template-card" data-category="free social marketing">
-                    <div class="template-preview">
-                        <div class="template-badge-corner">
-                            <span class="badge badge-free">Gratis</span>
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="YouTube Thumbnail Pack" class="template-preview-img">
-                        <div class="template-overlay">
-                            <button class="btn-quick-preview">
-                                <i class="fas fa-eye"></i> Quick Preview
-                            </button>
+                        <div class="template-badge">
+                            <span class="badge badge-popular">Populer</span>
                         </div>
                     </div>
                     
-                    <div class="template-content">
-                        <div class="template-header">
-                            <div class="template-title-section">
-                                <h3 class="template-title">YouTube Thumbnail Pack</h3>
-                                <p class="template-author">oleh <strong>TubeDesigners</strong></p>
-                            </div>
-                            <div class="template-badge">
-                                <span class="badge badge-trending">Trending</span>
-                            </div>
+                    <div class="template-info">
+                        <div class="template-info-item">
+                            <i class="fas fa-share-alt"></i> 6 Platforms
                         </div>
-                        
-                        <p class="template-description">
-                            25 template thumbnail YouTube dengan CTR tinggi. Desain untuk berbagai niche: edukasi, gaming, vlog, tutorial, dan review produk.
-                        </p>
-                        
-                        <div class="template-features">
-                            <span class="template-feature"><i class="fas fa-check"></i> 25 Template</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> High CTR</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> 1280x720px</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> PSD/Canva</span>
+                        <div class="template-info-item">
+                            <i class="fas fa-calendar-alt"></i> 30-Day Plan
                         </div>
-                        
-                        <div class="template-footer">
-                            <div class="template-meta">
-                                <div class="template-downloads">
-                                    <i class="fas fa-download"></i> 15,300+
-                                </div>
-                                <div class="template-price price-free">Gratis</div>
-                            </div>
-                            
-                            <div class="template-actions">
-                                <button class="btn-action btn-preview">Preview</button>
-                                <button class="btn-action btn-primary">Gunakan</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Template 8 - Company Report Template (Premium) -->
-                <div class="template-card" data-category="premium business presentation">
-                    <div class="template-preview">
-                        <div class="template-badge-corner">
-                            <span class="badge badge-premium">Premium</span>
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Company Report Template" class="template-preview-img">
-                        <div class="template-overlay">
-                            <button class="btn-quick-preview">
-                                <i class="fas fa-eye"></i> Quick Preview
-                            </button>
+                        <div class="template-info-item">
+                            <i class="fas fa-chart-line"></i> Analytics
                         </div>
                     </div>
                     
-                    <div class="template-content">
-                        <div class="template-header">
-                            <div class="template-title-section">
-                                <h3 class="template-title">Annual Company Report</h3>
-                                <p class="template-author">oleh <strong>CorporateDesign</strong></p>
-                            </div>
-                            <div class="template-badge">
-                                <span class="badge badge-new">Baru</span>
-                            </div>
-                        </div>
-                        
-                        <p class="template-description">
-                            Template laporan tahunan perusahaan dengan layout profesional, grafik interaktif, dan halaman eksekutif summary. Cocok untuk perusahaan skala menengah-besar.
-                        </p>
-                        
-                        <div class="template-features">
-                            <span class="template-feature"><i class="fas fa-check"></i> 60+ Pages</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Interactive</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Charts</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> InDesign/PDF</span>
-                        </div>
-                        
-                        <div class="template-footer">
-                            <div class="template-meta">
-                                <div class="template-downloads">
-                                    <i class="fas fa-download"></i> 980+
-                                </div>
-                                <div class="template-price">Rp 150.000</div>
-                            </div>
-                            
-                            <div class="template-actions">
-                                <button class="btn-action btn-preview">Preview</button>
-                                <button class="btn-action btn-primary">Beli</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Template 9 - Email Newsletter (Gratis) -->
-                <div class="template-card" data-category="free marketing">
-                    <div class="template-preview">
-                        <div class="template-badge-corner">
-                            <span class="badge badge-free">Gratis</span>
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Email Newsletter Template" class="template-preview-img">
-                        <div class="template-overlay">
-                            <button class="btn-quick-preview">
-                                <i class="fas fa-eye"></i> Quick Preview
-                            </button>
-                        </div>
+                    <div class="template-tags">
+                        <span class="template-tag">Social Media</span>
+                        <span class="template-tag">Calendar</span>
+                        <span class="template-tag">Planning</span>
                     </div>
                     
-                    <div class="template-content">
-                        <div class="template-header">
-                            <div class="template-title-section">
-                                <h3 class="template-title">Responsive Email Newsletter</h3>
-                                <p class="template-author">oleh <strong>EmailDesign Lab</strong></p>
-                            </div>
-                            <div class="template-badge">
-                                <span class="badge badge-popular">Populer</span>
-                            </div>
-                        </div>
-                        
-                        <p class="template-description">
-                            10 template newsletter email yang responsive di semua device. Kompatibel dengan Mailchimp, SendGrid, dan platform email marketing lainnya.
-                        </p>
-                        
-                        <div class="template-features">
-                            <span class="template-feature"><i class="fas fa-check"></i> 10 Template</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Responsive</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Dark Mode</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> HTML/CSS</span>
-                        </div>
-                        
-                        <div class="template-footer">
-                            <div class="template-meta">
-                                <div class="template-downloads">
-                                    <i class="fas fa-download"></i> 7,400+
+                    <div class="template-footer">
+                        <div class="template-meta">
+                            <div class="template-stats">
+                                <div class="template-stat like" data-template-id="6">
+                                    <i class="far fa-heart"></i>
+                                    <span>289</span>
                                 </div>
-                                <div class="template-price price-free">Gratis</div>
-                            </div>
-                            
-                            <div class="template-actions">
-                                <button class="btn-action btn-preview">Preview</button>
-                                <button class="btn-action btn-primary">Gunakan</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Template 10 - Infographic Pack (Premium) -->
-                <div class="template-card" data-category="premium presentation marketing">
-                    <div class="template-preview">
-                        <div class="template-badge-corner">
-                            <span class="badge badge-premium">Premium</span>
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Infographic Pack" class="template-preview-img">
-                        <div class="template-overlay">
-                            <button class="btn-quick-preview">
-                                <i class="fas fa-eye"></i> Quick Preview
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="template-content">
-                        <div class="template-header">
-                            <div class="template-title-section">
-                                <h3 class="template-title">Infographic Data Visualization</h3>
-                                <p class="template-author">oleh <strong>DataViz Studio</strong></p>
-                            </div>
-                            <div class="template-badge">
-                                <span class="badge badge-trending">Trending</span>
-                            </div>
-                        </div>
-                        
-                        <p class="template-description">
-                            30+ template infografis untuk visualisasi data: timeline, perbandingan, proses, hierarki, dan peta konsep. Mudah disesuaikan dengan data Anda.
-                        </p>
-                        
-                        <div class="template-features">
-                            <span class="template-feature"><i class="fas fa-check"></i> 30+ Template</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Editable</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> Vector</span>
-                            <span class="template-feature"><i class="fas fa-check"></i> AI/EPS</span>
-                        </div>
-                        
-                        <div class="template-footer">
-                            <div class="template-meta">
-                                <div class="template-downloads">
-                                    <i class="fas fa-download"></i> 2,100+
+                                <div class="template-stat save" data-template-id="6">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>98</span>
                                 </div>
-                                <div class="template-price">Rp 95.000</div>
                             </div>
-                            
-                            <div class="template-actions">
-                                <button class="btn-action btn-preview">Preview</button>
-                                <button class="btn-action btn-primary">Beli</button>
-                            </div>
+                            <div class="template-price">Rp 75.000</div>
+                        </div>
+                        
+                        <div class="template-actions">
+                            <button class="btn-action btn-preview" data-template-id="6">Preview</button>
+                            <button class="btn-action btn-primary" data-template-id="6">Beli</button>
                         </div>
                     </div>
                 </div>
@@ -675,7 +538,7 @@
             
             <!-- LOAD MORE BUTTON -->
             <div class="load-more-section">
-                <button class="btn-load-more">
+                <button class="btn-load-more" id="load-more-btn">
                     <i class="fas fa-arrow-down"></i> Tampilkan Lebih Banyak Template
                 </button>
             </div>
@@ -687,7 +550,7 @@
             <div class="sidebar-widget">
                 <h3><i class="fas fa-history"></i> Template Terbaru</h3>
                 <div class="recent-list">
-                    <div class="recent-item">
+                    <a href="#" class="recent-item">
                         <div class="recent-preview">
                             <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="UI Kit Template" class="recent-preview-img">
                         </div>
@@ -695,8 +558,8 @@
                             <h4>Mobile UI Kit</h4>
                             <p>2 jam lalu • Gratis</p>
                         </div>
-                    </div>
-                    <div class="recent-item">
+                    </a>
+                    <a href="#" class="recent-item">
                         <div class="recent-preview">
                             <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Landing Page" class="recent-preview-img">
                         </div>
@@ -704,8 +567,8 @@
                             <h4>SaaS Landing Page</h4>
                             <p>1 hari lalu • Premium</p>
                         </div>
-                    </div>
-                    <div class="recent-item">
+                    </a>
+                    <a href="#" class="recent-item">
                         <div class="recent-preview">
                             <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Dashboard Template" class="recent-preview-img">
                         </div>
@@ -713,7 +576,7 @@
                             <h4>Analytics Dashboard</h4>
                             <p>2 hari lalu • Gratis</p>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             
@@ -743,43 +606,64 @@
             <!-- How to Use Templates -->
             <div class="sidebar-widget">
                 <h3><i class="fas fa-question-circle"></i> Cara Menggunakan Template</h3>
-                <div class="steps-list">
-                    <div class="step-item">
-                        <div class="step-number">1</div>
-                        <div class="step-info">
+                <div class="recent-list">
+                    <div class="recent-item">
+                        <div class="recent-preview" style="background-color: rgba(76, 175, 80, 0.2);">
+                            <i class="fas fa-search" style="color: var(--accent-primary);"></i>
+                        </div>
+                        <div class="recent-info">
                             <h4>Pilih Template</h4>
-                            <p>Cari template yang sesuai dengan kebutuhan Anda</p>
+                            <p>Cari template yang sesuai kebutuhan</p>
                         </div>
                     </div>
-                    <div class="step-item">
-                        <div class="step-number">2</div>
-                        <div class="step-info">
+                    <div class="recent-item">
+                        <div class="recent-preview" style="background-color: rgba(33, 150, 243, 0.2);">
+                            <i class="fas fa-eye" style="color: var(--accent-blue);"></i>
+                        </div>
+                        <div class="recent-info">
                             <h4>Preview & Customize</h4>
-                            <p>Preview template dan sesuaikan dengan brand Anda</p>
+                            <p>Preview dan sesuaikan template</p>
                         </div>
                     </div>
-                    <div class="step-item">
-                        <div class="step-number">3</div>
-                        <div class="step-info">
+                    <div class="recent-item">
+                        <div class="recent-preview" style="background-color: rgba(255, 152, 0, 0.2);">
+                            <i class="fas fa-download" style="color: var(--accent-secondary);"></i>
+                        </div>
+                        <div class="recent-info">
                             <h4>Download & Gunakan</h4>
-                            <p>Download template dan gunakan untuk proyek Anda</p>
+                            <p>Download dan gunakan untuk proyek</p>
                         </div>
                     </div>
                 </div>
             </div>
             
             <!-- Upload Template -->
-            <div class="sidebar-widget contributor-widget">
+            <div class="sidebar-widget upload-widget">
                 <h3><i class="fas fa-cloud-upload-alt"></i> Upload Template</h3>
                 <p style="color: rgba(255,255,255,0.9); margin-bottom: 15px; font-size: 0.95rem;">
                     Bagikan template Anda dan dapatkan penghasilan dari setiap download.
                 </p>
-                <button class="btn-contributor">
+                <button class="btn-contributor" id="upload-template-btn">
                     <i class="fas fa-upload"></i> Upload Template
                 </button>
             </div>
         </aside>
     </div>
+
+    <!-- MODAL PRATINJAU TEMPLATE -->
+    <div class="preview-modal-overlay" id="preview-modal">
+        <div class="preview-modal">
+            <button class="close-btn" id="close-preview-modal">&times;</button>
+            
+            <div class="preview-modal-body" id="preview-modal-body">
+                <!-- Content akan diisi oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION CONTAINER -->
+    <div id="notification-container"></div>
+
     <script src="../static/js/templates.js"></script>
 </body>
 </html>
