@@ -1,1352 +1,920 @@
-// EzyDraw Pro - Advanced Design Editor
-// Main Application Class
-
-class EzyDrawEditor {
-    constructor() {
-        // State Management
-        this.state = {
-            currentTool: 'select',
-            selectedElement: null,
-            elements: [],
-            canvas: {
-                width: 1920,
-                height: 1080,
-                backgroundColor: '#FFFFFF',
-                zoom: 1,
-                grid: {
-                    enabled: true,
-                    size: 50,
-                    color: 'rgba(0, 0, 0, 0.1)'
-                },
-                rulers: {
-                    enabled: false
-                }
-            },
-            history: {
-                stack: [],
-                index: -1,
-                maxSize: 50
-            },
-            mouse: {
-                x: 0,
-                y: 0,
-                startX: 0,
-                startY: 0,
-                isDown: false,
-                isDragging: false
-            },
-            selection: {
-                box: null,
-                handles: [],
-                isResizing: false,
-                isRotating: false
-            }
-        };
-
-        // DOM Elements
-        this.elements = {
-            canvas: null,
-            ctx: null,
-            canvasContainer: null,
-            canvasWrapper: null,
-            selectionBox: null,
-            statusText: null,
-            coordinates: null,
-            canvasInfo: null,
-            zoomDisplay: null,
-            leftSidebar: null,
-            rightSidebar: null,
-            notificationContainer: null
-        };
+        // Global variables
+        let selectedElement = null;
+        let zoomLevel = 100;
+        let isDragging = false;
+        let dragOffset = { x: 0, y: 0 };
+        let currentTemplate = '';
+        let currentCanvasSize = { width: 794, height: 1123 };
+        let selectedFormat = 'pdf';
+        let isExporting = false;
+        let isOfflineMode = false;
+        let layers = [];
+        let currentPanel = null;
+        let currentSettingsTab = 'general';
 
         // Initialize
-        this.init();
-    }
-
-    init() {
-        this.setupDOMElements();
-        this.setupCanvas();
-        this.setupEventListeners();
-        this.setupInitialState();
-        this.render();
-        this.showNotification('Welcome to EzyDraw Pro!', 'success');
-    }
-
-    setupDOMElements() {
-        this.elements.canvas = document.getElementById('mainCanvas');
-        this.elements.ctx = this.elements.canvas.getContext('2d');
-        this.elements.canvasContainer = document.getElementById('canvasContainer');
-        this.elements.canvasWrapper = document.getElementById('canvasWrapper');
-        this.elements.selectionBox = document.getElementById('selectionBox');
-        this.elements.statusText = document.getElementById('statusText');
-        this.elements.coordinates = document.getElementById('coordinates');
-        this.elements.canvasInfo = document.getElementById('canvasInfo');
-        this.elements.zoomDisplay = document.querySelector('.zoom-display');
-        this.elements.leftSidebar = document.getElementById('leftSidebar');
-        this.elements.rightSidebar = document.getElementById('rightSidebar');
-        this.elements.notificationContainer = document.getElementById('notificationContainer');
-    }
-
-    setupCanvas() {
-        this.updateCanvasSize();
-        this.setupCanvasEvents();
-    }
-
-    setupCanvasEvents() {
-        const canvas = this.elements.canvas;
-        
-        // Mouse events
-        canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
-        canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
-        canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
-        canvas.addEventListener('wheel', this.handleWheel.bind(this));
-        
-        // Touch events for mobile
-        canvas.addEventListener('touchstart', this.handleTouchStart.bind(this));
-        canvas.addEventListener('touchmove', this.handleTouchMove.bind(this));
-        canvas.addEventListener('touchend', this.handleTouchEnd.bind(this));
-        
-        // Context menu
-        canvas.addEventListener('contextmenu', (e) => e.preventDefault());
-    }
-
-    setupEventListeners() {
-        // Tool selection
-        document.querySelectorAll('.tool-item').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const tool = e.currentTarget.dataset.tool;
-                this.selectTool(tool);
-            });
-        });
-
-        // Canvas size inputs
-        document.getElementById('canvasWidth').addEventListener('change', (e) => {
-            this.setCanvasSize(parseInt(e.target.value), this.state.canvas.height);
-        });
-
-        document.getElementById('canvasHeight').addEventListener('change', (e) => {
-            this.setCanvasSize(this.state.canvas.width, parseInt(e.target.value));
-        });
-
-        // Preset sizes
-        document.querySelectorAll('.preset-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const width = parseInt(e.target.dataset.width);
-                const height = parseInt(e.target.dataset.height);
-                this.setCanvasSize(width, height);
-                
-                // Update active state
-                document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-            });
-        });
-
-        // Background color
-        document.querySelectorAll('.color-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                const color = e.target.dataset.color;
-                this.setBackgroundColor(color);
-                
-                // Update active state
-                document.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
-                e.target.classList.add('active');
-            });
-        });
-
-        // Property controls
-        document.getElementById('strokeWidth').addEventListener('input', (e) => {
-            this.updateStrokeWidth(e.target.value);
-        });
-
-        document.getElementById('fontSize').addEventListener('input', (e) => {
-            this.updateFontSize(e.target.value);
-        });
-
-        document.getElementById('textContent').addEventListener('input', (e) => {
-            this.updateTextContent(e.target.value);
-        });
-
-        document.getElementById('fontFamily').addEventListener('change', (e) => {
-            this.updateFontFamily(e.target.value);
-        });
-
-        // Toolbar buttons
-        document.getElementById('undoBtn').addEventListener('click', () => this.undo());
-        document.getElementById('redoBtn').addEventListener('click', () => this.redo());
-        document.getElementById('zoomInBtn').addEventListener('click', () => this.zoomIn());
-        document.getElementById('zoomOutBtn').addEventListener('click', () => this.zoomOut());
-        document.getElementById('resetZoomBtn').addEventListener('click', () => this.resetZoom());
-        document.getElementById('gridToggle').addEventListener('click', () => this.toggleGrid());
-        document.getElementById('rulersToggle').addEventListener('click', () => this.toggleRulers());
-
-        // Action buttons
-        document.getElementById('exportBtn').addEventListener('click', () => this.showExportModal());
-        document.getElementById('shareBtn').addEventListener('click', () => this.showShareModal());
-        document.getElementById('previewBtn').addEventListener('click', () => this.togglePreview());
-
-        // Modal controls
-        document.querySelectorAll('.modal-close').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const modalId = e.target.dataset.modal;
-                this.closeModal(modalId);
-            });
-        });
-
-        document.getElementById('exportConfirm').addEventListener('click', () => this.exportDesign());
-
-        // Template loading
-        document.querySelectorAll('.template-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                const template = e.currentTarget.dataset.template;
-                this.loadTemplate(template);
-            });
-        });
-
-        // Sidebar toggles
-        document.getElementById('leftToggle').addEventListener('click', () => this.toggleLeftSidebar());
-        document.getElementById('rightToggle').addEventListener('click', () => this.toggleRightSidebar());
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', this.handleKeyDown.bind(this));
-
-        // Window resize
-        window.addEventListener('resize', this.handleResize.bind(this));
-    }
-
-    setupInitialState() {
-        // Add some default elements
-        this.addElement({
-            type: 'rectangle',
-            x: 100,
-            y: 100,
-            width: 300,
-            height: 200,
-            fill: '#4CAF50',
-            stroke: '#000000',
-            strokeWidth: 2,
-            name: 'Green Rectangle'
-        });
-
-        this.addElement({
-            type: 'text',
-            x: 200,
-            y: 200,
-            text: 'Welcome to EzyDraw Pro',
-            fontSize: 48,
-            fontFamily: 'Arial',
-            fill: '#333333',
-            name: 'Welcome Text'
-        });
-
-        this.addElement({
-            type: 'circle',
-            x: 500,
-            y: 300,
-            radius: 80,
-            fill: '#FF9800',
-            stroke: '#000000',
-            strokeWidth: 2,
-            name: 'Orange Circle'
-        });
-
-        this.saveState();
-    }
-
-    // Canvas Management
-    updateCanvasSize() {
-        const { width, height } = this.state.canvas;
-        this.elements.canvas.width = width;
-        this.elements.canvas.height = height;
-        
-        // Update inputs
-        document.getElementById('canvasWidth').value = width;
-        document.getElementById('canvasHeight').value = height;
-        
-        // Update status
-        this.elements.canvasInfo.textContent = `${width} × ${height}`;
-    }
-
-    setCanvasSize(width, height) {
-        this.state.canvas.width = width;
-        this.state.canvas.height = height;
-        this.updateCanvasSize();
-        this.render();
-        this.saveState();
-        this.updateStatus(`Canvas size set to ${width}×${height}`);
-    }
-
-    setBackgroundColor(color) {
-        this.state.canvas.backgroundColor = color;
-        document.getElementById('bgColor').value = color;
-        document.getElementById('bgColorPreview').style.background = color;
-        this.render();
-        this.updateStatus(`Background color changed to ${color}`);
-    }
-
-    // Tool Management
-    selectTool(tool) {
-        this.state.currentTool = tool;
-        
-        // Update UI
-        document.querySelectorAll('.tool-item').forEach(item => {
-            item.classList.remove('active');
-        });
-        document.querySelector(`[data-tool="${tool}"]`).classList.add('active');
-        
-        // Update cursor
-        const cursors = {
-            select: 'default',
-            hand: 'grab',
-            rectangle: 'crosshair',
-            circle: 'crosshair',
-            triangle: 'crosshair',
-            line: 'crosshair',
-            text: 'text',
-            image: 'copy',
-            icon: 'copy'
-        };
-        
-        this.elements.canvas.style.cursor = cursors[tool] || 'default';
-        this.updateStatus(`${tool.charAt(0).toUpperCase() + tool.slice(1)} tool selected`);
-    }
-
-    // Element Management
-    addElement(elementData) {
-        const element = {
-            id: Date.now() + Math.random(),
-            ...elementData,
-            visible: true,
-            locked: false,
-            opacity: 1,
-            rotation: 0
-        };
-        
-        this.state.elements.push(element);
-        this.selectElement(this.state.elements.length - 1);
-        this.updateLayersList();
-        this.render();
-        this.saveState();
-        
-        return element;
-    }
-
-    selectElement(index) {
-        this.state.selectedElement = index;
-        this.updatePropertiesPanel();
-        this.updateLayersList();
-        this.render();
-    }
-
-    deleteElement(index) {
-        if (index >= 0 && index < this.state.elements.length) {
-            this.state.elements.splice(index, 1);
-            if (this.state.selectedElement === index) {
-                this.state.selectedElement = null;
-            } else if (this.state.selectedElement > index) {
-                this.state.selectedElement--;
-            }
-            this.updateLayersList();
-            this.render();
-            this.saveState();
-            this.updateStatus('Element deleted');
-        }
-    }
-
-    // Mouse and Touch Events
-    handleMouseDown(e) {
-        const rect = this.elements.canvas.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / this.state.canvas.zoom;
-        const y = (e.clientY - rect.top) / this.state.canvas.zoom;
-        
-        this.state.mouse.startX = x;
-        this.state.mouse.startY = y;
-        this.state.mouse.x = x;
-        this.state.mouse.y = y;
-        this.state.mouse.isDown = true;
-        
-        if (this.state.currentTool === 'select') {
-            const elementIndex = this.getElementAtPosition(x, y);
-            if (elementIndex !== -1) {
-                this.selectElement(elementIndex);
-                this.state.mouse.isDragging = true;
-            } else {
-                this.state.selectedElement = null;
-                this.render();
-            }
-        } else if (this.state.currentTool === 'hand') {
-            this.state.mouse.isDragging = true;
-        } else {
-            this.startDrawing(x, y);
-        }
-    }
-
-    handleMouseMove(e) {
-        const rect = this.elements.canvas.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / this.state.canvas.zoom;
-        const y = (e.clientY - rect.top) / this.state.canvas.zoom;
-        
-        this.state.mouse.x = x;
-        this.state.mouse.y = y;
-        
-        // Update coordinates display
-        this.elements.coordinates.textContent = `${Math.round(x)}, ${Math.round(y)}`;
-        
-        if (this.state.mouse.isDown) {
-            if (this.state.currentTool === 'select' && this.state.mouse.isDragging) {
-                this.dragElement(x, y);
-            } else if (this.state.currentTool === 'hand' && this.state.mouse.isDragging) {
-                this.panCanvas(x, y);
-            } else if (this.isDrawingTool()) {
-                this.updateDrawing(x, y);
-            }
-        }
-    }
-
-    handleMouseUp(e) {
-        this.state.mouse.isDown = false;
-        this.state.mouse.isDragging = false;
-        
-        if (this.isDrawingTool()) {
-            this.finishDrawing();
-        }
-        
-        this.saveState();
-    }
-
-    handleWheel(e) {
-        e.preventDefault();
-        
-        const zoomFactor = 0.1;
-        if (e.deltaY < 0) {
-            this.zoomIn();
-        } else {
-            this.zoomOut();
-        }
-    }
-
-    // Touch Events for Mobile
-    handleTouchStart(e) {
-        if (e.touches.length === 1) {
-            const touch = e.touches[0];
-            const rect = this.elements.canvas.getBoundingClientRect();
-            const x = (touch.clientX - rect.left) / this.state.canvas.zoom;
-            const y = (touch.clientY - rect.top) / this.state.canvas.zoom;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tampilkan halaman pemilihan template di awal
+            document.getElementById('templateSelectionPage').style.display = 'flex';
+            document.getElementById('appContainer').style.display = 'none';
             
-            this.handleMouseDown({ clientX: touch.clientX, clientY: touch.clientY });
-        }
-    }
-
-    handleTouchMove(e) {
-        e.preventDefault();
-        if (e.touches.length === 1) {
-            const touch = e.touches[0];
-            this.handleMouseMove({ clientX: touch.clientX, clientY: touch.clientY });
-        }
-    }
-
-    handleTouchEnd(e) {
-        this.handleMouseUp();
-    }
-
-    // Drawing Tools
-    startDrawing(x, y) {
-        let element;
-        
-        switch (this.state.currentTool) {
-            case 'rectangle':
-                element = {
-                    type: 'rectangle',
-                    x: x,
-                    y: y,
-                    width: 0,
-                    height: 0,
-                    fill: '#4CAF50',
-                    stroke: '#000000',
-                    strokeWidth: 2,
-                    name: 'Rectangle'
-                };
-                break;
-            case 'circle':
-                element = {
-                    type: 'circle',
-                    x: x,
-                    y: y,
-                    radius: 0,
-                    fill: '#FF9800',
-                    stroke: '#000000',
-                    strokeWidth: 2,
-                    name: 'Circle'
-                };
-                break;
-            case 'text':
-                element = {
-                    type: 'text',
-                    x: x,
-                    y: y,
-                    text: 'New Text',
-                    fontSize: 48,
-                    fontFamily: 'Arial',
-                    fill: '#333333',
-                    name: 'Text'
-                };
-                break;
-            case 'line':
-                element = {
-                    type: 'line',
-                    x1: x,
-                    y1: y,
-                    x2: x,
-                    y2: y,
-                    stroke: '#000000',
-                    strokeWidth: 2,
-                    name: 'Line'
-                };
-                break;
-        }
-        
-        if (element) {
-            this.addElement(element);
-        }
-    }
-
-    updateDrawing(x, y) {
-        const element = this.state.elements[this.state.selectedElement];
-        if (!element) return;
-        
-        switch (element.type) {
-            case 'rectangle':
-                element.width = x - element.x;
-                element.height = y - element.y;
-                break;
-            case 'circle':
-                const dx = x - element.x;
-                const dy = y - element.y;
-                element.radius = Math.sqrt(dx * dx + dy * dy);
-                break;
-            case 'line':
-                element.x2 = x;
-                element.y2 = y;
-                break;
-        }
-        
-        this.render();
-    }
-
-    finishDrawing() {
-        // Additional logic for finishing drawing
-        this.updateStatus('Drawing completed');
-    }
-
-    // Element Interaction
-    dragElement(x, y) {
-        const element = this.state.elements[this.state.selectedElement];
-        if (!element || element.locked) return;
-        
-        const deltaX = x - this.state.mouse.startX;
-        const deltaY = y - this.state.mouse.startY;
-        
-        element.x += deltaX;
-        element.y += deltaY;
-        
-        this.state.mouse.startX = x;
-        this.state.mouse.startY = y;
-        
-        this.render();
-    }
-
-    panCanvas(x, y) {
-        const deltaX = x - this.state.mouse.startX;
-        const deltaY = y - this.state.mouse.startY;
-        
-        this.elements.canvasContainer.scrollLeft -= deltaX;
-        this.elements.canvasContainer.scrollTop -= deltaY;
-        
-        this.state.mouse.startX = x;
-        this.state.mouse.startY = y;
-    }
-
-    getElementAtPosition(x, y) {
-        for (let i = this.state.elements.length - 1; i >= 0; i--) {
-            const element = this.state.elements[i];
-            if (!element.visible) continue;
+            // Setup event listeners untuk asset cards
+            setupAssetCards();
             
-            if (this.isPointInElement(x, y, element)) {
-                return i;
+            // Update layer list
+            updateLayersList();
+            
+            // Setup settings tabs
+            setupSettingsTabs();
+            
+            // Setup UI font size slider
+            setupUIFontSizeSlider();
+            
+            // Setup canvas drag and drop
+            setTimeout(() => {
+                setupCanvasDragAndDrop();
+            }, 100);
+        });
+
+        // PERBAIKAN: Fungsi untuk kembali ke dashboard
+        function goToDashboard() {
+            // Sembunyikan editor
+            document.getElementById('appContainer').style.display = 'none';
+            
+            // Tampilkan halaman pemilihan template
+            document.getElementById('templateSelectionPage').style.display = 'flex';
+            
+            // Reset state panel
+            closePanel();
+            
+            // Reset tombol navigasi
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Aktifkan tombol home
+            const homeBtn = document.querySelector('.nav-btn[title="Dashboard"]');
+            if (homeBtn) {
+                homeBtn.classList.add('active');
+            }
+            
+            showToast('Kembali ke dashboard');
+        }
+
+        // Setup settings tabs
+        function setupSettingsTabs() {
+            const tabs = document.querySelectorAll('.settings-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active to clicked tab
+                    this.classList.add('active');
+                    
+                    // Hide all settings content
+                    document.querySelectorAll('.settings-content').forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // Show selected tab content
+                    const tabId = this.getAttribute('data-tab');
+                    currentSettingsTab = tabId;
+                    document.getElementById(tabId + 'Settings').classList.remove('hidden');
+                });
+            });
+        }
+
+        // Setup UI font size slider
+        function setupUIFontSizeSlider() {
+            const slider = document.getElementById('uiFontSize');
+            const value = document.getElementById('uiFontSizeValue');
+            
+            slider.addEventListener('input', function() {
+                value.textContent = this.value + 'px';
+                // In a real app, this would update the UI font size
+            });
+        }
+
+        // Fungsi untuk memilih template
+        function selectTemplate(templateType) {
+            currentTemplate = templateType;
+            
+            // Sembunyikan halaman pemilihan template
+            document.getElementById('templateSelectionPage').style.display = 'none';
+            
+            // Tampilkan editor
+            document.getElementById('appContainer').style.display = 'flex';
+            
+            // Setup editor berdasarkan template yang dipilih
+            setupEditorForTemplate(templateType);
+            showToast(`Template ${templateType.toUpperCase()} dipilih!`);
+        }
+
+        // Fungsi untuk memulai dengan halaman kosong
+        function startWithBlank() {
+            currentTemplate = 'blank';
+            
+            // Sembunyikan halaman pemilihan template
+            document.getElementById('templateSelectionPage').style.display = 'none';
+            
+            // Tampilkan editor
+            document.getElementById('appContainer').style.display = 'flex';
+            
+            // Setup editor dengan ukuran default
+            setupEditorForTemplate('blank');
+            showToast('Mulai dengan halaman kosong!');
+        }
+
+        // Setup editor berdasarkan template
+        function setupEditorForTemplate(templateType) {
+            const canvas = document.getElementById('canvas');
+            
+            // Bersihkan canvas
+            canvas.innerHTML = '';
+            layers = [];
+            
+            // Atur ukuran canvas berdasarkan template
+            let width, height;
+            let defaultElements = [];
+            
+            switch(templateType) {
+                case 'a4':
+                    width = 794;
+                    height = 1123;
+                    currentCanvasSize = { width, height };
+                    defaultElements = [
+                        { type: 'text', content: 'Dokumen A4', left: 100, top: 100, fontSize: 36, color: '#1A0A33', layerName: 'Title Text' },
+                        { type: 'text', content: 'Ini adalah template dokumen A4 standar', left: 100, top: 150, fontSize: 18, color: '#666', layerName: 'Subtitle Text' },
+                        { type: 'shape', shape: 'rectangle', left: 100, top: 250, width: 200, height: 150, bgColor: 'linear-gradient(135deg, #4CAF50, #2196F3)', layerName: 'Shape 1' }
+                    ];
+                    break;
+                    
+                case 'a3':
+                    width = 1123;
+                    height = 794;
+                    currentCanvasSize = { width, height };
+                    defaultElements = [
+                        { type: 'text', content: 'Poster A3 Landscape', left: 150, top: 100, fontSize: 48, color: '#1A0A33', layerName: 'Main Title' },
+                        { type: 'text', content: 'Ukuran besar untuk poster dan presentasi', left: 150, top: 170, fontSize: 24, color: '#666', layerName: 'Description' },
+                        { type: 'shape', shape: 'rectangle', left: 150, top: 250, width: 300, height: 200, bgColor: 'linear-gradient(135deg, #FF9800, #E91E63)', layerName: 'Background Shape' }
+                    ];
+                    break;
+                    
+                case 'youtube':
+                    width = 1280;
+                    height = 720;
+                    currentCanvasSize = { width, height };
+                    defaultElements = [
+                        { type: 'text', content: 'YouTube Thumbnail', left: 100, top: 100, fontSize: 48, color: '#FF0000', layerName: 'YouTube Title' },
+                        { type: 'text', content: 'Klik untuk menonton!', left: 100, top: 170, fontSize: 24, color: '#333', layerName: 'Call to Action' },
+                        { type: 'shape', shape: 'rectangle', left: 100, top: 250, width: 300, height: 150, bgColor: '#FF0000', layerName: 'Red Banner' }
+                    ];
+                    break;
+                    
+                default: // blank
+                    width = 794;
+                    height = 1123;
+                    currentCanvasSize = { width, height };
+                    defaultElements = [
+                        { type: 'text', content: 'Halaman Kosong', left: 100, top: 100, fontSize: 36, color: '#1A0A33', layerName: 'Title' },
+                        { type: 'text', content: 'Mulai desain dari nol', left: 100, top: 150, fontSize: 18, color: '#666', layerName: 'Instruction' }
+                    ];
+            }
+            
+            // Atur ukuran canvas
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            
+            // Update status bar
+            document.getElementById('canvasSize').textContent = `Canvas Size: ${width} × ${height}px`;
+            
+            // Tambahkan elemen default
+            defaultElements.forEach((element, index) => {
+                addElementToCanvas(element.type, element.content || element.shape, element.left, element.top, element);
+                
+                // Add to layers
+                layers.push({
+                    id: index + 1,
+                    name: element.layerName || `${element.type} ${index + 1}`,
+                    type: element.type,
+                    visible: true,
+                    element: document.querySelectorAll('.canvas-element')[index]
+                });
+            });
+            
+            // Update layer list
+            updateLayersList();
+            
+            // Select first element
+            if (defaultElements.length > 0) {
+                selectElement(document.querySelector('.canvas-element'));
+            }
+            
+            // Update element count
+            updateElementCount();
+            
+            // PERBAIKAN: Reset tombol navigasi
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Aktifkan tombol home
+            const homeBtn = document.querySelector('.nav-btn[title="Dashboard"]');
+            if (homeBtn) {
+                homeBtn.classList.add('active');
             }
         }
-        return -1;
-    }
 
-    isPointInElement(x, y, element) {
-        switch (element.type) {
-            case 'rectangle':
-                return x >= element.x && x <= element.x + element.width &&
-                       y >= element.y && y <= element.y + element.height;
-            case 'circle':
-                const dx = x - element.x;
-                const dy = y - element.y;
-                return Math.sqrt(dx * dx + dy * dy) <= element.radius;
-            case 'text':
-                this.elements.ctx.font = `${element.fontSize}px ${element.fontFamily}`;
-                const metrics = this.elements.ctx.measureText(element.text);
-                return x >= element.x && x <= element.x + metrics.width &&
-                       y >= element.y && y <= element.y + element.fontSize;
-            case 'line':
-                const dist = this.distanceToLine(x, y, element.x1, element.y1, element.x2, element.y2);
-                return dist <= 5;
+        // Setup asset cards for drag and drop
+        function setupAssetCards() {
+            const assetCards = document.querySelectorAll('.asset-card[draggable="true"]');
+            assetCards.forEach(card => {
+                card.addEventListener('dragstart', function(e) {
+                    const type = this.getAttribute('data-type');
+                    const data = this.getAttribute('data-src') || this.getAttribute('data-icon');
+                    
+                    e.dataTransfer.setData('elementType', type);
+                    e.dataTransfer.setData('elementData', data);
+                });
+                
+                card.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    const data = this.getAttribute('data-src') || this.getAttribute('data-icon');
+                    const name = this.querySelector('.asset-name').textContent;
+                    
+                    addElementToCanvas(type, data, 200, 200, { layerName: name });
+                });
+            });
         }
-        return false;
-    }
 
-    distanceToLine(px, py, x1, y1, x2, y2) {
-        const A = py - y1;
-        const B = x1 - px;
-        const C = x2 - x1;
-        const D = y2 - y1;
-        
-        const dot = A * C + B * D;
-        const lenSq = C * C + D * D;
-        let param = -1;
-        
-        if (lenSq !== 0) {
-            param = dot / lenSq;
-        }
-        
-        let xx, yy;
-        
-        if (param < 0) {
-            xx = x1;
-            yy = y1;
-        } else if (param > 1) {
-            xx = x2;
-            yy = y2;
-        } else {
-            xx = x1 + param * C;
-            yy = y1 + param * D;
-        }
-        
-        const dx = px - xx;
-        const dy = py - yy;
-        
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-
-    // Rendering
-    render() {
-        const { ctx, canvas } = this.elements;
-        
-        // Clear canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Draw background
-        ctx.fillStyle = this.state.canvas.backgroundColor;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Draw grid
-        if (this.state.canvas.grid.enabled) {
-            this.drawGrid();
-        }
-        
-        // Draw elements
-        this.state.elements.forEach((element, index) => {
-            if (element.visible) {
-                this.drawElement(element, index === this.state.selectedElement);
-            }
-        });
-        
-        // Draw selection box
-        if (this.state.selectedElement !== null) {
-            this.drawSelectionBox();
-        }
-    }
-
-    drawGrid() {
-        const { ctx, canvas } = this.elements;
-        const { size, color } = this.state.canvas.grid;
-        
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1;
-        
-        // Vertical lines
-        for (let x = 0; x < canvas.width; x += size) {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, canvas.height);
-            ctx.stroke();
-        }
-        
-        // Horizontal lines
-        for (let y = 0; y < canvas.height; y += size) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvas.width, y);
-            ctx.stroke();
-        }
-    }
-
-    drawElement(element, selected = false) {
-        const { ctx } = this.elements;
-        
-        ctx.save();
-        
-        // Apply rotation
-        if (element.rotation) {
-            ctx.translate(element.x + (element.width || 0) / 2, element.y + (element.height || 0) / 2);
-            ctx.rotate(element.rotation * Math.PI / 180);
-            ctx.translate(-(element.x + (element.width || 0) / 2), -(element.y + (element.height || 0) / 2));
-        }
-        
-        // Apply opacity
-        if (element.opacity !== 1) {
-            ctx.globalAlpha = element.opacity;
-        }
-        
-        switch (element.type) {
-            case 'rectangle':
-                this.drawRectangle(element);
-                break;
-            case 'circle':
-                this.drawCircle(element);
-                break;
-            case 'text':
-                this.drawText(element);
-                break;
-            case 'line':
-                this.drawLine(element);
-                break;
-            case 'image':
-                this.drawImage(element);
-                break;
-        }
-        
-        // Draw selection outline
-        if (selected) {
-            this.drawSelectionOutline(element);
-        }
-        
-        ctx.restore();
-    }
-
-    drawRectangle(element) {
-        const { ctx } = this.elements;
-        
-        // Fill
-        ctx.fillStyle = element.fill;
-        ctx.fillRect(element.x, element.y, element.width, element.height);
-        
-        // Stroke
-        if (element.strokeWidth > 0) {
-            ctx.lineWidth = element.strokeWidth;
-            ctx.strokeStyle = element.stroke;
-            ctx.strokeRect(element.x, element.y, element.width, element.height);
-        }
-    }
-
-    drawCircle(element) {
-        const { ctx } = this.elements;
-        
-        ctx.beginPath();
-        ctx.arc(element.x, element.y, element.radius, 0, Math.PI * 2);
-        
-        // Fill
-        ctx.fillStyle = element.fill;
-        ctx.fill();
-        
-        // Stroke
-        if (element.strokeWidth > 0) {
-            ctx.lineWidth = element.strokeWidth;
-            ctx.strokeStyle = element.stroke;
-            ctx.stroke();
-        }
-    }
-
-    drawText(element) {
-        const { ctx } = this.elements;
-        
-        ctx.font = `${element.fontSize}px ${element.fontFamily}`;
-        ctx.fillStyle = element.fill;
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'top';
-        ctx.fillText(element.text, element.x, element.y);
-    }
-
-    drawLine(element) {
-        const { ctx } = this.elements;
-        
-        ctx.lineWidth = element.strokeWidth;
-        ctx.strokeStyle = element.stroke;
-        ctx.beginPath();
-        ctx.moveTo(element.x1, element.y1);
-        ctx.lineTo(element.x2, element.y2);
-        ctx.stroke();
-    }
-
-    drawImage(element) {
-        const { ctx } = this.elements;
-        
-        if (element.image) {
-            ctx.drawImage(element.image, element.x, element.y, element.width, element.height);
-        }
-    }
-
-    drawSelectionOutline(element) {
-        const { ctx } = this.elements;
-        
-        ctx.strokeStyle = '#4CAF50';
-        ctx.lineWidth = 2;
-        ctx.setLineDash([5, 5]);
-        
-        switch (element.type) {
-            case 'rectangle':
-                ctx.strokeRect(element.x - 5, element.y - 5, element.width + 10, element.height + 10);
-                break;
-            case 'circle':
-                ctx.beginPath();
-                ctx.arc(element.x, element.y, element.radius + 5, 0, Math.PI * 2);
-                ctx.stroke();
-                break;
-            case 'text':
-                ctx.font = `${element.fontSize}px ${element.fontFamily}`;
-                const metrics = ctx.measureText(element.text);
-                ctx.strokeRect(element.x - 5, element.y - 5, metrics.width + 10, element.fontSize + 10);
-                break;
-        }
-        
-        ctx.setLineDash([]);
-    }
-
-    drawSelectionBox() {
-        // Implementation for selection box with resize handles
-        // This would be more complex with proper handle positioning
-    }
-
-    // Zoom and Pan
-    zoomIn() {
-        this.state.canvas.zoom = Math.min(3, this.state.canvas.zoom + 0.1);
-        this.updateZoom();
-    }
-
-    zoomOut() {
-        this.state.canvas.zoom = Math.max(0.1, this.state.canvas.zoom - 0.1);
-        this.updateZoom();
-    }
-
-    resetZoom() {
-        this.state.canvas.zoom = 1;
-        this.updateZoom();
-    }
-
-    updateZoom() {
-        this.elements.canvasWrapper.style.transform = `scale(${this.state.canvas.zoom})`;
-        this.elements.zoomDisplay.textContent = `${Math.round(this.state.canvas.zoom * 100)}%`;
-    }
-
-    // Grid and Rulers
-    toggleGrid() {
-        this.state.canvas.grid.enabled = !this.state.canvas.grid.enabled;
-        document.getElementById('gridToggle').classList.toggle('active', this.state.canvas.grid.enabled);
-        this.render();
-        this.updateStatus(`Grid ${this.state.canvas.grid.enabled ? 'enabled' : 'disabled'}`);
-    }
-
-    toggleRulers() {
-        this.state.canvas.rulers.enabled = !this.state.canvas.rulers.enabled;
-        document.getElementById('rulersToggle').classList.toggle('active', this.state.canvas.rulers.enabled);
-        
-        const rulers = ['rulerH', 'rulerV'];
-        rulers.forEach(rulerId => {
-            const ruler = document.getElementById(rulerId);
-            ruler.classList.toggle('rulers-active', this.state.canvas.rulers.enabled);
-        });
-        
-        this.updateStatus(`Rulers ${this.state.canvas.rulers.enabled ? 'enabled' : 'disabled'}`);
-    }
-
-    // Properties Panel
-    updatePropertiesPanel() {
-        const element = this.state.elements[this.state.selectedElement];
-        if (!element) return;
-        
-        // Update color inputs
-        if (element.fill) {
-            document.getElementById('fillColor').value = element.fill;
-            document.getElementById('fillColorPreview').style.background = element.fill;
-        }
-        
-        if (element.stroke) {
-            document.getElementById('strokeColor').value = element.stroke;
-            document.getElementById('strokeColorPreview').style.background = element.stroke;
-        }
-        
-        if (element.strokeWidth !== undefined) {
-            document.getElementById('strokeWidth').value = element.strokeWidth;
-            document.getElementById('strokeWidthValue').textContent = `${element.strokeWidth}px`;
-        }
-        
-        // Update text properties
-        if (element.type === 'text') {
-            document.getElementById('textContent').value = element.text;
-            document.getElementById('fontSize').value = element.fontSize;
-            document.getElementById('fontSizeValue').textContent = `${element.fontSize}px`;
-            document.getElementById('fontFamily').value = element.fontFamily;
+        // Element Creation
+        function addElementToCanvas(type, data, x = 100, y = 100, options = {}) {
+            const canvas = document.getElementById('canvas');
+            let newElement;
+            let elementId = layers.length + 1;
             
-            // Show text properties
-            document.getElementById('textProperties').style.display = 'block';
-        } else {
-            // Hide text properties
-            document.getElementById('textProperties').style.display = 'none';
-        }
-    }
-
-    updateStrokeWidth(value) {
-        document.getElementById('strokeWidthValue').textContent = `${value}px`;
-        
-        const element = this.state.elements[this.state.selectedElement];
-        if (element && element.strokeWidth !== undefined) {
-            element.strokeWidth = parseInt(value);
-            this.render();
-        }
-    }
-
-    updateFontSize(value) {
-        document.getElementById('fontSizeValue').textContent = `${value}px`;
-        
-        const element = this.state.elements[this.state.selectedElement];
-        if (element && element.type === 'text') {
-            element.fontSize = parseInt(value);
-            this.render();
-        }
-    }
-
-    updateTextContent(value) {
-        const element = this.state.elements[this.state.selectedElement];
-        if (element && element.type === 'text') {
-            element.text = value;
-            this.render();
-        }
-    }
-
-    updateFontFamily(value) {
-        const element = this.state.elements[this.state.selectedElement];
-        if (element && element.type === 'text') {
-            element.fontFamily = value;
-            this.render();
-        }
-    }
-
-    // Layers Management
-    updateLayersList() {
-        const layersList = document.getElementById('layersList');
-        if (!layersList) return;
-        
-        layersList.innerHTML = this.state.elements.map((element, index) => `
-            <div class="layer-item ${index === this.state.selectedElement ? 'selected' : ''}" 
-                 onclick="editor.selectElement(${index})">
-                <div class="layer-icon">
-                    <i class="fas fa-${this.getElementIcon(element.type)}"></i>
-                </div>
-                <div class="layer-info">
-                    <div class="layer-name">${element.name}</div>
-                    <div class="layer-type">${element.type.charAt(0).toUpperCase() + element.type.slice(1)}</div>
-                </div>
-                <div class="layer-controls-right">
-                    <button class="layer-btn" onclick="editor.toggleLayerVisibility(${index})" 
-                            title="${element.visible ? 'Hide' : 'Show'} layer">
-                        <i class="fas fa-${element.visible ? 'eye' : 'eye-slash'}"></i>
-                    </button>
-                    <button class="layer-btn" onclick="editor.deleteElement(${index})" 
-                            title="Delete layer">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-        `).reverse().join('');
-    }
-
-    getElementIcon(type) {
-        const icons = {
-            rectangle: 'square',
-            circle: 'circle',
-            triangle: 'play',
-            line: 'minus',
-            text: 'font',
-            image: 'image',
-            icon: 'icons'
-        };
-        return icons[type] || 'square';
-    }
-
-    toggleLayerVisibility(index) {
-        const element = this.state.elements[index];
-        if (element) {
-            element.visible = !element.visible;
-            this.updateLayersList();
-            this.render();
-        }
-    }
-
-    // History Management
-    saveState() {
-        const state = JSON.stringify({
-            elements: this.state.elements,
-            canvas: this.state.canvas
-        });
-        
-        // Remove future history if we're not at the end
-        if (this.state.history.index < this.state.history.stack.length - 1) {
-            this.state.history.stack = this.state.history.stack.slice(0, this.state.history.index + 1);
-        }
-        
-        // Add new state
-        this.state.history.stack.push(state);
-        this.state.history.index++;
-        
-        // Limit history size
-        if (this.state.history.stack.length > this.state.history.maxSize) {
-            this.state.history.stack.shift();
-            this.state.history.index--;
-        }
-        
-        this.updateUndoRedoButtons();
-    }
-
-    undo() {
-        if (this.state.history.index > 0) {
-            this.state.history.index--;
-            this.loadState(this.state.history.stack[this.state.history.index]);
-            this.updateStatus('Undo performed');
-        }
-    }
-
-    redo() {
-        if (this.state.history.index < this.state.history.stack.length - 1) {
-            this.state.history.index++;
-            this.loadState(this.state.history.stack[this.state.history.index]);
-            this.updateStatus('Redo performed');
-        }
-    }
-
-    loadState(stateString) {
-        const state = JSON.parse(stateString);
-        this.state.elements = state.elements;
-        this.state.canvas = state.canvas;
-        this.state.selectedElement = null;
-        
-        this.updateCanvasSize();
-        this.updatePropertiesPanel();
-        this.updateLayersList();
-        this.render();
-    }
-
-    updateUndoRedoButtons() {
-        const undoBtn = document.getElementById('undoBtn');
-        const redoBtn = document.getElementById('redoBtn');
-        
-        undoBtn.disabled = this.state.history.index <= 0;
-        redoBtn.disabled = this.state.history.index >= this.state.history.stack.length - 1;
-    }
-
-    // Template Management
-    loadTemplate(templateType) {
-        // Clear existing elements
-        this.state.elements = [];
-        this.state.selectedElement = null;
-        
-        switch (templateType) {
-            case 'social':
-                this.setCanvasSize(1080, 1080);
-                this.setBackgroundColor('#4CAF50');
+            if (type === 'text') {
+                newElement = document.createElement('div');
+                newElement.className = 'canvas-element text-element';
+                newElement.style.left = x + 'px';
+                newElement.style.top = y + 'px';
+                newElement.style.fontSize = (options.fontSize || 24) + 'px';
+                newElement.style.color = options.color || '#1A0A33';
+                newElement.style.fontFamily = options.fontFamily || 'Arial';
+                newElement.style.fontWeight = options.fontWeight || 'normal';
+                newElement.textContent = data || 'New Text';
+                newElement.dataset.elementId = elementId;
                 
-                this.addElement({
-                    type: 'text',
-                    x: 540,
-                    y: 400,
-                    text: 'SOCIAL MEDIA',
-                    fontSize: 80,
-                    fontFamily: 'Arial',
-                    fill: '#FFFFFF',
-                    name: 'Title'
+                // Double-click to edit
+                newElement.addEventListener('dblclick', function() {
+                    this.contentEditable = true;
+                    this.focus();
                 });
                 
-                this.addElement({
-                    type: 'circle',
-                    x: 540,
-                    y: 700,
-                    radius: 60,
-                    fill: '#FF9800',
-                    stroke: '#FFFFFF',
-                    strokeWidth: 5,
-                    name: 'Icon Circle'
-                });
-                break;
-                
-            case 'presentation':
-                this.setCanvasSize(1920, 1080);
-                this.setBackgroundColor('#FFFFFF');
-                
-                this.addElement({
-                    type: 'rectangle',
-                    x: 0,
-                    y: 0,
-                    width: 1920,
-                    height: 200,
-                    fill: '#1A0A33',
-                    name: 'Header'
-                });
-                
-                this.addElement({
-                    type: 'text',
-                    x: 100,
-                    y: 80,
-                    text: 'Presentation Title',
-                    fontSize: 60,
-                    fontFamily: 'Arial',
-                    fill: '#FFFFFF',
-                    name: 'Title'
-                });
-                
-                this.addElement({
-                    type: 'rectangle',
-                    x: 100,
-                    y: 300,
-                    width: 400,
-                    height: 300,
-                    fill: '#4CAF50',
-                    stroke: '#1A0A33',
-                    strokeWidth: 2,
-                    name: 'Content Box 1'
-                });
-                
-                this.addElement({
-                    type: 'rectangle',
-                    x: 600,
-                    y: 300,
-                    width: 400,
-                    height: 300,
-                    fill: '#2196F3',
-                    stroke: '#1A0A33',
-                    strokeWidth: 2,
-                    name: 'Content Box 2'
-                });
-                break;
-                
-            case 'poster':
-                this.setCanvasSize(794, 1123); // A4 size in pixels at 72 DPI
-                this.setBackgroundColor('#FFFFFF');
-                
-                this.addElement({
-                    type: 'text',
-                    x: 397,
-                    y: 100,
-                    text: 'POSTER TITLE',
-                    fontSize: 72,
-                    fontFamily: 'Arial',
-                    fill: '#333333',
-                    name: 'Main Title'
-                });
-                
-                this.addElement({
-                    type: 'rectangle',
-                    x: 50,
-                    y: 200,
-                    width: 694,
-                    height: 400,
-                    fill: '#f0f0f0',
-                    stroke: '#cccccc',
-                    strokeWidth: 1,
-                    name: 'Main Content Area'
-                });
-                break;
-        }
-        
-        this.updateStatus(`"${templateType}" template loaded`);
-        this.showNotification(`${templateType.charAt(0).toUpperCase() + templateType.slice(1)} template loaded`, 'success');
-    }
-
-    // Export and Share
-    showExportModal() {
-        document.getElementById('exportModal').classList.add('active');
-    }
-
-    showShareModal() {
-        document.getElementById('shareModal').classList.add('active');
-    }
-
-    closeModal(modalId) {
-        document.getElementById(modalId).classList.remove('active');
-    }
-
-    exportDesign() {
-        const format = document.querySelector('input[name="exportFormat"]:checked').value;
-        const quality = parseFloat(document.getElementById('exportQuality').value);
-        const scale = parseInt(document.getElementById('exportScale').value);
-        
-        // Create export canvas
-        const exportCanvas = document.createElement('canvas');
-        const exportCtx = exportCanvas.getContext('2d');
-        
-        exportCanvas.width = this.state.canvas.width * scale;
-        exportCanvas.height = this.state.canvas.height * scale;
-        
-        // Scale context
-        exportCtx.scale(scale, scale);
-        
-        // Draw background
-        exportCtx.fillStyle = this.state.canvas.backgroundColor;
-        exportCtx.fillRect(0, 0, this.state.canvas.width, this.state.canvas.height);
-        
-        // Draw elements
-        this.state.elements.forEach(element => {
-            if (element.visible) {
-                this.drawElementOnCanvas(element, exportCtx);
-            }
-        });
-        
-        // Download
-        let mimeType, extension;
-        switch (format) {
-            case 'jpg':
-                mimeType = 'image/jpeg';
-                extension = 'jpg';
-                break;
-            case 'png':
-            default:
-                mimeType = 'image/png';
-                extension = 'png';
-                break;
-        }
-        
-        exportCanvas.toBlob((blob) => {
-            const link = document.createElement('a');
-            link.download = `ezy-draw-design.${extension}`;
-            link.href = URL.createObjectURL(blob);
-            link.click();
-            
-            this.closeModal('exportModal');
-            this.showNotification('Design exported successfully', 'success');
-        }, mimeType, quality);
-    }
-
-    drawElementOnCanvas(element, ctx) {
-        // Similar to drawElement but with custom context
-        // Implementation would be similar to the main drawElement method
-    }
-
-    togglePreview() {
-        // Toggle preview mode
-        const isPreview = document.getElementById('previewBtn').classList.contains('active');
-        
-        if (isPreview) {
-            // Exit preview
-            document.getElementById('previewBtn').classList.remove('active');
-            this.elements.leftSidebar.style.display = 'flex';
-            this.elements.rightSidebar.style.display = 'flex';
-            this.updateStatus('Preview mode disabled');
-        } else {
-            // Enter preview
-            document.getElementById('previewBtn').classList.add('active');
-            this.elements.leftSidebar.style.display = 'none';
-            this.elements.rightSidebar.style.display = 'none';
-            this.updateStatus('Preview mode enabled');
-        }
-    }
-
-    // Sidebar Management
-    toggleLeftSidebar() {
-        this.elements.leftSidebar.classList.toggle('active');
-    }
-
-    toggleRightSidebar() {
-        this.elements.rightSidebar.classList.toggle('active');
-    }
-
-    // Keyboard Shortcuts
-    handleKeyDown(e) {
-        // Ctrl/Cmd key combinations
-        if (e.ctrlKey || e.metaKey) {
-            switch (e.key) {
-                case 'z':
-                    e.preventDefault();
-                    if (e.shiftKey) {
-                        this.redo();
-                    } else {
-                        this.undo();
+                newElement.addEventListener('blur', function() {
+                    this.contentEditable = false;
+                    document.getElementById('textContent').value = this.textContent;
+                    
+                    // Update layer name
+                    const layer = layers.find(l => l.element === this);
+                    if (layer && this.textContent.length > 0) {
+                        layer.name = this.textContent.substring(0, 20) + (this.textContent.length > 20 ? '...' : '');
+                        updateLayersList();
                     }
-                    break;
-                case 'y':
-                    e.preventDefault();
-                    this.redo();
-                    break;
-                case 's':
-                    e.preventDefault();
-                    this.exportDesign();
-                    break;
-                case 'a':
-                    e.preventDefault();
-                    // Select all
-                    break;
+                });
             }
-        }
-        
-        // Other shortcuts
-        switch (e.key) {
-            case 'Delete':
-            case 'Backspace':
-                if (this.state.selectedElement !== null) {
-                    this.deleteElement(this.state.selectedElement);
+            else if (type === 'shape') {
+                newElement = document.createElement('div');
+                newElement.className = 'canvas-element shape-element';
+                newElement.style.left = x + 'px';
+                newElement.style.top = y + 'px';
+                newElement.style.width = (options.width || 100) + 'px';
+                newElement.style.height = (options.height || 100) + 'px';
+                newElement.dataset.elementId = elementId;
+                
+                if (data === 'rectangle') {
+                    newElement.style.borderRadius = options.borderRadius || '8px';
+                    newElement.style.background = options.bgColor || 'linear-gradient(135deg, #4CAF50, #2196F3)';
                 }
-                break;
-            case 'Escape':
-                this.state.selectedElement = null;
-                this.render();
-                break;
-        }
-    }
-
-    // Utility Functions
-    isDrawingTool() {
-        return ['rectangle', 'circle', 'line', 'text'].includes(this.state.currentTool);
-    }
-
-    updateStatus(message) {
-        this.elements.statusText.textContent = message;
-    }
-
-    showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        notification.innerHTML = `
-            <i class="fas fa-${type === 'success' ? 'check-circle' : 
-                          type === 'error' ? 'exclamation-circle' : 
-                          type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
-            <div class="notification-message">${message}</div>
-            <button class="notification-close" onclick="this.parentElement.remove()">
-                <i class="fas fa-times"></i>
-            </button>
-        `;
-        
-        this.elements.notificationContainer.appendChild(notification);
-        
-        // Auto remove after 5 seconds
-        setTimeout(() => {
-            if (notification.parentElement) {
-                notification.remove();
             }
-        }, 5000);
-    }
+            else if (type === 'image' || type === 'icon') {
+                newElement = document.createElement('div');
+                newElement.className = 'canvas-element';
+                newElement.style.left = x + 'px';
+                newElement.style.top = y + 'px';
+                newElement.style.width = '100px';
+                newElement.style.height = '100px';
+                newElement.style.background = 'linear-gradient(135deg, #4CAF50, #2196F3)';
+                newElement.style.borderRadius = '8px';
+                newElement.style.display = 'flex';
+                newElement.style.alignItems = 'center';
+                newElement.style.justifyContent = 'center';
+                newElement.dataset.elementId = elementId;
+                
+                const icon = document.createElement('i');
+                icon.className = type === 'icon' ? `fas fa-${data}` : 'fas fa-image';
+                icon.style.color = 'white';
+                icon.style.fontSize = '40px';
+                newElement.appendChild(icon);
+            }
+            
+            // Add click listener
+            newElement.addEventListener('mousedown', function(e) {
+                e.stopPropagation();
+                selectElement(this);
+                
+                if (!e.target.classList.contains('fa-arrows-alt')) {
+                    startDrag(this, e);
+                }
+            });
+            
+            canvas.appendChild(newElement);
+            
+            // Add to layers
+            const layerName = options.layerName || `${type} ${elementId}`;
+            layers.push({
+                id: elementId,
+                name: layerName,
+                type: type,
+                visible: true,
+                element: newElement
+            });
+            
+            selectElement(newElement);
+            updateLayersList();
+            updateElementCount();
+            showToast('Element added to canvas');
+        }
 
-    handleResize() {
-        // Handle window resize
-        this.render();
-    }
-}
+        // Element Selection
+        function selectElement(element) {
+            // Remove selection from all elements
+            document.querySelectorAll('.canvas-element').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Remove selection from all layers
+            document.querySelectorAll('.layer-item').forEach(layer => {
+                layer.classList.remove('selected');
+            });
+            
+            // Update selectedElement
+            selectedElement = element;
+            
+            if (element) {
+                element.classList.add('selected');
+                updatePropertyPanel(element);
+                updateStatusBar(element);
+                
+                // Select corresponding layer
+                const layer = layers.find(l => l.element === element);
+                if (layer) {
+                    const layerItem = document.querySelector(`.layer-item[data-id="${layer.id}"]`);
+                    if (layerItem) {
+                        layerItem.classList.add('selected');
+                    }
+                }
+            } else {
+                clearPropertyPanel();
+            }
+        }
 
-// Initialize the editor
-let editor;
+        function updatePropertyPanel(element) {
+            if (element.classList.contains('text-element')) {
+                document.getElementById('textContent').value = element.textContent;
+                const fontSize = parseInt(element.style.fontSize) || 24;
+                document.getElementById('fontSize').value = fontSize;
+                document.getElementById('fontSizeValue').textContent = fontSize + 'px';
+                
+                // Update position sliders
+                const left = parseInt(element.style.left) || 100;
+                const top = parseInt(element.style.top) || 100;
+                document.getElementById('posX').value = left;
+                document.getElementById('posY').value = top;
+                document.getElementById('posXValue').textContent = left + 'px';
+                document.getElementById('posYValue').textContent = top + 'px';
+                
+                // Update layer name
+                const layer = layers.find(l => l.element === element);
+                if (layer) {
+                    document.getElementById('layerName').value = layer.name;
+                }
+                
+                // Update color preview
+                const color = element.style.color || '#1A0A33';
+                document.getElementById('colorPreview').style.background = color;
+            } else if (element.classList.contains('shape-element')) {
+                // Update shape properties
+                const width = parseInt(element.style.width) || 100;
+                const height = parseInt(element.style.height) || 100;
+                document.getElementById('shapeWidth').value = width;
+                document.getElementById('shapeHeight').value = height;
+                
+                const left = parseInt(element.style.left) || 100;
+                const top = parseInt(element.style.top) || 100;
+                document.getElementById('posX').value = left;
+                document.getElementById('posY').value = top;
+                document.getElementById('posXValue').textContent = left + 'px';
+                document.getElementById('posYValue').textContent = top + 'px';
+                
+                // Update layer name
+                const layer = layers.find(l => l.element === element);
+                if (layer) {
+                    document.getElementById('layerName').value = layer.name;
+                }
+            }
+        }
 
-document.addEventListener('DOMContentLoaded', () => {
-    editor = new EzyDrawEditor();
-});
+        function clearPropertyPanel() {
+            document.getElementById('textContent').value = '';
+            document.getElementById('selectedElement').textContent = 'Selected: None';
+        }
 
-// Global functions for HTML onclick handlers
-window.editor = editor;
+        function updateStatusBar(element) {
+            const elementType = element.classList.contains('text-element') ? 'Text Element' :
+                               element.classList.contains('shape-element') ? 'Shape Element' : 'Element';
+            document.getElementById('selectedElement').textContent = `Selected: ${elementType}`;
+        }
+
+        function updateElementCount() {
+            document.getElementById('elementCount').textContent = `Elements: ${layers.length}`;
+        }
+
+        // Update layers list
+        function updateLayersList() {
+            const layersList = document.getElementById('layersList');
+            layersList.innerHTML = '';
+            
+            // Sort layers by their position in DOM (z-index)
+            const sortedLayers = [...layers].reverse();
+            
+            sortedLayers.forEach(layer => {
+                const layerItem = document.createElement('div');
+                layerItem.className = `layer-item ${layer.visible ? '' : 'hidden'} ${layer.type === 'text' ? 'layer-text' : 'layer-shape'}`;
+                layerItem.dataset.id = layer.id;
+                
+                layerItem.innerHTML = `
+                    <div class="layer-icon">
+                        <i class="fas fa-${layer.type === 'text' ? 'font' : layer.type === 'shape' ? 'square' : 'image'}"></i>
+                    </div>
+                    <div class="layer-info">
+                        <div class="layer-name">${layer.name}</div>
+                        <div class="layer-type">${layer.type.charAt(0).toUpperCase() + layer.type.slice(1)}</div>
+                    </div>
+                    <button class="layer-visibility" onclick="toggleLayerVisibility(${layer.id}, event)">
+                        <i class="fas fa-${layer.visible ? 'eye' : 'eye-slash'}"></i>
+                    </button>
+                `;
+                
+                layerItem.addEventListener('click', () => {
+                    selectElement(layer.element);
+                });
+                
+                layersList.appendChild(layerItem);
+            });
+        }
+
+        // PERBAIKAN: Panel Management
+        function togglePanel(panelName) {
+            const leftPanel = document.getElementById('leftPanel');
+            const panel = document.getElementById(panelName + 'Panel');
+            
+            // If clicking the same panel, close it
+            if (currentPanel === panelName) {
+                closePanel();
+                return;
+            }
+            
+            // Hide all panels
+            document.querySelectorAll('.panel-content').forEach(p => {
+                p.classList.add('hidden');
+            });
+            
+            // Show selected panel
+            panel.classList.remove('hidden');
+            
+            // Show left panel if it's collapsed
+            leftPanel.classList.remove('panel-collapsed');
+            
+            // Update current panel
+            currentPanel = panelName;
+            
+            // Update tombol navigasi aktif
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Aktifkan tombol yang sesuai dengan panel yang dibuka
+            const activeBtn = document.querySelector(`.nav-btn[title="${panelName.charAt(0).toUpperCase() + panelName.slice(1)}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+
+        // PERBAIKAN: Fungsi closePanel
+        function closePanel() {
+            const leftPanel = document.getElementById('leftPanel');
+            leftPanel.classList.add('panel-collapsed');
+            currentPanel = null;
+            
+            // Reset semua tombol navigasi
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Aktifkan tombol home
+            const homeBtn = document.querySelector('.nav-btn[title="Dashboard"]');
+            if (homeBtn) {
+                homeBtn.classList.add('active');
+            }
+        }
+
+        // Tool Selection
+        function selectTool(tool) {
+            // Remove active from all tool buttons
+            document.querySelectorAll('.tool-btn-top').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active to clicked tool
+            event.currentTarget.classList.add('active');
+            
+            showToast(`${tool.charAt(0).toUpperCase() + tool.slice(1)} tool selected`);
+        }
+
+        // Alignment Functions
+        function alignElements(alignment) {
+            if (!selectedElement) {
+                showToast('Select an element first');
+                return;
+            }
+            
+            const canvas = document.getElementById('canvas');
+            const canvasWidth = canvas.clientWidth;
+            
+            switch(alignment) {
+                case 'left':
+                    selectedElement.style.left = '20px';
+                    break;
+                case 'center':
+                    const elementWidth = selectedElement.offsetWidth;
+                    selectedElement.style.left = (canvasWidth / 2 - elementWidth / 2) + 'px';
+                    break;
+                case 'right':
+                    const elementWidthRight = selectedElement.offsetWidth;
+                    selectedElement.style.left = (canvasWidth - elementWidthRight - 20) + 'px';
+                    break;
+            }
+            
+            showToast(`Aligned ${alignment}`);
+        }
+
+        function distributeElements(direction) {
+            const elements = document.querySelectorAll('.canvas-element');
+            if (elements.length < 2) {
+                showToast('Need at least 2 elements to distribute');
+                return;
+            }
+            
+            // Simple distribution simulation
+            showToast(`Distributed elements ${direction}ly`);
+        }
+
+        // Margin and Spacing Controls
+        function updateCanvasMargin() {
+            const margin = document.getElementById('marginTop').value;
+            const canvas = document.getElementById('canvas');
+            canvas.style.margin = margin + 'px';
+            showToast(`Canvas margin updated to ${margin}px`);
+        }
+
+        function updateElementSpacing() {
+            const spacing = document.getElementById('elementSpacing').value;
+            // In a real app, this would adjust spacing between selected elements
+            showToast(`Element spacing set to ${spacing}px`);
+        }
+
+        // Layer Functions
+        function toggleLayerVisibility(layerId, event) {
+            if (event) event.stopPropagation();
+            
+            const layer = layers.find(l => l.id === layerId);
+            if (layer) {
+                layer.visible = !layer.visible;
+                layer.element.style.display = layer.visible ? 'block' : 'none';
+                updateLayersList();
+                showToast(`Layer ${layer.visible ? 'shown' : 'hidden'}`);
+            }
+        }
+
+        // Font Functions
+        function selectFont(font) {
+            if (selectedElement && selectedElement.classList.contains('text-element')) {
+                selectedElement.style.fontFamily = font;
+                showToast(`Font changed to ${font}`);
+                
+                // Update font buttons
+                document.querySelectorAll('.font-option').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        // Color Functions
+        function selectColorFromWheel(event) {
+            // Simulated color selection
+            const colors = ['#1A0A33', '#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#E91E63'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.getElementById('colorPreview').style.background = randomColor;
+            
+            if (selectedElement && selectedElement.classList.contains('text-element')) {
+                selectedElement.style.color = randomColor;
+                showToast('Text color updated');
+            }
+        }
+
+        // Tool Functions
+        function undo() {
+            showToast('Undo action');
+        }
+
+        function redo() {
+            showToast('Redo action');
+        }
+
+        function deleteSelected() {
+            if (selectedElement) {
+                // Remove from layers
+                const layerIndex = layers.findIndex(l => l.element === selectedElement);
+                if (layerIndex !== -1) {
+                    layers.splice(layerIndex, 1);
+                }
+                
+                selectedElement.remove();
+                selectedElement = null;
+                clearPropertyPanel();
+                updateLayersList();
+                updateElementCount();
+                showToast('Element deleted');
+            } else {
+                showToast('No element selected');
+            }
+        }
+
+        // Offline Mode
+        function toggleOfflineMode() {
+            isOfflineMode = !isOfflineMode;
+            const btn = document.getElementById('offlineBtn');
+            
+            if (isOfflineMode) {
+                btn.innerHTML = '<i class="fas fa-wifi-slash"></i> Offline';
+                btn.classList.add('active');
+                showToast('Offline mode activated');
+            } else {
+                btn.innerHTML = '<i class="fas fa-wifi"></i> Online';
+                btn.classList.remove('active');
+                showToast('Online mode activated');
+            }
+        }
+
+        // Settings Functions
+        function showSettingsModal() {
+            document.getElementById('settingsModal').classList.add('active');
+        }
+
+        function selectLanguage(lang) {
+            // Remove selected from all language options
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected to clicked option
+            event.currentTarget.classList.add('selected');
+            
+            showToast(`Language changed to ${lang}`);
+        }
+
+        function selectTheme(theme) {
+            // Remove selected from all theme options
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected to clicked option
+            event.currentTarget.classList.add('selected');
+            
+            showToast(`Theme changed to ${theme}`);
+        }
+
+        function changePassword() {
+            showToast('Password change dialog would open here');
+        }
+
+        function exportUserData() {
+            showToast('Exporting user data...');
+        }
+
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                showToast('Account deletion initiated...');
+            }
+        }
+
+        function saveSettings() {
+            showToast('Settings saved successfully!');
+            closeModal('settingsModal');
+        }
+
+        // Modal Functions
+        function showExportModal() {
+            document.getElementById('exportModal').classList.add('active');
+        }
+
+        function showShareModal() {
+            document.getElementById('shareModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function selectFormat(element) {
+            // Remove selected from all format options
+            document.querySelectorAll('.format-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected to clicked option
+            element.classList.add('selected');
+            selectedFormat = element.getAttribute('data-format');
+        }
+
+        // Export Functions (Simulasi)
+        function startExport() {
+            if (isExporting) return;
+            
+            isExporting = true;
+            document.getElementById('exportBtn').disabled = true;
+            document.getElementById('exportProgress').classList.remove('hidden');
+            
+            // Simulate export process
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 10;
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('progressText').textContent = 
+                    progress < 100 ? `Exporting ${selectedFormat.toUpperCase()}... ${progress}%` : 'Finishing up...';
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    setTimeout(() => {
+                        document.getElementById('exportProgress').classList.add('hidden');
+                        document.getElementById('exportSuccess').classList.remove('hidden');
+                        document.getElementById('exportBtn').textContent = 'Done';
+                        document.getElementById('exportBtn').disabled = false;
+                        document.getElementById('exportBtn').onclick = function() {
+                            closeModal('exportModal');
+                            showToast(`Design exported as ${selectedFormat.toUpperCase()} successfully!`);
+                        };
+                        isExporting = false;
+                    }, 500);
+                }
+            }, 200);
+        }
+
+        // Share Functions (Simulasi)
+        function shareViaWhatsApp() {
+            showToast('Opening WhatsApp to share design...');
+            
+            setTimeout(() => {
+                showToast('Design shared via WhatsApp!');
+            }, 1000);
+        }
+
+        function copyShareLink() {
+            const linkInput = document.getElementById('shareLink');
+            linkInput.select();
+            linkInput.setSelectionRange(0, 99999);
+            
+            try {
+                navigator.clipboard.writeText(linkInput.value).then(() => {
+                    document.getElementById('shareSuccess').classList.remove('hidden');
+                    showToast('Collaboration link copied to clipboard!');
+                });
+            } catch (err) {
+                document.execCommand('copy');
+                document.getElementById('shareSuccess').classList.remove('hidden');
+                showToast('Collaboration link copied to clipboard!');
+            }
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Drag and Drop for Canvas
+        function setupCanvasDragAndDrop() {
+            const canvas = document.getElementById('canvas');
+            
+            // Allow drop
+            canvas.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+            
+            // Handle drop
+            canvas.addEventListener('drop', function(e) {
+                e.preventDefault();
+                const elementType = e.dataTransfer.getData('elementType');
+                const elementData = e.dataTransfer.getData('elementData');
+                
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                addElementToCanvas(elementType, elementData, x, y);
+            });
+            
+            // Mouse events for dragging elements
+            canvas.addEventListener('mousedown', handleCanvasMouseDown);
+            canvas.addEventListener('mousemove', handleCanvasMouseMove);
+            canvas.addEventListener('mouseup', handleCanvasMouseUp);
+            
+            // Update mouse coordinates
+            canvas.addEventListener('mousemove', function(e) {
+                const rect = canvas.getBoundingClientRect();
+                const x = Math.round(e.clientX - rect.left);
+                const y = Math.round(e.clientY - rect.top);
+                document.getElementById('mouseCoords').textContent = `X: ${x}, Y: ${y}`;
+            });
+        }
+
+        function handleCanvasMouseDown(e) {
+            if (e.target.classList.contains('canvas-element') || 
+                e.target.closest('.canvas-element')) {
+                const element = e.target.classList.contains('canvas-element') 
+                    ? e.target 
+                    : e.target.closest('.canvas-element');
+                
+                e.stopPropagation();
+                selectElement(element);
+                
+                if (!e.target.classList.contains('fa-arrows-alt')) {
+                    startDrag(element, e);
+                }
+            } else {
+                selectElement(null);
+            }
+        }
+
+        function handleCanvasMouseMove(e) {
+            if (!isDragging || !selectedElement) return;
+            
+            const canvas = document.getElementById('canvas');
+            const rect = canvas.getBoundingClientRect();
+            
+            const x = e.clientX - rect.left - dragOffset.x;
+            const y = e.clientY - rect.top - dragOffset.y;
+            
+            const maxX = canvas.clientWidth - selectedElement.offsetWidth;
+            const maxY = canvas.clientHeight - selectedElement.offsetHeight;
+            
+            selectedElement.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
+            selectedElement.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
+            
+            // Update position sliders
+            const left = parseInt(selectedElement.style.left) || 100;
+            const top = parseInt(selectedElement.style.top) || 100;
+            document.getElementById('posX').value = left;
+            document.getElementById('posY').value = top;
+            document.getElementById('posXValue').textContent = left + 'px';
+            document.getElementById('posYValue').textContent = top + 'px';
+        }
+
+        function handleCanvasMouseUp() {
+            isDragging = false;
+            document.body.style.cursor = 'default';
+        }
+
+        function startDrag(element, e) {
+            isDragging = true;
+            
+            const rect = element.getBoundingClientRect();
+            const canvasRect = document.getElementById('canvas').getBoundingClientRect();
+            
+            dragOffset.x = e.clientX - rect.left;
+            dragOffset.y = e.clientY - rect.top;
+            
+            document.body.style.cursor = 'grabbing';
+        }

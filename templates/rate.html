@@ -13,53 +13,61 @@
     <aside class="sidebar">
         <div class="logo-container">
             <div class="logo-img-container">
-                <img src="../static/img/logo.png" alt="EzyDraw Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/45/4CAF50/FFFFFF?text=ED'">
+                <img src="logo.png" alt="EzyDraw Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/45/4CAF50/FFFFFF?text=ED'">
             </div>
             <div class="logo">
                 <span class="logo-text">Ezy</span><span class="logo-d">D</span><span class="logo-text">raw</span>
             </div>
         </div>
-        `   
-        <button class="btn-new-design">
+        
+        <!-- PERBAIKAN: Tambahkan onclick untuk navigasi ke editor -->
+        <button class="btn-new-design" onclick="window.location.href='design.html'">
             <i class="fas fa-plus-circle"></i> Buat Desain Baru
         </button>
         
         <div class="menu-group">
             <div class="menu-group-title">Alat Utama</div>
-            <div class="menu-item">
+            <!-- PERBAIKAN: Tambahkan onclick untuk navigasi -->
+            <div class="menu-item" onclick="window.location.href='dashboard.html'">
                 <i class="fas fa-tachometer-alt"></i> Dashboard
             </div>
-            <div class="menu-item">
+            <div class="menu-item" onclick="window.location.href='plugins.html'">
                 <i class="fas fa-puzzle-piece"></i> Plugin
             </div>
-            <div class="menu-item">
+            <div class="menu-item" onclick="window.location.href='templates.html'">
                 <i class="fas fa-th-large"></i> Templates
             </div>
-            <div class="menu-item">
+            <div class="menu-item" onclick="window.location.href='assets.html'">
                 <i class="fas fa-box-open"></i> Aset
             </div>
         </div>
         
         <div class="menu-group">
             <div class="menu-group-title">Komunitas</div>
-            <div class="menu-item">
+            <div class="menu-item" onclick="window.location.href='contributors.html'">
                 <i class="fas fa-users"></i> Contributors
             </div>
-            <div class="menu-item">
+            <div class="menu-item" onclick="window.location.href='ezylearn.html'">
                 <i class="fas fa-graduation-cap"></i> EzyLearn
             </div>
         </div>
         
         <div class="menu-group sidebar-footer">
             <div class="menu-group-title">Akun</div>
-            <div class="menu-item">
+            <div class="menu-item" onclick="window.location.href='profile.html'">
+                <i class="fas fa-info-circle"></i> Profile Saya
+            </div>
+            <div class="menu-item" onclick="window.location.href='about_us.html'">
                 <i class="fas fa-info-circle"></i> Tentang Kami
             </div>
             <div class="menu-item active">
                 <i class="fas fa-star" style="color: var(--accent-secondary);"></i> Rating EzyDraw
             </div>
-            <div class="menu-item">
+            <div class="menu-item" onclick="window.location.href='help.html'">
                 <i class="fas fa-question-circle"></i> Pusat Bantuan
+            </div>
+            <div class="menu-item" onclick="window.location.href='login.html'">
+                <i class="fas fa-question-circle"></i> Logout
             </div>
         </div>
     </aside>
@@ -704,6 +712,6 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="../static/js/rate.js"></script>
+    <script src="rate.js"></script>
 </body>
 </html>

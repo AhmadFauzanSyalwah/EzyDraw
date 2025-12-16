@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributors - EzyDraw</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/contributors.css">
+</head>
+<body>
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <div class="logo-img-container">
+                <img src="../static/img/logo.png" alt="EzyDraw Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/45/4CAF50/FFFFFF?text=ED'">
+            </div>
+            <div class="logo">
+                <span class="logo-text">Ezy</span><span class="logo-d">D</span><span class="logo-text">raw</span>
+            </div>
+        </div>
+        
+        <button class="btn-new-design" id="new-design-btn">
+            <i class="fas fa-plus-circle"></i> Buat Desain Baru
+        </button>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Alat Utama</div>
+            <a href="dashboard.html" class="menu-item">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="plugin.html" class="menu-item">
+                <i class="fas fa-puzzle-piece"></i> Plugin
+            </a>
+            <a href="templates.html" class="menu-item">
+                <i class="fas fa-th-large"></i> Templates
+            </a>
+            <a href="aset.html" class="menu-item">
+                <i class="fas fa-box-open"></i> Aset
+            </a>
+        </div>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Komunitas</div>
+            <a href="contributors.html" class="menu-item active">
+                <i class="fas fa-users"></i> Contributors
+            </a>
+            <a href="ezylearn.html" class="menu-item">
+                <i class="fas fa-graduation-cap"></i> EzyLearn
+            </a>
+        </div>
+        
+        <div class="menu-group sidebar-footer">
+            <div class="menu-group-title">Akun</div>
+            <a href="profile.html" class="menu-item">
+        <i class="fas fa-user-circle"></i> Profile Saya
+    </a>
+            <a href="tentang-kami.html" class="menu-item">
+                <i class="fas fa-info-circle"></i> Tentang Kami
+            </a>
+            <a href="rate.html" class="menu-item">
+                <i class="fas fa-star" style="color: var(--accent-secondary);"></i> Rating EzyDraw
+            </a>
+            <a href="pusat-bantuan.html" class="menu-item">
+                <i class="fas fa-question-circle"></i> Pusat Bantuan
+            </a>
+            <a href="login.html" class="menu-item">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </aside>
+    
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-container">
+        <main class="main-content">
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <div class="page-title-section">
+                    <h1 class="page-title">Contributors</h1>
+                    <p class="page-subtitle">Kreator di balik plugin, aset, dan template EzyDraw</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-header-action btn-join-contributor" id="open-registration-modal">
+                        <i class="fas fa-crown"></i> Jadi Contributor
+                    </button>
+                    <button class="btn-header-action btn-refresh" id="refresh-contributors">
+                        <i class="fas fa-sync-alt"></i> Segarkan
+                    </button>
+                </div>
+            </div>
+            
+            <!-- STATS BAR -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-icon" style="background-color: rgba(76, 175, 80, 0.2); color: var(--accent-primary);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>17</h3>
+                        <p>Total Contributors</p>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon" style="background-color: rgba(255, 152, 0, 0.2); color: var(--accent-secondary);">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>142</h3>
+                        <p>Plugin Terbuat</p>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon" style="background-color: rgba(33, 150, 243, 0.2); color: var(--accent-blue);">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>486</h3>
+                        <p>Aset Tersedia</p>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon" style="background-color: rgba(156, 39, 176, 0.2); color: var(--accent-purple);">
+                        <i class="fas fa-th-large"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>89</h3>
+                        <p>Template</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEARCH BAR -->
+            <div class="search-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-contributors" placeholder="Cari contributor berdasarkan nama, keahlian, atau lokasi...">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CONTRIBUTOR FILTERS -->
+            <div class="contributor-filters">
+                <div class="filter-tab active" data-filter="all">
+                    <i class="fas fa-users"></i>
+                    Semua
+                    <span class="filter-count">17</span>
+                </div>
+                <div class="filter-tab" data-filter="uiux">
+                    <i class="fas fa-palette"></i>
+                    UI/UX
+                    <span class="filter-count">6</span>
+                </div>
+                <div class="filter-tab" data-filter="illustrator">
+                    <i class="fas fa-paint-brush"></i>
+                    Illustrator
+                    <span class="filter-count">5</span>
+                </div>
+                <div class="filter-tab" data-filter="motion">
+                    <i class="fas fa-film"></i>
+                    Motion
+                    <span class="filter-count">4</span>
+                </div>
+                <div class="filter-tab" data-filter="verified">
+                    <i class="fas fa-check-circle"></i>
+                    Verified
+                    <span class="filter-count">9</span>
+                </div>
+                <div class="filter-tab" data-filter="pro">
+                    <i class="fas fa-crown"></i>
+                    Pro
+                    <span class="filter-count">7</span>
+                </div>
+            </div>
+            
+            <!-- CONTRIBUTORS GRID (17 CONTRIBUTORS) -->
+            <div class="contributors-grid" id="contributors-container">
+                <!-- Contributor 1 -->
+                <div class="contributor-card" data-category="uiux verified pro" data-id="1">
+                    <div class="contributor-header">
+                        <div class="contributor-avatar">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Alex Morgan">
+                        </div>
+                        <div class="contributor-info">
+                            <div class="contributor-name">
+                                Alex Morgan
+                                <i class="fas fa-check-circle" style="color: var(--accent-blue); font-size: 0.8rem;"></i>
+                            </div>
+                            <div class="contributor-role">UI/UX Designer</div>
+                            <div class="contributor-location">
+                                <i class="fas fa-map-marker-alt"></i> San Francisco
+                            </div>
+                            <div class="contributor-badges">
+                                <span class="contributor-badge">Top</span>
+                                <span class="contributor-badge">Pro</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-stats">
+                        <div class="contributor-stat">
+                            <span class="stat-value">142</span>
+                            <span class="stat-label">Plugin</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">89</span>
+                            <span class="stat-label">Template</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">4.9</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-skills">
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">UI Design</span>
+                        <span class="skill-tag">Prototyping</span>
+                    </div>
+                    
+                    <div class="contributor-actions">
+                        <button class="btn-follow" data-contributor-id="1">
+                            <i class="fas fa-user-plus"></i> Ikuti
+                        </button>
+                        <button class="btn-view-profile" data-contributor-id="1">
+                            <i class="fas fa-eye"></i> Lihat Profil
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Contributor 2 -->
+                <div class="contributor-card" data-category="illustrator verified pro" data-id="2">
+                    <div class="contributor-header">
+                        <div class="contributor-avatar">
+                            <img src="../static/img/Maya Rodriguez.jpg" alt="Maya Rodriguez">
+                        </div>
+                        <div class="contributor-info">
+                            <div class="contributor-name">
+                                Maya Rodriguez
+                                <i class="fas fa-check-circle" style="color: var(--accent-blue); font-size: 0.8rem;"></i>
+                            </div>
+                            <div class="contributor-role">Illustrator</div>
+                            <div class="contributor-location">
+                                <i class="fas fa-map-marker-alt"></i> Barcelona
+                            </div>
+                            <div class="contributor-badges">
+                                <span class="contributor-badge">Vector</span>
+                                <span class="contributor-badge">Pro</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-stats">
+                        <div class="contributor-stat">
+                            <span class="stat-value">76</span>
+                            <span class="stat-label">Aset</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">34</span>
+                            <span class="stat-label">Template</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">4.8</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-skills">
+                        <span class="skill-tag">Illustrator</span>
+                        <span class="skill-tag">Procreate</span>
+                        <span class="skill-tag">Vector</span>
+                    </div>
+                    
+                    <div class="contributor-actions">
+                        <button class="btn-follow" data-contributor-id="2">
+                            <i class="fas fa-user-plus"></i> Ikuti
+                        </button>
+                        <button class="btn-view-profile" data-contributor-id="2">
+                            <i class="fas fa-eye"></i> Lihat Profil
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Contributor 3 -->
+                <div class="contributor-card" data-category="motion pro" data-id="3">
+                    <div class="contributor-header">
+                        <div class="contributor-avatar">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Kenji Tanaka">
+                        </div>
+                        <div class="contributor-info">
+                            <div class="contributor-name">
+                                Kenji Tanaka
+                            </div>
+                            <div class="contributor-role">Motion Designer</div>
+                            <div class="contributor-location">
+                                <i class="fas fa-map-marker-alt"></i> Tokyo
+                            </div>
+                            <div class="contributor-badges">
+                                <span class="contributor-badge">Animation</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-stats">
+                        <div class="contributor-stat">
+                            <span class="stat-value">58</span>
+                            <span class="stat-label">Plugin</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">42</span>
+                            <span class="stat-label">Aset</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">4.7</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-skills">
+                        <span class="skill-tag">After Effects</span>
+                        <span class="skill-tag">Cinema 4D</span>
+                        <span class="skill-tag">Motion</span>
+                    </div>
+                    
+                    <div class="contributor-actions">
+                        <button class="btn-follow following" data-contributor-id="3">
+                            <i class="fas fa-check"></i> Diikuti
+                        </button>
+                        <button class="btn-view-profile" data-contributor-id="3">
+                            <i class="fas fa-eye"></i> Lihat Profil
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Contributor 4 -->
+                <div class="contributor-card" data-category="uiux verified" data-id="4">
+                    <div class="contributor-header">
+                        <div class="contributor-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="David Chen">
+                        </div>
+                        <div class="contributor-info">
+                            <div class="contributor-name">
+                                David Chen
+                                <i class="fas fa-check-circle" style="color: var(--accent-blue); font-size: 0.8rem;"></i>
+                            </div>
+                            <div class="contributor-role">Product Designer</div>
+                            <div class="contributor-location">
+                                <i class="fas fa-map-marker-alt"></i> New York
+                            </div>
+                            <div class="contributor-badges">
+                                <span class="contributor-badge">UX Expert</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-stats">
+                        <div class="contributor-stat">
+                            <span class="stat-value">45</span>
+                            <span class="stat-label">Plugin</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">28</span>
+                            <span class="stat-label">Template</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">4.8</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-skills">
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">UX Research</span>
+                        <span class="skill-tag">Wireframe</span>
+                    </div>
+                    
+                    <div class="contributor-actions">
+                        <button class="btn-follow" data-contributor-id="4">
+                            <i class="fas fa-user-plus"></i> Ikuti
+                        </button>
+                        <button class="btn-view-profile" data-contributor-id="4">
+                            <i class="fas fa-eye"></i> Lihat Profil
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Contributor 5 -->
+                <div class="contributor-card" data-category="illustrator" data-id="5">
+                    <div class="contributor-header">
+                        <div class="contributor-avatar">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Sophia Williams">
+                        </div>
+                        <div class="contributor-info">
+                            <div class="contributor-name">
+                                Sophia Williams
+                            </div>
+                            <div class="contributor-role">Graphic Designer</div>
+                            <div class="contributor-location">
+                                <i class="fas fa-map-marker-alt"></i> London
+                            </div>
+                            <div class="contributor-badges">
+                                <span class="contributor-badge">Branding</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-stats">
+                        <div class="contributor-stat">
+                            <span class="stat-value">62</span>
+                            <span class="stat-label">Aset</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">19</span>
+                            <span class="stat-label">Template</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">4.6</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-skills">
+                        <span class="skill-tag">Photoshop</span>
+                        <span class="skill-tag">Illustrator</span>
+                        <span class="skill-tag">Branding</span>
+                    </div>
+                    
+                    <div class="contributor-actions">
+                        <button class="btn-follow" data-contributor-id="5">
+                            <i class="fas fa-user-plus"></i> Ikuti
+                        </button>
+                        <button class="btn-view-profile" data-contributor-id="5">
+                            <i class="fas fa-eye"></i> Lihat Profil
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Sisa 12 contributor lainnya (singkat) -->
+                <div class="contributor-card" data-category="motion" data-id="6">
+                    <div class="contributor-header">
+                        <div class="contributor-avatar">
+                            <img src="../static/img/Marcus Lee.jpg" alt="Marcus Lee">
+                        </div>
+                        <div class="contributor-info">
+                            <div class="contributor-name">Marcus Lee</div>
+                            <div class="contributor-role">3D Artist</div>
+                            <div class="contributor-location">
+                                <i class="fas fa-map-marker-alt"></i> Seoul
+                            </div>
+                            <div class="contributor-badges">
+                                <span class="contributor-badge">3D</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-stats">
+                        <div class="contributor-stat">
+                            <span class="stat-value">38</span>
+                            <span class="stat-label">Aset</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">15</span>
+                            <span class="stat-label">Template</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">4.9</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-skills">
+                        <span class="skill-tag">Blender</span>
+                        <span class="skill-tag">3D Modeling</span>
+                        <span class="skill-tag">Rendering</span>
+                    </div>
+                    
+                    <div class="contributor-actions">
+                        <button class="btn-follow" data-contributor-id="6">
+                            <i class="fas fa-user-plus"></i> Ikuti
+                        </button>
+                        <button class="btn-view-profile" data-contributor-id="6">
+                            <i class="fas fa-eye"></i> Lihat Profil
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Contributor 7-17 (disingkat untuk hemat ruang) -->
+                <div class="contributor-card" data-category="uiux verified pro" data-id="7">
+                    <div class="contributor-header">
+                        <div class="contributor-avatar">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Emma Watson">
+                        </div>
+                        <div class="contributor-info">
+                            <div class="contributor-name">Emma Watson</div>
+                            <div class="contributor-role">UI Designer</div>
+                            <div class="contributor-location">
+                                <i class="fas fa-map-marker-alt"></i> Berlin
+                            </div>
+                            <div class="contributor-badges">
+                                <span class="contributor-badge">Mobile</span>
+                                <span class="contributor-badge">Pro</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-stats">
+                        <div class="contributor-stat">
+                            <span class="stat-value">71</span>
+                            <span class="stat-label">Plugin</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">32</span>
+                            <span class="stat-label">Template</span>
+                        </div>
+                        <div class="contributor-stat">
+                            <span class="stat-value">4.8</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contributor-skills">
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">Mobile UI</span>
+                        <span class="skill-tag">Design System</span>
+                    </div>
+                    
+                    <div class="contributor-actions">
+                        <button class="btn-follow" data-contributor-id="7">
+                            <i class="fas fa-user-plus"></i> Ikuti
+                        </button>
+                        <button class="btn-view-profile" data-contributor-id="7">
+                            <i class="fas fa-eye"></i> Lihat Profil
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 10 contributor lainnya... -->
+            </div>
+        </main>
+        
+        <!-- RIGHT SIDEBAR -->
+        <aside class="right-sidebar">
+            <!-- Top Contributors -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-trophy"></i> Top Contributors</h3>
+                <div class="top-contributors">
+                    <div class="top-contributor" data-contributor-id="1">
+                        <div class="contributor-rank gold">1</div>
+                        <div class="top-contributor-info">
+                            <h4>Alex Morgan</h4>
+                            <p>UI/UX Designer</p>
+                        </div>
+                        <div class="top-contributor-stats">
+                            <div class="top-contributor-stat">
+                                <div class="top-stat-value">142</div>
+                                <div class="top-stat-label">Plugin</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="top-contributor" data-contributor-id="2">
+                        <div class="contributor-rank silver">2</div>
+                        <div class="top-contributor-info">
+                            <h4>Maya Rodriguez</h4>
+                            <p>Illustrator</p>
+                        </div>
+                        <div class="top-contributor-stats">
+                            <div class="top-contributor-stat">
+                                <div class="top-stat-value">76</div>
+                                <div class="top-stat-label">Aset</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="top-contributor" data-contributor-id="3">
+                        <div class="contributor-rank bronze">3</div>
+                        <div class="top-contributor-info">
+                            <h4>Kenji Tanaka</h4>
+                            <p>Motion Designer</p>
+                        </div>
+                        <div class="top-contributor-stats">
+                            <div class="top-contributor-stat">
+                                <div class="top-stat-value">58</div>
+                                <div class="top-stat-label">Plugin</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Activity -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-bolt"></i> Aktivitas Terbaru</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Upload Plugin Baru</h4>
+                            <p>Alex Morgan mengupload "Neo UI Kit v2.0"</p>
+                            <div class="activity-time">2 jam yang lalu</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon update">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Update Template</h4>
+                            <p>Maya Rodriguez memperbarui "Vector Animals Pack"</p>
+                            <div class="activity-time">5 jam yang lalu</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon comment">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Komentar Baru</h4>
+                            <p>Kenji Tanaka memberi rating 5 bintang untuk "Modern UI Pack"</p>
+                            <div class="activity-time">1 hari yang lalu</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon follow">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Pengikut Baru</h4>
+                            <p>12 desainer baru mengikuti Maya Rodriguez</p>
+                            <div class="activity-time">2 hari yang lalu</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trending Skills -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-chart-line"></i> Keahlian Populer</h3>
+                <div class="trending-skills">
+                    <span class="trending-skill">
+                        <i class="fab fa-figma"></i> Figma
+                    </span>
+                    <span class="trending-skill">
+                        <i class="fas fa-paint-brush"></i> UI Design
+                    </span>
+                    <span class="trending-skill">
+                        <i class="fas fa-vector-square"></i> Illustration
+                    </span>
+                    <span class="trending-skill">
+                        <i class="fas fa-film"></i> Motion Graphics
+                    </span>
+                    <span class="trending-skill">
+                        <i class="fas fa-cube"></i> 3D Modeling
+                    </span>
+                    <span class="trending-skill">
+                        <i class="fas fa-mobile-alt"></i> Mobile Design
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Join as Contributor -->
+            <div class="sidebar-widget" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 152, 0, 0.1)); border: 1px solid rgba(255, 215, 0, 0.3);">
+                <h3><i class="fas fa-crown" style="color: var(--accent-gold);"></i> Jadi Contributor</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem;">
+                    Bergabung sebagai contributor dan mulai hasilkan pendapatan dari karya Anda.
+                </p>
+                <button class="btn-follow" id="open-registration-sidebar" style="background-color: var(--accent-gold); color: #000;">
+                    <i class="fas fa-crown"></i> Daftar Sekarang
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- MODAL PROFIL CONTRIBUTOR -->
+    <div class="profile-modal-overlay" id="profile-modal">
+        <div class="profile-modal">
+            <button class="close-btn" id="close-profile-modal">&times;</button>
+            
+            <div class="profile-modal-header">
+                <h3><i class="fas fa-user"></i> Profil Contributor</h3>
+            </div>
+            
+            <div class="profile-modal-body">
+                <div class="profile-main-info">
+                    <div class="profile-avatar-large">
+                        <img id="profile-avatar" src="" alt="Profile Avatar">
+                    </div>
+                    <div class="profile-details">
+                        <div class="profile-name" id="profile-name">
+                            <span></span>
+                            <i class="fas fa-check-circle" style="color: var(--accent-blue); font-size: 1.2rem;"></i>
+                        </div>
+                        <div class="profile-title" id="profile-title"></div>
+                        <div class="profile-location" id="profile-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span></span>
+                        </div>
+                        <div class="profile-badges" id="profile-badges">
+                            <!-- Badges akan diisi oleh JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <span class="profile-stat-value" id="profile-plugins">0</span>
+                        <span class="profile-stat-label">Plugin</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value" id="profile-assets">0</span>
+                        <span class="profile-stat-label">Aset</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value" id="profile-templates">0</span>
+                        <span class="profile-stat-label">Template</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value" id="profile-rating">0.0</span>
+                        <span class="profile-stat-label">Rating</span>
+                    </div>
+                </div>
+                
+                <div class="profile-sections">
+                    <div class="profile-section">
+                        <h4><i class="fas fa-user-circle"></i> Tentang Saya</h4>
+                        <div class="profile-bio" id="profile-bio">
+                            <!-- Bio akan diisi oleh JavaScript -->
+                        </div>
+                        <h4><i class="fas fa-star"></i> Keahlian</h4>
+                        <div class="profile-skills-list" id="profile-skills">
+                            <!-- Skills akan diisi oleh JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="profile-section">
+                        <h4><i class="fas fa-briefcase"></i> Pengalaman Kerja</h4>
+                        <div class="profile-work-experience" id="profile-work">
+                            <!-- Pengalaman kerja akan diisi oleh JavaScript -->
+                        </div>
+                        <h4><i class="fas fa-graduation-cap"></i> Pendidikan</h4>
+                        <div class="profile-education" id="profile-education">
+                            <!-- Pendidikan akan diisi oleh JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-modal-footer">
+                <button class="btn-follow" id="profile-follow-btn">
+                    <i class="fas fa-user-plus"></i> Ikuti
+                </button>
+                <button class="btn-view-profile" style="border-color: var(--accent-purple); color: var(--accent-purple);">
+                    <i class="fas fa-envelope"></i> Kirim Pesan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PENDAFTARAN CONTRIBUTOR -->
+    <div class="registration-modal-overlay" id="registration-modal">
+        <div class="registration-modal">
+            <button class="close-btn" id="close-registration-modal">&times;</button>
+            
+            <div class="registration-header">
+                <h3><i class="fas fa-crown"></i> Jadilah Contributor EzyDraw</h3>
+                <p>Bergabung dengan komunitas kreator dan mulai hasilkan pendapatan dari karya Anda</p>
+            </div>
+            
+            <div class="registration-body">
+                <div class="pricing-plans" id="pricing-plans">
+                    <div class="pricing-plan">
+                        <div class="plan-header">
+                            <div class="plan-name">Starter</div>
+                        </div>
+                        <div class="plan-price">Rp 99.000<span>/tahun</span></div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Upload hingga 10 karya/bulan</li>
+                            <li><i class="fas fa-check"></i> Komisi 70% dari penjualan</li>
+                            <li><i class="fas fa-check"></i> Dukungan email</li>
+                            <li><i class="fas fa-times"></i> Fitur analytics lengkap</li>
+                            <li><i class="fas fa-times"></i> Promosi khusus</li>
+                        </ul>
+                        <button class="plan-select-btn" data-plan="starter">Pilih Paket</button>
+                    </div>
+                    
+                    <div class="pricing-plan recommended">
+                        <div class="plan-header">
+                            <div class="plan-name">Pro</div>
+                            <div class="plan-badge">Rekomendasi</div>
+                        </div>
+                        <div class="plan-price">Rp 199.000<span>/tahun</span></div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Upload hingga 50 karya/bulan</li>
+                            <li><i class="fas fa-check"></i> Komisi 80% dari penjualan</li>
+                            <li><i class="fas fa-check"></i> Dukungan prioritas</li>
+                            <li><i class="fas fa-check"></i> Fitur analytics lengkap</li>
+                            <li><i class="fas fa-check"></i> Promosi khusus 2x/bulan</li>
+                        </ul>
+                        <button class="plan-select-btn" data-plan="pro">Pilih Paket</button>
+                    </div>
+                    
+                    <div class="pricing-plan">
+                        <div class="plan-header">
+                            <div class="plan-name">Agency</div>
+                        </div>
+                        <div class="plan-price">Rp 499.000<span>/tahun</span></div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Upload tanpa batas</li>
+                            <li><i class="fas fa-check"></i> Komisi 85% dari penjualan</li>
+                            <li><i class="fas fa-check"></i> Dukungan 24/7</li>
+                            <li><i class="fas fa-check"></i> Fitur analytics premium</li>
+                            <li><i class="fas fa-check"></i> Promosi khusus mingguan</li>
+                        </ul>
+                        <button class="plan-select-btn" data-plan="agency">Pilih Paket</button>
+                    </div>
+                </div>
+                
+                <form class="registration-form" id="registration-form">
+                    <div class="form-group">
+                        <label for="reg-name">Nama Lengkap</label>
+                        <input type="text" id="reg-name" placeholder="Masukkan nama lengkap Anda" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reg-email">Email</label>
+                        <input type="email" id="reg-email" placeholder="contoh: anda@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reg-portfolio">Portfolio/Website</label>
+                        <input type="url" id="reg-portfolio" placeholder="https://portfolio-anda.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reg-skills">Keahlian (pisahkan dengan koma)</label>
+                        <input type="text" id="reg-skills" placeholder="contoh: Figma, UI Design, Illustrator" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reg-bio">Tentang Diri Anda</label>
+                        <textarea id="reg-bio" placeholder="Ceritakan tentang diri dan pengalaman Anda..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Pilih Paket</label>
+                        <input type="text" id="selected-plan" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Metode Pembayaran</label>
+                        <div class="payment-methods">
+                            <div class="payment-method" data-method="credit-card">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Kartu Kredit</span>
+                            </div>
+                            <div class="payment-method" data-method="bank-transfer">
+                                <i class="fas fa-university"></i>
+                                <span>Transfer Bank</span>
+                            </div>
+                            <div class="payment-method" data-method="gopay">
+                                <i class="fas fa-wallet"></i>
+                                <span>GoPay</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="registration-footer">
+                <button class="btn-back" id="back-to-plans">Kembali ke Paket</button>
+                <button class="btn-submit-registration" id="submit-registration">Daftar Sekarang</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION CONTAINER -->
+    <div id="notification-container"></div>
+
+    <script src="../static/js/contributors.js"></script>
+</body>
+</html>

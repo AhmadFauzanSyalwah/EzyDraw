@@ -3,163 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Aplikasi</title>
-    <!-- Memuat Tailwind CSS -->
+    <title>Login — EzyDraw</title>
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font -->
     <style>
-        /* Menggunakan font Inter untuk tampilan yang bersih */
         body { font-family: 'Inter', sans-serif; }
     </style>
+
+    <!-- Tailwind Custom Theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        violet: {
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                        },
+                        emerald: {
+                            600: '#059669',
+                        },
+                        yellow: {
+                            400: '#facc15',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
+
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <!-- Kontainer Utama: Menetapkan layout grid 2 kolom di layar medium ke atas -->
-    <div id="page-container" class="bg-white rounded-xl shadow-2xl overflow-hidden w-full max-w-4xl">
-        <div class="grid grid-cols-1 md:grid-cols-2">
 
-            <!-- KOLOM KIRI: DEKORATIF / WELCOME MESSAGE (UNGU) -->
-            <div class="hidden md:flex flex-col items-center justify-center p-10 bg-purple-500 text-white space-y-6">
-                
-                <!-- Logo Lingkaran Putih -->
-                <div class="bg-white p-3 rounded-full shadow-lg">
-                    <!-- Placeholder Logo -->
-                    <img src="../static/img/logo.png" alt="Logo Aplikasi" 
-                          class="w-24 h-24 rounded-full object-cover">
-                </div>
+<!-- ======================================================
+     CONTAINER UTAMA
+====================================================== -->
+<div class="bg-white rounded-xl shadow-2xl overflow-hidden w-full max-w-4xl">
+    <div class="grid grid-cols-1 md:grid-cols-2">
 
-                <h1 class="text-4xl font-extrabold text-center">Selamat Datang!</h1>
-                <p class="text-center">
-                    Akses dashboard Anda sekarang. Silakan masukkan kredensial Anda di formulir sebelah kanan.
-                </p>
+        <!-- ======================================================
+             PANEL KIRI – BRANDING / WELCOME
+        ======================================================= -->
+        <div class="hidden md:flex flex-col items-center justify-center p-10 bg-violet-600 text-white space-y-6">
+
+            <div class="bg-white p-3 rounded-full shadow-lg">
+                <img src="../static/img/logo.png"
+                     alt="Logo EzyDraw"
+                     class="w-24 h-24 rounded-full object-cover">
             </div>
 
-            <!-- KOLOM KANAN: FORMULIR LOGIN -->
-            <div class="p-8 md:p-12 space-y-6">
-                
-                <!-- HEADER FORMULIR (Ikon Pengguna dan Judul) -->
-                <div class="space-y-4">
-                    <div class="flex justify-center">
-                        <!-- Ikon Pengguna (User) - Warna Ungu -->
-                        <svg width="34" height="46" viewBox="0 0 34 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16.5 21C21.7467 21 26 16.7467 26 11.5C26 6.25329 21.7467 2 16.5 2C11.2533 2 7 6.25329 7 11.5C7 16.7467 11.2533 21 16.5 21Z" stroke="#8F00FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M32 44C32 39.4972 30.1579 35.1788 27.3448 31.9948C24.2414 28.9987 20.9782 28 17 28C13.0218 28 9.46822 28.8108 6.65517 31.9948C3.84213 35.1788 2 39.4972 2 44H32Z" stroke="#8F00FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+            <h1 class="text-4xl font-extrabold text-center">
+                Selamat Datang Kembali
+            </h1>
 
-                    </div>
-                    <h2 class="text-3xl font-extrabold text-center text-gray-900">
-                        Masuk ke Akun
-                    </h2>
+            <p class="text-center text-violet-100 leading-relaxed">
+                Masuk ke EzyDraw dan lanjutkan proyek desain Anda
+                dengan pengalaman editor desktop yang cepat,
+                ringan, dan sepenuhnya offline-first.
+            </p>
+
+        </div>
+
+        <!-- ======================================================
+             PANEL KANAN – FORM LOGIN
+        ======================================================= -->
+        <div class="p-8 md:p-12 space-y-8">
+
+            <!-- HEADER -->
+            <div class="space-y-4 text-center">
+                <div class="flex justify-center">
+                    <svg width="40" height="40" viewBox="0 0 34 46" fill="none">
+                        <path d="M16.5 21C21.7467 21 26 16.7467 26 11.5C26 6.25329 21.7467 2 16.5 2C11.2533 2 7 6.25329 7 11.5C7 16.7467 11.2533 21 16.5 21Z"
+                              stroke="#7c3aed" stroke-width="4"/>
+                        <path d="M32 44C32 39.4972 30.1579 35.1788 27.3448 31.9948
+                                 C24.2414 28.9987 20.9782 28 17 28
+                                 C13.0218 28 9.46822 28.8108 6.65517 31.9948
+                                 C3.84213 35.1788 2 39.4972 2 44H32Z"
+                              stroke="#7c3aed" stroke-width="4"/>
+                    </svg>
                 </div>
 
-
-                <!-- FORMULIR TRADISIONAL -->
-                <!-- action diset ke placeholder /login, karena ini tidak akan diproses di statis HTML -->
-                <form class="space-y-6" action="/login" method="POST">
-                    <!-- Input Email -->
-                    <div>
-                        <label for="username" class="block text-sm font-medium text-gray-700">Email Anda</label>
-                        <div class="mt-1">
-                            <!-- Fokus Ring Kuning, Border Ungu -->
-                            <input id="username" name="username" type="text" autocomplete="username" required
-                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-violet-500 sm:text-sm">
-                        </div>
-                    </div>
-
-                    <!-- Input Kata Sandi -->
-                    <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700">Kata Sandi</label>
-                        <div class="mt-1">
-                            <!-- Fokus Ring Kuning, Border Ungu -->
-                            <input id="password" name="password" type="password" autocomplete="current-password" required
-                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-violet-500 sm:text-sm">
-                        </div>
-                    </div>
-                    
-                    <!-- Ingat Saya & Lupa Kata Sandi -->
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <!-- Checkbox Warna Ungu -->
-                            <input id="remember_me" name="remember_me" type="checkbox"
-                                    class="h-4 w-4 text-violet-600 focus:ring-yellow-400 border-gray-300 rounded">
-                            <label for="remember_me" class="ml-2 block text-sm text-gray-900">
-                                Ingat Saya
-                            </label>
-                        </div>
-                        <!-- Link Lupa Kata Sandi - Warna Ungu, Hover Kuning -->
-                        <a href="#" class="text-sm font-medium text-violet-600 hover:text-yellow-500">
-                            Lupa Kata Sandi?
-                        </a>
-                    </div>
-
-                    <!-- Tombol Masuk TRADISIONAL - Warna Ungu -->
-                    <div>
-                        <button type="submit"
-                                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 transition duration-150 ease-in-out">
-                            Masuk
-                        </button>
-                    </div>
-                </form>
-
-                <!-- PEMISAH DAN SOCIAL LOGIN -->
-                <div class="flex items-center justify-between mt-6">
-                    <div class="w-full border-t border-gray-300"></div>
-                    <span class="text-gray-500 text-sm mx-4">ATAU</span>
-                    <div class="w-full border-t border-gray-300"></div>
-                </div>
-
-                <div class="flex justify-center space-x-4 pt-4">
-                    <!-- Tombol Google Login -->
-                    <button type="button"
-                                 class="p-2 border border-gray-300 rounded-full shadow-md bg-white hover:bg-gray-100 transition duration-150 ease-in-out flex-shrink-0">
-                        <!-- Ikon Google SVG -->
-                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path opacity="0.987" fill-rule="evenodd" clip-rule="evenodd" d="M11.7147 1.72421C12.8928 1.59258 13.5899 1.59258 14.8558 1.72421C17.0965 2.05586 19.1738 3.09162 20.787 4.68171C19.6969 5.71218 18.621 6.75769 17.5598 7.81796C15.5274 6.09546 13.2589 5.69787 10.7543 6.62521C8.91694 7.47021 7.63753 8.83954 6.91603 10.7332C5.73699 9.85543 4.57332 8.95721 3.42553 8.03896C3.34576 7.99697 3.25466 7.9816 3.16553 7.99508C4.98878 4.47967 7.83794 2.38883 11.713 1.72258" fill="#F44336"/>
-                            <path opacity="0.997" fill-rule="evenodd" clip-rule="evenodd" d="M3.16217 7.99493C3.25425 7.98084 3.34146 7.99547 3.4238 8.0388C4.57159 8.95706 5.73526 9.85528 6.9143 10.7331C6.72876 11.4709 6.61181 12.2243 6.56492 12.9837C6.605 13.7182 6.72146 14.4391 6.9143 15.1466L3.24992 18.0634C1.65417 14.7289 1.62492 11.3728 3.16217 7.99493Z" fill="#FFC107"/>
-                            <path opacity="0.999" fill-rule="evenodd" clip-rule="evenodd" d="M20.6131 21.5964C19.4721 20.5902 18.2777 19.6463 17.0349 18.7689C18.2807 17.8893 19.0369 16.6824 19.3034 15.1484H13.1982V10.9088C16.7191 10.8796 20.2383 10.9094 23.7559 10.9982C24.4232 14.6219 23.6524 17.8893 21.4435 20.8002C21.1808 21.0794 20.9026 21.3452 20.6131 21.5964Z" fill="#448AFF"/>
-                            <path opacity="0.993" fill-rule="evenodd" clip-rule="evenodd" d="M6.91437 15.1484C8.24687 18.4602 10.6898 20.0061 14.2431 19.7862C15.2406 19.6707 16.1969 19.3223 17.0349 18.7689C18.2785 19.6486 19.4713 20.5911 20.6131 21.5964C18.8039 23.2222 16.4972 24.1868 14.0692 24.3329C13.5176 24.377 12.9634 24.377 12.4117 24.3329C8.27558 23.8454 5.22167 21.7557 3.25 18.0637L6.91437 15.1484Z" fill="#43A047"/>
-                        </svg>
-                    </button>
-
-                    <!-- Tombol Facebook Login -->
-                    <button type="button"
-                                 class="p-2 border border-gray-300 rounded-full shadow-md bg-white hover:bg-gray-100 transition duration-150 ease-in-out flex-shrink-0"> 
-                        <!-- Ikon Facebook SVG -->
-                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M26 13C26 5.82034 20.1797 0 13 0C5.82034 0 0 5.82034 0 13C0 19.4886 4.75394 24.8669 10.9688 25.8421V16.7578H7.66797V13H10.9688V10.1359C10.9688 6.87781 12.9096 5.07812 15.8791 5.07812C17.3014 5.07812 18.7891 5.33203 18.7891 5.33203V8.53125H17.1498C15.5349 8.53125 15.0312 9.53337 15.0312 10.5615V13H18.6367L18.0604 16.7578H15.0312V25.8421C21.2461 24.8669 26 19.4887 26 13Z" fill="#1877F2"/>
-                            <path d="M18.0604 16.7578L18.6367 13H15.0312V10.5615C15.0312 9.53327 15.5349 8.53125 17.1498 8.53125H18.7891V5.33203C18.7891 5.33203 17.3014 5.07812 15.879 5.07812C12.9096 5.07812 10.9688 6.87781 10.9688 10.1359V13H7.66797V16.7578H10.9688V25.8421C11.6407 25.9474 12.3198 26.0002 13 26C13.6802 26.0002 14.3593 25.9474 15.0312 25.8421V16.7578H18.0604Z" fill="white"/>
-                        </svg>
-                    </button>
-
-                    <!-- Tombol Apple Login -->
-                    <button type="button"
-                                 class="p-2 border border-gray-300 rounded-full shadow-md bg-white hover:bg-gray-100 transition duration-150 ease-in-out flex-shrink-0"> 
-                        <!-- Ikon Apple SVG -->
-                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13 6.5C13 2.16667 15.1667 0 19.5 0C19.5 4.33333 17.3333 6.5 13 6.5ZM9.75 26C5.41667 23.8333 3.25 19.5 3.25 13C5.41667 6.5 8.66667 4.875 13 8.125C17.3333 4.875 20.5833 5.41667 22.75 9.75C18.4167 14.0833 18.4167 17.3333 22.75 19.5C20.5833 26 17.3333 27.625 13 24.375" fill="black"/>
-                        </svg>
-                    </button>
-
-                    <!-- Tombol X / Twitter Login -->
-                    <button type="button"
-                                 class="p-2 border border-gray-300 rounded-full shadow-md bg-white hover:bg-gray-100 transition duration-150 ease-in-out flex-shrink-0">
-                        <!-- Ikon X SVG -->
-                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                             <path d="M10.6758 7.62188L17.2326 0H15.6787L9.9856 6.61781L5.43835 0H0.193604L7.06988 10.0074L0.193604 18H1.74751L7.75979 11.0114L12.5619 18H17.8066L10.6754 7.62188H10.6758ZM8.54757 10.0955L7.85078 9.099L2.30734 1.16972H4.69403L9.16745 7.569L9.8641 8.56547L15.6794 16.8834H13.293L8.54757 10.0959V10.0955Z" fill="black"/>
-                         </svg>
-                    </button>
-                </div>
-
-                <!-- Tautan Daftar -->
-                <div class="mt-6 text-center">
-                    <p class="text-sm text-gray-600">
-                        Belum punya akun?
-                        <!-- PERUBAHAN: Mengubah tautan ke register.html -->
-                         <a href="register.html" id="to-register" class="font-medium text-violet-600 hover:text-yellow-500">
-                            Daftar di sini
-                        </a>
-                    </p>
-                </div>
+                <h2 class="text-3xl font-extrabold text-gray-900">
+                    Masuk ke Akun
+                </h2>
             </div>
+
+            <!-- ======================================================
+                 FORM LOGIN
+            ======================================================= -->
+            <form id="loginForm" class="space-y-6">
+
+                <!-- Email -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">
+                        Email
+                    </label>
+                    <input type="email"
+                           id="email"
+                           required
+                           class="mt-1 block w-full px-3 py-2 border rounded-md
+                                  focus:outline-none focus:ring-2
+                                  focus:ring-yellow-400 focus:border-violet-600">
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">
+                        Kata Sandi
+                    </label>
+                    <input type="password"
+                           id="password"
+                           required
+                           class="mt-1 block w-full px-3 py-2 border rounded-md
+                                  focus:outline-none focus:ring-2
+                                  focus:ring-yellow-400 focus:border-violet-600">
+                </div>
+
+                <!-- Remember -->
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="remember"
+                               class="text-violet-600 focus:ring-yellow-400">
+                        <span class="text-sm">Ingat saya</span>
+                    </label>
+
+                    <a href="#" class="text-sm text-violet-600 hover:text-yellow-400">
+                        Lupa kata sandi?
+                    </a>
+                </div>
+
+                <!-- Button -->
+                <button type="submit"
+                        class="w-full py-2 px-4 text-white font-medium rounded-md
+                               bg-violet-600 hover:bg-violet-700
+                               transition">
+                    Masuk
+                </button>
+            </form>
+
+            <!-- ======================================================
+                 FOOTER LINK
+            ======================================================= -->
+            <p class="text-center text-sm text-gray-600">
+                Belum punya akun?
+                <a href="register.html"
+                   class="font-medium text-violet-600 hover:text-yellow-400">
+                    Daftar di sini
+                </a>
+            </p>
+
         </div>
     </div>
+</div>
+
+<!-- ======================================================
+     SCRIPT LOGIN LOGIC (SIMULASI)
+====================================================== -->
+<script>
+    const form = document.getElementById('loginForm');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const remember = document.getElementById('remember').checked;
+
+        const userSession = {
+            email: email,
+            loginTime: new Date().toISOString()
+        };
+
+        if (remember) {
+            localStorage.setItem('ezydraw_user', JSON.stringify(userSession));
+        } else {
+            sessionStorage.setItem('ezydraw_user', JSON.stringify(userSession));
+        }
+
+        window.location.href = 'dashboard.html';
+    });
+</script>
+
 </body>
 </html>

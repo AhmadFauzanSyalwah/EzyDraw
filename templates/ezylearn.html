@@ -3,2180 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EzyLearn - Platform Belajar Desain Grafis</title>
+    <title>EzyLearn - Platform Pembelajaran EzyDraw</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet">
-    <style>
-        /* VARIABLES & RESET - Minimalis dan Modern */
-        :root {
-            /* Skema Warna Ungu/Hijau/Kuning - Minimalis */
-            --primary-bg: #0F051F;       /* Ungu gelap - Latar Utama */
-            --secondary-bg: #1A0A33;     /* Ungu lebih gelap untuk sidebar */
-            --card-bg: #241242;          /* Ungu untuk kartu */
-            --accent-primary: #4CAF50;   /* Hijau untuk aksi utama */
-            --accent-secondary: #FF9800; /* Oranye untuk aksen sekunder */
-            --text-primary: #FFFFFF;     /* Putih untuk teks utama */
-            --text-secondary: #B0A8CC;   /* Ungu muda untuk teks sekunder */
-            --border-radius: 8px;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            --transition: all 0.2s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        body {
-            background-color: var(--primary-bg);
-            color: var(--text-primary);
-            display: flex;
-        }
-
-        /* UTILITY CLASSES */
-        .highlight-green {
-            color: var(--accent-primary);
-        }
-
-        .highlight-yellow {
-            color: var(--accent-secondary);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .w-full {
-            width: 100%;
-        }
-
-        /* ==================== SIDEBAR STYLES ==================== */
-        .sidebar {
-            width: 220px;
-            background-color: var(--secondary-bg);
-            display: flex;
-            flex-direction: column;
-            padding: 20px 15px;
-            z-index: 10;
-            flex-shrink: 0;
-            height: 100vh;
-            overflow-y: auto;
-            position: fixed;
-            left: 0;
-            top: 0;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Logo Container */
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            margin-bottom: 25px;
-            gap: 12px;
-            padding: 0 5px;
-        }
-
-        .logo-img-container {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--accent-primary);
-        }
-
-        .logo-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .logo {
-            font-family: 'Galada', cursive;
-            font-size: 1.8rem;
-            font-weight: 400;
-        }
-
-        .logo-text {
-            color: var(--text-primary);
-        }
-
-        .logo-d {
-            color: var(--accent-secondary);
-        }
-
-        /* Tombol Mulai Belajar */
-        .btn-new-design {
-            background-color: var(--accent-primary);
-            color: var(--primary-bg);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 12px 15px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 40px 0 25px 0;
-            transition: var(--transition);
-        }
-
-        .btn-new-design:hover {
-            background-color: #3d8b40;
-        }
-
-        .btn-new-design i {
-            margin-right: 8px;
-            font-size: 1rem;
-        }
-
-        /* Menu Groups */
-        .menu-group {
-            margin-bottom: 25px;
-        }
-
-        .menu-group-title {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            padding-left: 10px;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 12px;
-            border-radius: 6px;
-            margin-bottom: 5px;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .menu-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-        }
-
-        .menu-item.active {
-            background-color: rgba(76, 175, 80, 0.15);
-            color: var(--accent-primary);
-            font-weight: 600;
-        }
-
-        .menu-item i {
-            width: 20px;
-            margin-right: 12px;
-            text-align: center;
-            font-size: 1rem;
-        }
-
-        .menu-item.active i {
-            color: var(--accent-primary);
-        }
-
-        .sidebar-footer {
-            margin-top: auto;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* ==================== MAIN CONTAINER ==================== */
-        .main-container {
-            flex: 1;
-            display: flex;
-            margin-left: 220px;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 25px;
-            overflow-y: auto;
-            height: 100vh;
-        }
-
-        /* Main Header */
-        .main-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Search Container */
-        .search-container {
-            flex: 1;
-            max-width: 600px;
-            margin-right: 20px;
-        }
-
-        .search-box {
-            position: relative;
-            width: 100%;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 15px 12px 45px;
-            background-color: #FFFFFF;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: var(--border-radius);
-            color: #333333;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
-        }
-
-        .search-box input::placeholder {
-            color: #666;
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666;
-            font-size: 1.1rem;
-            z-index: 1;
-        }
-
-        /* User Profile */
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .user-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent-primary);
-        }
-
-        .user-info h2 {
-            font-size: 1.1rem;
-            margin-bottom: 3px;
-        }
-
-        .user-info p {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .ezypro-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent-secondary), #ff6b00);
-            color: var(--primary-bg);
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-top: 4px;
-            letter-spacing: 0.5px;
-        }
-
-        /* ==================== DASHBOARD CONTENT ==================== */
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .welcome-section {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-        }
-
-        .welcome-section h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .welcome-section p {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-        }
-
-        .btn-main-action {
-            background-color: var(--accent-primary);
-            color: var(--primary-bg);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 12px 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-block;
-        }
-
-        .btn-main-action:hover {
-            background-color: #3d8b40;
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-primary);
-            box-shadow: var(--shadow);
-        }
-
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: rgba(76, 175, 80, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: var(--accent-primary);
-            margin-bottom: 15px;
-        }
-
-        .stat-value {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        /* Courses Section */
-        .courses-section {
-            margin-bottom: 40px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .course-card {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .course-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow);
-            border-color: rgba(76, 175, 80, 0.3);
-        }
-
-        .course-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--accent-secondary);
-            color: #000;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            z-index: 2;
-        }
-
-        .course-pro-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--accent-secondary);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            z-index: 2;
-        }
-
-        .course-thumbnail {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .course-content {
-            padding: 20px;
-        }
-
-        .course-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            line-height: 1.4;
-            color: var(--text-primary);
-        }
-
-        .course-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        .course-instructor {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-        }
-
-        .instructor-avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .course-rating {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--accent-secondary);
-        }
-
-        .course-description {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .course-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        /* Button Styles */
-        .btn {
-            padding: 10px 20px;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: var(--accent-primary);
-            color: #000;
-        }
-
-        .btn-primary:hover {
-            background: #3d8b40;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--accent-primary);
-            border: 1px solid var(--accent-primary);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(76, 175, 80, 0.1);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-secondary);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-        }
-
-        /* ==================== RIGHT WIDGETS ==================== */
-        .right-widgets {
-            width: 300px;
-            padding: 25px 15px;
-            background-color: var(--secondary-bg);
-            flex-shrink: 0;
-            height: 100vh;
-            overflow-y: auto;
-            position: sticky;
-            top: 0;
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .widget {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .widget h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-        }
-
-        /* Stats Widget */
-        .stats-widget {
-            text-align: center;
-        }
-
-        .life-icon {
-            font-size: 48px;
-            color: var(--accent-secondary);
-            margin-bottom: 15px;
-        }
-
-        .life-count {
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--accent-primary);
-        }
-
-        .life-text {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-        }
-
-        /* Upgrade Card */
-        .upgrade-card {
-            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(76, 175, 80, 0.1));
-            border-color: rgba(255, 152, 0, 0.3);
-        }
-
-        .upgrade-card h3 {
-            color: var(--accent-secondary);
-            margin-bottom: 10px;
-        }
-
-        .upgrade-features {
-            list-style: none;
-            margin: 15px 0;
-        }
-
-        .upgrade-features li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-secondary);
-        }
-
-        .upgrade-features li i {
-            color: var(--accent-primary);
-        }
-
-        /* Popular Courses Widget */
-        .courses-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .course-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px;
-            background-color: var(--secondary-bg);
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .course-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            transform: translateX(3px);
-        }
-
-        .course-item img {
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
-        .course-item-info h4 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--text-primary);
-        }
-
-        .course-item-meta {
-            display: flex;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-        }
-
-        /* ==================== CONTRIBUTOR DASHBOARD ==================== */
-        .contributor-dashboard {
-            display: none;
-            margin-top: 30px;
-        }
-
-        .contributor-dashboard.active {
-            display: block;
-        }
-
-        .create-course-form {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--border-radius);
-            color: var(--text-primary);
-            font-size: 16px;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent-primary);
-        }
-
-        .form-textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .contributor-courses {
-            margin-top: 30px;
-        }
-
-        /* ==================== LEARNING INTERFACE ==================== */
-        .learning-interface {
-            display: none;
-            margin-top: 30px;
-        }
-
-        .learning-interface.active {
-            display: block;
-        }
-
-        .learning-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .learning-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 15px;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            padding: 10px 20px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .tab-btn.active {
-            background: rgba(76, 175, 80, 0.1);
-            color: var(--accent-primary);
-        }
-
-        /* ==================== MODAL SYSTEM ==================== */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 20px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            width: 100%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 1px solid rgba(76, 175, 80, 0.3);
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-header {
-            padding: 25px 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h2 {
-            font-size: 24px;
-            color: var(--accent-primary);
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 24px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .modal-close:hover {
-            color: var(--text-primary);
-        }
-
-        .modal-body {
-            padding: 30px;
-        }
-
-        /* ==================== NOTIFICATION SYSTEM ==================== */
-        .notification-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 400px;
-        }
-
-        .notification {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            border-left: 4px solid var(--accent-primary);
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            transform: translateX(100%);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .notification.show {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .notification.success {
-            border-left-color: var(--accent-primary);
-        }
-
-        .notification.error {
-            border-left-color: var(--accent-secondary);
-        }
-
-        .notification.info {
-            border-left-color: #2196F3;
-        }
-
-        .notification-icon {
-            font-size: 24px;
-            margin-top: 2px;
-        }
-
-        .notification.success .notification-icon {
-            color: var(--accent-primary);
-        }
-
-        .notification.error .notification-icon {
-            color: var(--accent-secondary);
-        }
-
-        /* ==================== CUSTOM SCROLLBAR ==================== */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent-primary);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3d8b40;
-        }
-
-        /* ==================== RESPONSIVE DESIGN ==================== */
-        @media (max-width: 1200px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-            
-            .right-widgets {
-                width: 280px;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .main-container {
-                flex-direction: column;
-                margin-left: 0;
-            }
-            
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                flex-direction: row;
-                flex-wrap: wrap;
-                padding: 15px;
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
-            
-            .logo-container {
-                width: 100%;
-                justify-content: center;
-                margin-bottom: 15px;
-            }
-            
-            .btn-new-design {
-                width: 100%;
-                margin: 20px 0 15px 0;
-            }
-            
-            .menu-group {
-                margin-bottom: 15px;
-                margin-right: 20px;
-            }
-            
-            .main-content {
-                margin-left: 0;
-                padding: 20px;
-            }
-            
-            .right-widgets {
-                width: 100%;
-                height: auto;
-                position: relative;
-                border-left: none;
-                border-top: 1px solid rgba(255, 255, 255, 0.05);
-            }
-            
-            .main-header {
-                flex-direction: column;
-                gap: 15px;
-                align-items: stretch;
-            }
-            
-            .search-container {
-                max-width: 100%;
-                margin: 10px 0;
-                width: 100%;
-            }
-            
-            .user-profile {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .courses-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            }
-            
-            .logo-container {
-                gap: 8px;
-            }
-            
-            .logo {
-                font-size: 1.6rem;
-            }
-            
-            .main-header {
-                flex-direction: column;
-            }
-            
-            .course-actions {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .modal-body {
-                padding: 20px;
-            }
-            
-            .modal-header {
-                padding: 20px;
-            }
-            
-            .learning-tabs {
-                flex-wrap: wrap;
-            }
-            
-            .tab-btn {
-                flex: 1;
-                text-align: center;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../static/css/ezylearn.css">
 </head>
 <body>
-    <!-- SIDEBAR NAVIGATION -->
+    <!-- SIDEBAR NAVIGATION - Sama seperti dashboard EzyDraw -->
     <aside class="sidebar">
         <div class="logo-container">
+            <!-- Logo dalam container bulat -->
             <div class="logo-img-container">
-                <img src="https://via.placeholder.com/45/4CAF50/FFFFFF?text=EL" alt="EzyLearn Logo" class="logo-img">
+                <img src="../static/img/logo.png" alt="EzyDraw Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/45/4CAF50/FFFFFF?text=ED'">
             </div>
             <div class="logo">
-                <span class="logo-text">Ezy</span><span class="logo-d">L</span><span class="logo-text">earn</span>
+                <span class="logo-text">Ezy</span><span class="logo-d">D</span><span class="logo-text">raw</span>
             </div>
         </div>
         
-        <button class="btn-new-design" onclick="showNotification('info', 'Buat Kursus Baru', 'Fitur akan segera hadir!')">
-            <i class="fas fa-plus-circle"></i> Mulai Belajar
-        </button>
+        <!-- Tombol "Buat Desain Baru" -->
+        <a href="design.html" class="btn-new-design">
+            <i class="fas fa-plus-circle"></i> Buat Desain Baru
+        </a>
         
-        <!-- Menu Navigasi -->
         <div class="menu-group">
-            <div class="menu-group-title">Menu Utama</div>
-            <div class="menu-item active" onclick="switchView('dashboard')">
+            <div class="menu-group-title">Alat Utama</div>
+            <a href="dashboard.html" class="menu-item">
                 <i class="fas fa-tachometer-alt"></i> Dashboard
-            </div>
-            <div class="menu-item" onclick="switchView('courses')">
-                <i class="fas fa-book"></i> Kursus
-            </div>
-            <div class="menu-item" onclick="switchView('contributor')">
-                <i class="fas fa-chalkboard-teacher"></i> Kontributor
-            </div>
-            <div class="menu-item" onclick="switchView('progress')">
-                <i class="fas fa-chart-line"></i> Progress
-            </div>
+            </a>
+            <a href="plugins.html" class="menu-item">
+                <i class="fas fa-puzzle-piece"></i> Plugin
+            </a>
+            <a href="templates.html" class="menu-item">
+                <i class="fas fa-th-large"></i> Templates
+            </a>
+            <a href="aset.html" class="menu-item">
+                <i class="fas fa-box-open"></i> Aset
+            </a>
         </div>
         
         <div class="menu-group">
             <div class="menu-group-title">Komunitas</div>
-            <div class="menu-item" onclick="showNotification('info', 'Kontributor', 'Fitur akan segera hadir!')">
-                <i class="fas fa-users"></i> Kontributor
-            </div>
-            <div class="menu-item" onclick="showNotification('info', 'Forum Diskusi', 'Fitur akan segera hadir!')">
-                <i class="fas fa-comments"></i> Forum Diskusi
-            </div>
+            <a href="contributors.html" class="menu-item">
+                <i class="fas fa-users"></i> Contributors
+            </a>
+            <a href="ezylearn.html" class="menu-item active">
+                <i class="fas fa-graduation-cap"></i> EzyLearn
+            </a>
         </div>
         
         <div class="menu-group sidebar-footer">
-            <div class="menu-group-title">Akun & Bantuan</div>
-            <div class="menu-item" onclick="showNotification('info', 'Tentang Kami', 'Platform belajar desain grafis terbaik!')">
+            <div class="menu-group-title">Akun</div>
+            <a href="profile.html" class="menu-item">
+        <i class="fas fa-user-circle"></i> Profile Saya
+    </a>
+            <a href="about_us.html" class="menu-item">
                 <i class="fas fa-info-circle"></i> Tentang Kami
-            </div>
-            <div class="menu-item" onclick="showNotification('info', 'Rating', 'Beri rating untuk EzyLearn!')">
-                <i class="fas fa-star" style="color: var(--accent-secondary);"></i> Rating EzyLearn
-            </div>
-            <div class="menu-item" onclick="showNotification('info', 'Bantuan', 'Pusat bantuan akan segera hadir!')">
+            </a>
+            <a href="rate.html" class="menu-item">
+                <i class="fas fa-star" style="color: var(--accent-secondary);"></i> Rating EzyDraw
+            </a>
+            <a href="help.html" class="menu-item">
                 <i class="fas fa-question-circle"></i> Pusat Bantuan
-            </div>
-            <div class="menu-item" onclick="toggleUserMenu()">
-                <i class="fas fa-user-cog"></i> Pengaturan Akun
-            </div>
+            </a>
+            <a href="login.html" class="menu-item">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
         </div>
     </aside>
     
-    <!-- MAIN CONTAINER -->
+    <!-- MAIN CONTENT AREA - Hanya konten kursus -->
     <div class="main-container">
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Top Header -->
-            <div class="main-header">
-                <div class="search-container">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Cari kursus, materi, atau instruktur..." id="searchInput">
-                    </div>
-                </div>
-                <div class="user-profile">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar" class="user-avatar">
-                    <div class="user-info">
-                        <h2>Andre Wijaya</h2>
-                        <p>Student</p>
-                        <span class="ezypro-badge" id="userRoleBadge">EzyPro</span>
-                    </div>
-                </div>
+        <!-- Header EzyLearn -->
+        <header class="ezylearn-header">
+            <div class="header-left">
+                <h1>EzyLearn <span class="highlight-green">Courses</span></h1>
+                <p>Tingkatkan skill desain Anda dengan kursus-kursus premium</p>
             </div>
             
-            <!-- MAIN DASHBOARD -->
-            <main id="mainDashboard">
-                <div class="dashboard">
-                    <div class="main-content">
-                        <div class="welcome-section">
-                            <h1>Selamat Datang, <span class="highlight-green">Andre!</span> 👋</h1>
-                            <p>Lanjutkan perjalanan belajarmu dalam dunia desain grafis. Kamu telah menyelesaikan 3 dari 8 kursus yang tersedia.</p>
-                            <button class="btn-main-action" onclick="showNotification('info', 'Membuka rekomendasi kursus', 'Lihat Rekomendasi')">
-                                <i class="fas fa-rocket"></i> Lanjutkan Belajar
-                            </button>
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Cari kursus, instruktur, atau topik...">
+            </div>
+        </header>
+        
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">
+                    Semua Kursus <span class="filter-count">12</span>
+                </button>
+                <button class="filter-btn" data-filter="design">
+                    Desain Grafis <span class="filter-count">6</span>
+                </button>
+                <button class="filter-btn" data-filter="web">
+                    Web Design <span class="filter-count">3</span>
+                </button>
+                <button class="filter-btn" data-filter="uiux">
+                    UI/UX Design <span class="filter-count">2</span>
+                </button>
+                <button class="filter-btn" data-filter="free">
+                    Gratis <span class="filter-count">4</span>
+                </button>
+                <button class="filter-btn" data-filter="pro">
+                    EzyPro <span class="filter-count">8</span>
+                </button>
+            </div>
+        </section>
+        
+        <!-- Main Course Content -->
+        <main class="course-main-content">
+            <div class="courses-grid">
+                <!-- Course 1 - Pengantar Desain Grafis -->
+                <div class="course-card" data-category="design free">
+                    <div class="course-image">
+                        <div class="course-badge free">GRATIS</div>
+                        <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Desain Grafis">
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">Pengantar Desain Grafis</h3>
+                        <div class="course-instructor">
+                            <i class="fas fa-user"></i> Oleh: Sarah Designer
+                        </div>
+                        <p class="course-description">
+                            Pelajari dasar-dasar desain grafis, prinsip desain, dan elemen visual untuk pemula. Kursus ini cocok untuk siapa saja yang ingin memulai karir di bidang desain.
+                        </p>
+                        
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 8 Jam</span>
+                            <span><i class="fas fa-video"></i> 12 Video</span>
+                            <span><i class="fas fa-users"></i> 5,230 Siswa</span>
                         </div>
                         
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-icon">
-                                    <i class="fas fa-book-open"></i>
-                                </div>
-                                <div class="stat-value" id="coursesCompleted">3</div>
-                                <div class="stat-label">Kursus Diselesaikan</div>
+                        <div class="progress-container">
+                            <div class="progress-info">
+                                <span>Progress</span>
+                                <span>100%</span>
                             </div>
-                            
-                            <div class="stat-card">
-                                <div class="stat-icon">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-value">4.8</span>
+                            </div>
+                            <div class="course-price free">Gratis</div>
+                        </div>
+                        
+                        <div class="course-actions">
+                            <button class="btn-course btn-continue">
+                                <i class="fas fa-play-circle"></i> Lanjutkan Belajar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 2 - Mastering Typography -->
+                <div class="course-card" data-category="design pro">
+                    <div class="course-image">
+                        <div class="course-badge pro">PRO</div>
+                        <img src="https://images.unsplash.com/photo-1533134486753-c833f0ed4866?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Typography">
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">Mastering Typography</h3>
+                        <div class="course-instructor">
+                            <i class="fas fa-user"></i> Oleh: Michael Type
+                        </div>
+                        <p class="course-description">
+                            Kuasai seni tipografi, pemilihan font, hierarki, dan penerapan dalam desain. Tingkatkan keterampilan desain Anda dengan memahami prinsip tipografi yang baik.
+                        </p>
+                        
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 12 Jam</span>
+                            <span><i class="fas fa-video"></i> 18 Video</span>
+                            <span><i class="fas fa-users"></i> 3,240 Siswa</span>
+                        </div>
+                        
+                        <div class="progress-container">
+                            <div class="progress-info">
+                                <span>Progress</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                 </div>
-                                <div class="stat-value" id="averageRating">4.8</div>
-                                <div class="stat-label">Rating Rata-rata</div>
+                                <span class="rating-value">4.9</span>
                             </div>
-                            
-                            <div class="stat-card">
-                                <div class="stat-icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <div class="stat-value" id="learningHours">42</div>
-                                <div class="stat-label">Jam Pembelajaran</div>
-                            </div>
-                            
-                            <div class="stat-card">
-                                <div class="stat-icon">
-                                    <i class="fas fa-trophy"></i>
-                                </div>
-                                <div class="stat-value" id="achievements">12</div>
-                                <div class="stat-label">Pencapaian</div>
-                            </div>
-                        </div>
-                        
-                        <!-- KURSUS TERBARU -->
-                        <section class="courses-section">
-                            <div class="section-header">
-                                <h2 class="section-title">Kursus Terbaru</h2>
-                                <button class="btn btn-outline" onclick="switchView('courses')">
-                                    <i class="fas fa-list"></i> Lihat Semua
-                                </button>
-                            </div>
-                            
-                            <div class="courses-grid" id="featuredCourses">
-                                <!-- Courses will be loaded by JavaScript -->
-                            </div>
-                        </section>
-                    </div>
-                    
-                    <!-- RIGHT WIDGETS -->
-                    <div class="right-widgets">
-                        <div class="widget stats-widget">
-                            <div class="life-icon">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div class="life-count" id="lifeCount">5</div>
-                            <div class="life-text">Sisa nyawa untuk mengerjakan kuis</div>
-                            <div class="life-text small" id="lifeTimer">Isi ulang dalam 20:00</div>
-                        </div>
-                        
-                        <div class="widget upgrade-card">
-                            <h3><i class="fas fa-crown"></i> EzyLearn Pro</h3>
-                            <p>Akses semua kursus premium dengan sekali bayar</p>
-                            <ul class="upgrade-features">
-                                <li><i class="fas fa-check"></i> Nyawa tak terbatas</li>
-                                <li><i class="fas fa-check"></i> 50+ kursus premium</li>
-                                <li><i class="fas fa-check"></i> Sertifikat resmi</li>
-                                <li><i class="fas fa-check"></i> Download materi</li>
-                            </ul>
-                            <button class="btn btn-primary w-full" onclick="showUpgradeModal()">
-                                <i class="fas fa-gem"></i> Upgrade Sekarang
-                            </button>
-                        </div>
-                        
-                        <div class="widget">
-                            <h3>Kursus Populer</h3>
-                            <div class="courses-list" id="popularCourses">
-                                <!-- Popular courses will be loaded by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- CONTRIBUTOR DASHBOARD (HIDDEN) -->
-                <div class="contributor-dashboard" id="contributorDashboard">
-                    <div class="welcome-section">
-                        <h1>Dashboard <span class="highlight-yellow">Kontributor</span> 🎨</h1>
-                        <p>Selamat datang di dashboard kontributor. Kelola kursusmu, lihat review siswa, dan buat konten baru.</p>
-                    </div>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-video"></i>
-                            </div>
-                            <div class="stat-value" id="myCourses">2</div>
-                            <div class="stat-label">Kursus Saya</div>
-                        </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="stat-value" id="totalStudents">1,240</div>
-                            <div class="stat-label">Total Siswa</div>
-                        </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="stat-value" id="myRating">4.9</div>
-                            <div class="stat-label">Rating Rata-rata</div>
-                        </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-comments"></i>
-                            </div>
-                            <div class="stat-value" id="totalReviews">86</div>
-                            <div class="stat-label">Total Review</div>
-                        </div>
-                    </div>
-                    
-                    <div class="create-course-form">
-                        <h3><i class="fas fa-plus-circle"></i> Buat Kursus Baru</h3>
-                        <div class="form-group">
-                            <label class="form-label">Judul Kursus</label>
-                            <input type="text" class="form-input" id="courseTitle" placeholder="Contoh: Mastering Adobe Illustrator">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Deskripsi</label>
-                            <textarea class="form-input form-textarea" id="courseDescription" placeholder="Jelaskan apa yang akan dipelajari dalam kursus ini"></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Kategori</label>
-                            <select class="form-input" id="courseCategory">
-                                <option value="design">Desain Grafis</option>
-                                <option value="uiux">UI/UX Design</option>
-                                <option value="illustration">Ilustrasi Digital</option>
-                                <option value="motion">Motion Graphics</option>
-                                <option value="branding">Branding</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Level</label>
-                            <select class="form-input" id="courseLevel">
-                                <option value="pemula">Pemula</option>
-                                <option value="menengah">Menengah</option>
-                                <option value="lanjutan">Lanjutan</option>
-                            </select>
+                            <div class="course-price">Rp 149.000</div>
                         </div>
                         
                         <div class="course-actions">
-                            <button class="btn btn-outline w-full" onclick="clearCourseForm()">
-                                <i class="fas fa-times"></i> Batal
-                            </button>
-                            <button class="btn btn-primary w-full" onclick="createNewCourse()">
-                                <i class="fas fa-save"></i> Buat Kursus
+                            <button class="btn-course btn-continue">
+                                <i class="fas fa-play-circle"></i> Lanjutkan Belajar
                             </button>
                         </div>
-                    </div>
-                    
-                    <div class="contributor-courses">
-                        <h3 class="section-title">Kursus Saya</h3>
-                        <div class="courses-grid" id="myCoursesList">
-                            <!-- My courses will be loaded by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-            </main>
-            
-            <!-- LEARNING INTERFACE -->
-            <div class="learning-interface" id="learningInterface">
-                <div class="learning-header">
-                    <h2 id="learningCourseTitle">Loading...</h2>
-                    <button class="btn btn-outline" onclick="exitLearningMode()">
-                        <i class="fas fa-times"></i> Keluar
-                    </button>
-                </div>
-                
-                <div class="learning-tabs">
-                    <button class="tab-btn active" onclick="switchLearningTab('materials')">
-                        <i class="fas fa-list"></i> Materi
-                    </button>
-                    <button class="tab-btn" onclick="switchLearningTab('quiz')">
-                        <i class="fas fa-question-circle"></i> Kuis
-                    </button>
-                    <button class="tab-btn" onclick="switchLearningTab('reviews')">
-                        <i class="fas fa-star"></i> Review
-                    </button>
-                </div>
-                
-                <div class="tab-content">
-                    <!-- Materials Tab -->
-                    <div id="materialsTab" class="tab-pane active">
-                        <div class="materials-list" id="materialsList">
-                            <!-- Materials will be loaded by JavaScript -->
-                        </div>
-                        
-                        <div class="text-center" style="margin-top: 20px;">
-                            <button class="btn btn-primary" onclick="completeCourse()">
-                                <i class="fas fa-check-circle"></i> Tandai sebagai Selesai
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Quiz Tab -->
-                    <div id="quizTab" class="tab-pane hidden">
-                        <div class="quiz-container" id="quizContainer">
-                            <!-- Quiz will be loaded by JavaScript -->
-                        </div>
-                    </div>
-                    
-                    <!-- Reviews Tab -->
-                    <div id="reviewsTab" class="tab-pane hidden">
-                        <div class="reviews-container">
-                            <div class="review-form">
-                                <h4>Tulis Review untuk Kursus Ini</h4>
-                                <div class="rating-stars" id="ratingStars">
-                                    <i class="fas fa-star star" data-rating="1"></i>
-                                    <i class="fas fa-star star" data-rating="2"></i>
-                                    <i class="fas fa-star star" data-rating="3"></i>
-                                    <i class="fas fa-star star" data-rating="4"></i>
-                                    <i class="fas fa-star star" data-rating="5"></i>
-                                </div>
-                                <textarea class="form-input form-textarea" id="reviewText" placeholder="Bagikan pengalaman belajar Anda..."></textarea>
-                                <button class="btn btn-primary" onclick="submitReview()">
-                                    <i class="fas fa-paper-plane"></i> Kirim Review
-                                </button>
-                            </div>
-                            
-                            <div class="reviews-list" id="reviewsList">
-                                <!-- Reviews will be loaded by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: COURSE DETAIL -->
-    <div class="modal-overlay" id="courseDetailModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2 id="modalCourseTitle">Detail Kursus</h2>
-                <button class="modal-close" onclick="closeModal('courseDetailModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="course-detail">
-                    <div>
-                        <img src="" alt="Course Thumbnail" class="course-thumbnail" id="modalCourseThumbnail">
-                    </div>
-                    <div class="course-detail-info">
-                        <h3 id="modalCourseName"></h3>
-                        <div class="course-detail-meta">
-                            <span class="course-badge" id="modalCourseLevel"></span>
-                            <span class="course-badge" id="modalCourseCategory"></span>
-                            <span class="course-badge" id="modalCourseType"></span>
-                        </div>
-                        <p id="modalCourseDescription" style="color: var(--text-secondary); margin-bottom: 20px;"></p>
-                        
-                        <div class="course-instructor-detail">
-                            <img src="" alt="Instructor" class="instructor-avatar" style="width: 60px; height: 60px;" id="modalInstructorAvatar">
-                            <div>
-                                <div style="font-weight: 600;" id="modalInstructorName"></div>
-                                <div style="color: var(--text-secondary); font-size: 14px;" id="modalInstructorTitle"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="stats-grid" style="margin-bottom: 25px;">
-                            <div class="stat-card">
-                                <div class="stat-value" id="modalCourseStudents">0</div>
-                                <div class="stat-label">Siswa</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value" id="modalCourseRating">0</div>
-                                <div class="stat-label">Rating</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value" id="modalCourseDuration">0</div>
-                                <div class="stat-label">Jam</div>
-                            </div>
-                        </div>
-                        
-                        <div class="course-actions">
-                            <button class="btn btn-primary" id="modalEnrollBtn" onclick="enrollInCourse()">
-                                <i class="fas fa-sign-in-alt"></i> Masuk Kursus
-                            </button>
-                            <button class="btn btn-secondary" onclick="addToWishlist()">
-                                <i class="fas fa-bookmark"></i> Simpan
-                            </button>
-                            <button class="btn btn-outline" onclick="showNotification('info', 'Membagikan kursus', 'Kursus telah dibagikan')">
-                                <i class="fas fa-share"></i> Bagikan
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: UPGRADE TO PRO -->
-    <div class="modal-overlay" id="upgradeModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2><i class="fas fa-crown"></i> Upgrade ke EzyLearn Pro</h2>
-                <button class="modal-close" onclick="closeModal('upgradeModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <div style="font-size: 72px; color: var(--accent-secondary); margin-bottom: 20px;">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3 style="margin-bottom: 10px;">Akses Semua Fitur Premium</h3>
-                    <p style="color: var(--text-secondary);">Hanya sekali bayar, akses seumur hidup</p>
-                </div>
-                
-                <div style="background: rgba(255, 152, 0, 0.1); border-radius: var(--border-radius); padding: 25px; margin-bottom: 30px;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 12px; color: var(--text-secondary);">Hanya</div>
-                        <div style="font-size: 48px; font-weight: 700; color: var(--accent-secondary);">Rp 499.000</div>
-                        <div style="font-size: 14px; color: var(--text-secondary);">sekali bayar, akses seumur hidup</div>
                     </div>
                 </div>
                 
-                <ul class="upgrade-features" style="margin-bottom: 30px;">
-                    <li><i class="fas fa-check" style="color: var(--accent-primary);"></i> Akses 50+ kursus premium</li>
-                    <li><i class="fas fa-check" style="color: var(--accent-primary);"></i> Nyawa tak terbatas untuk kuis</li>
-                    <li><i class="fas fa-check" style="color: var(--accent-primary);"></i> Sertifikat resmi untuk semua kursus</li>
-                    <li><i class="fas fa-check" style="color: var(--accent-primary);"></i> Download materi (PDF, video, assets)</li>
-                    <li><i class="fas fa-check" style="color: var(--accent-primary);"></i> Akses komunitas Pro eksklusif</li>
-                    <li><i class="fas fa-check" style="color: var(--accent-primary);"></i> Dukungan prioritas 24/7</li>
-                </ul>
-                
-                <div class="course-actions">
-                    <button class="btn btn-outline w-full" onclick="closeModal('upgradeModal')">
-                        Nanti Saja
-                    </button>
-                    <button class="btn btn-primary w-full" onclick="purchasePro()">
-                        <i class="fas fa-gem"></i> Upgrade Sekarang
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- NOTIFICATION CONTAINER -->
-    <div class="notification-container" id="notificationContainer"></div>
-
-    <script>
-        // ==================== DATA & STATE ====================
-        let state = {
-            user: {
-                id: 1,
-                name: "Andre Wijaya",
-                role: "student",
-                email: "andre@example.com",
-                avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-                isPro: false,
-                lives: 5,
-                lifeTimer: 20 * 60,
-                enrolledCourses: [1, 2, 3],
-                completedCourses: [1, 2],
-                savedCourses: [1, 3, 5],
-                wishlist: [4, 6]
-            },
-            currentCourse: null,
-            currentQuiz: null,
-            quizScore: 0,
-            timerInterval: null
-        };
-
-        // ==================== COURSE DATA ====================
-        const coursesData = [
-            {
-                id: 1,
-                title: "Fundamental Desain Grafis untuk Pemula",
-                description: "Pelajari prinsip-prinsip dasar desain grafis, teori warna, tipografi, dan komposisi visual untuk menciptakan desain yang menarik dan efektif.",
-                category: "design",
-                level: "Pemula",
-                instructor: {
-                    id: 1,
-                    name: "Andre Wijaya",
-                    title: "Senior Graphic Designer & Instructor",
-                    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-                    bio: "Desainer grafis dengan pengalaman 10+ tahun. Spesialis dalam branding dan ilustrasi digital."
-                },
-                thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&auto=format&fit=crop",
-                duration: "8 jam",
-                students: 5230,
-                rating: 4.8,
-                price: 199000,
-                isPro: true,
-                materials: [
-                    { id: 1, title: "Pengenalan Desain Grafis", duration: "30 menit", type: "video", completed: true },
-                    { id: 2, title: "Prinsip-Prinsip Desain", duration: "45 menit", type: "video", completed: true },
-                    { id: 3, title: "Teori Warna dalam Desain", duration: "60 menit", type: "video + quiz", completed: false },
-                    { id: 4, title: "Tipografi Dasar", duration: "50 menit", type: "video", completed: false },
-                    { id: 5, title: "Komposisi Visual", duration: "55 menit", type: "video + quiz", completed: false },
-                    { id: 6, title: "Project: Desain Poster", duration: "90 menit", type: "project", completed: false }
-                ],
-                quiz: [
-                    {
-                        id: 1,
-                        question: "Apa yang dimaksud dengan prinsip kontras dalam desain?",
-                        options: [
-                            "Perbedaan yang jelas antara elemen desain",
-                            "Kesamaan warna dan bentuk",
-                            "Pengulangan pola",
-                            "Keseimbangan simetris"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "Kontras menciptakan perbedaan yang jelas antara elemen untuk menarik perhatian dan menciptakan hierarki visual."
-                    }
-                ],
-                reviews: [
-                    {
-                        id: 1,
-                        userId: 2,
-                        userName: "Budi Santoso",
-                        userAvatar: "https://randomuser.me/api/portraits/men/22.jpg",
-                        rating: 5,
-                        comment: "Kursus yang sangat bagus untuk pemula. Penjelasannya jelas dan mudah dipahami.",
-                        date: "2023-12-01"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                title: "Mastering Adobe Photoshop dari Nol",
-                description: "Kuasai teknik-teknik editing foto profesional, manipulasi gambar, dan pembuatan desain digital menggunakan Adobe Photoshop.",
-                category: "design",
-                level: "Menengah",
-                instructor: {
-                    id: 2,
-                    name: "Sari Dewi",
-                    title: "Adobe Certified Expert & Digital Artist",
-                    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-                    bio: "Spesialis Adobe Photoshop dengan sertifikasi internasional. Mengajar teknik editing foto profesional sejak 2015."
-                },
-                thumbnail: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop",
-                duration: "10 jam",
-                students: 3240,
-                rating: 4.7,
-                price: 149000,
-                isPro: false,
-                materials: [
-                    { id: 1, title: "Interface & Tools Dasar", duration: "40 menit", type: "video", completed: true },
-                    { id: 2, title: "Seleksi & Masking", duration: "55 menit", type: "video + quiz", completed: true }
-                ],
-                quiz: [],
-                reviews: []
-            },
-            {
-                id: 3,
-                title: "UI/UX Design: Dari Research ke Prototype",
-                description: "Pelajari proses lengkap perancangan pengalaman pengguna, dari penelitian, wireframing, hingga prototype interaktif dengan Figma.",
-                category: "uiux",
-                level: "Lanjutan",
-                instructor: {
-                    id: 3,
-                    name: "Budi Santoso",
-                    title: "UI/UX Lead Designer & Product Strategist",
-                    avatar: "https://randomuser.me/api/portraits/men/22.jpg",
-                    bio: "Lead designer dengan pengalaman di berbagai startup teknologi. Spesialis dalam user experience design dan product strategy."
-                },
-                thumbnail: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&auto=format&fit=crop",
-                duration: "12 jam",
-                students: 1870,
-                rating: 4.9,
-                price: 299000,
-                isPro: true,
-                materials: [],
-                quiz: [],
-                reviews: []
-            }
-        ];
-
-        // ==================== INITIALIZATION ====================
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("EzyLearn Platform initialized!");
-            
-            // Load initial data
-            updateUI();
-            renderFeaturedCourses();
-            renderPopularCourses();
-            updateLifeDisplay();
-            
-            // Start life timer
-            startLifeTimer();
-            
-            // Set user role
-            document.getElementById('userRoleBadge').textContent = state.user.role === 'contributor' ? 'Kontributor' : 'EzyPro';
-            
-            // Highlight active menu item based on current view
-            updateActiveMenuItem();
-            
-            // Show welcome notification
-            setTimeout(() => {
-                if (!state.user.isPro) {
-                    showNotification('info', 'Upgrade ke EzyLearn Pro', 'Dapatkan akses ke semua kursus premium dan fitur eksklusif!');
-                }
-            }, 2000);
-        });
-
-        // ==================== UI FUNCTIONS ====================
-        function updateUI() {
-            // Update stats
-            document.getElementById('coursesCompleted').textContent = state.user.completedCourses.length;
-            document.getElementById('learningHours').textContent = state.user.completedCourses.length * 4;
-            document.getElementById('lifeCount').textContent = state.user.isPro ? '∞' : state.user.lives;
-            
-            // Update user role display
-            const userRoleBadge = document.getElementById('userRoleBadge');
-            if (state.user.role === 'contributor') {
-                userRoleBadge.textContent = 'Kontributor';
-                userRoleBadge.style.background = 'linear-gradient(135deg, #9D4EDD, #7B2CBF)';
-            } else {
-                userRoleBadge.textContent = state.user.isPro ? 'EzyPro' : 'Student';
-                userRoleBadge.style.background = state.user.isPro 
-                    ? 'linear-gradient(135deg, var(--accent-secondary), #ff6b00)'
-                    : 'linear-gradient(135deg, var(--accent-primary), #2E7D32)';
-            }
-            
-            // Update active menu item
-            updateActiveMenuItem();
-        }
-
-        function updateActiveMenuItem() {
-            // Remove active class from all menu items
-            document.querySelectorAll('.menu-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Add active class based on current view
-            const currentView = getCurrentView();
-            const menuItems = document.querySelectorAll('.menu-item');
-            
-            if (currentView === 'dashboard' && menuItems[0]) menuItems[0].classList.add('active');
-            else if (currentView === 'courses' && menuItems[1]) menuItems[1].classList.add('active');
-            else if (currentView === 'contributor' && menuItems[2]) menuItems[2].classList.add('active');
-            else if (currentView === 'progress' && menuItems[3]) menuItems[3].classList.add('active');
-        }
-
-        function getCurrentView() {
-            if (document.getElementById('contributorDashboard').classList.contains('active')) return 'contributor';
-            if (document.getElementById('learningInterface').classList.contains('active')) return 'learning';
-            return 'dashboard';
-        }
-
-        function renderFeaturedCourses() {
-            const container = document.getElementById('featuredCourses');
-            const featuredCourses = coursesData.slice(0, 3);
-            
-            container.innerHTML = featuredCourses.map(course => createCourseCard(course)).join('');
-        }
-
-        function renderPopularCourses() {
-            const container = document.getElementById('popularCourses');
-            const popularCourses = coursesData.sort((a, b) => b.students - a.students).slice(0, 3);
-            
-            container.innerHTML = popularCourses.map(course => `
-                <div class="course-item" onclick="showCourseDetail(${course.id})">
-                    <img src="${course.thumbnail}" alt="${course.title}">
-                    <div class="course-item-info">
-                        <h4>${course.title}</h4>
-                        <div class="course-item-meta">
-                            <span><i class="fas fa-star" style="color: var(--accent-secondary);"></i> ${course.rating}</span>
-                            <span><i class="fas fa-users"></i> ${course.students.toLocaleString()}</span>
-                        </div>
+                <!-- Course 3 - Web Design Modern -->
+                <div class="course-card" data-category="web pro">
+                    <div class="course-image">
+                        <div class="course-badge pro">PRO</div>
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Web Design">
                     </div>
-                </div>
-            `).join('');
-        }
-
-        function createCourseCard(course) {
-            const isEnrolled = state.user.enrolledCourses.includes(course.id);
-            const isSaved = state.user.savedCourses.includes(course.id);
-            
-            return `
-                <div class="course-card">
-                    ${course.isPro ? '<div class="course-pro-badge"><i class="fas fa-crown"></i> Pro</div>' : ''}
-                    <img src="${course.thumbnail}" alt="${course.title}" class="course-thumbnail">
                     <div class="course-content">
-                        <h3 class="course-title">${course.title}</h3>
+                        <h3 class="course-title">Web Design Modern</h3>
+                        <div class="course-instructor">
+                            <i class="fas fa-user"></i> Oleh: David Coder
+                        </div>
+                        <p class="course-description">
+                            Pelajari web design modern dengan HTML5, CSS3, JavaScript, dan framework terbaru. Bangun website responsif dan aplikasi web interaktif.
+                        </p>
+                        
                         <div class="course-meta">
-                            <div class="course-instructor">
-                                <img src="${course.instructor.avatar}" alt="${course.instructor.name}" class="instructor-avatar">
-                                <span>${course.instructor.name}</span>
+                            <span><i class="fas fa-clock"></i> 24 Jam</span>
+                            <span><i class="fas fa-video"></i> 36 Video</span>
+                            <span><i class="fas fa-users"></i> 8,750 Siswa</span>
+                        </div>
+                        
+                        <div class="progress-container">
+                            <div class="progress-info">
+                                <span>Progress</span>
+                                <span>30%</span>
                             </div>
-                            <div class="course-rating">
-                                <i class="fas fa-star"></i>
-                                <span>${course.rating}</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 30%;"></div>
                             </div>
                         </div>
-                        <p class="course-description">${course.description.substring(0, 100)}...</p>
+                        
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-value">4.9</span>
+                            </div>
+                            <div class="course-price">Rp 299.000</div>
+                        </div>
+                        
                         <div class="course-actions">
-                            ${isEnrolled ? 
-                                `<button class="btn btn-primary" onclick="enterLearningMode(${course.id})">
-                                    <i class="fas fa-play"></i> Lanjutkan
-                                </button>` :
-                                `<button class="btn btn-primary" onclick="showCourseDetail(${course.id})">
-                                    <i class="fas fa-eye"></i> Detail
-                                </button>`
-                            }
-                            <button class="btn btn-secondary" onclick="toggleSaveCourse(${course.id})">
-                                <i class="fas fa-bookmark"></i> ${isSaved ? 'Disimpan' : 'Simpan'}
+                            <button class="btn-course btn-continue">
+                                <i class="fas fa-play-circle"></i> Lanjutkan Belajar
                             </button>
                         </div>
                     </div>
                 </div>
-            `;
-        }
-
-        // ==================== COURSE FUNCTIONS ====================
-        function showCourseDetail(courseId) {
-            const course = coursesData.find(c => c.id === courseId);
-            if (!course) return;
-            
-            state.currentCourse = course;
-            
-            // Update modal content
-            document.getElementById('modalCourseTitle').textContent = course.title;
-            document.getElementById('modalCourseName').textContent = course.title;
-            document.getElementById('modalCourseThumbnail').src = course.thumbnail;
-            document.getElementById('modalCourseDescription').textContent = course.description;
-            document.getElementById('modalCourseLevel').textContent = course.level;
-            document.getElementById('modalCourseCategory').textContent = getCategoryName(course.category);
-            document.getElementById('modalCourseType').textContent = course.isPro ? 'Premium' : 'Gratis';
-            document.getElementById('modalCourseStudents').textContent = course.students.toLocaleString();
-            document.getElementById('modalCourseRating').textContent = course.rating;
-            document.getElementById('modalCourseDuration').textContent = course.duration;
-            document.getElementById('modalInstructorAvatar').src = course.instructor.avatar;
-            document.getElementById('modalInstructorName').textContent = course.instructor.name;
-            document.getElementById('modalInstructorTitle').textContent = course.instructor.title;
-            
-            // Update enroll button
-            const enrollBtn = document.getElementById('modalEnrollBtn');
-            if (state.user.enrolledCourses.includes(courseId)) {
-                enrollBtn.innerHTML = '<i class="fas fa-play"></i> Lanjutkan Belajar';
-                enrollBtn.onclick = () => enterLearningMode(courseId);
-            } else {
-                enrollBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Masuk Kursus';
-                enrollBtn.onclick = () => enrollInCourse();
-            }
-            
-            openModal('courseDetailModal');
-        }
-
-        function enrollInCourse() {
-            if (!state.currentCourse) return;
-            
-            if (state.currentCourse.isPro && !state.user.isPro) {
-                showNotification('error', 'Kursus Premium', 'Upgrade ke EzyLearn Pro untuk mengakses kursus premium ini.');
-                closeModal('courseDetailModal');
-                showUpgradeModal();
-                return;
-            }
-            
-            if (!state.user.enrolledCourses.includes(state.currentCourse.id)) {
-                state.user.enrolledCourses.push(state.currentCourse.id);
-                showNotification('success', 'Berhasil Daftar', `Anda sekarang terdaftar di "${state.currentCourse.title}"`);
                 
-                // Update UI
-                renderFeaturedCourses();
-                closeModal('courseDetailModal');
-                
-                // Enter learning mode
-                setTimeout(() => enterLearningMode(state.currentCourse.id), 500);
-            }
-        }
-
-        function toggleSaveCourse(courseId) {
-            const index = state.user.savedCourses.indexOf(courseId);
-            
-            if (index === -1) {
-                state.user.savedCourses.push(courseId);
-                showNotification('success', 'Disimpan', 'Kursus telah disimpan ke koleksi Anda');
-            } else {
-                state.user.savedCourses.splice(index, 1);
-                showNotification('info', 'Dihapus', 'Kursus dihapus dari koleksi');
-            }
-            
-            // Update UI
-            renderFeaturedCourses();
-        }
-
-        function addToWishlist() {
-            if (!state.currentCourse) return;
-            
-            if (!state.user.wishlist.includes(state.currentCourse.id)) {
-                state.user.wishlist.push(state.currentCourse.id);
-                showNotification('success', 'Ditambahkan ke Wishlist', 'Kursus telah ditambahkan ke wishlist Anda');
-            }
-            
-            closeModal('courseDetailModal');
-        }
-
-        // ==================== VIEW SWITCHING ====================
-        function switchView(view) {
-            // Hide all views first
-            document.getElementById('mainDashboard').style.display = 'none';
-            document.getElementById('contributorDashboard').classList.remove('active');
-            document.getElementById('learningInterface').classList.remove('active');
-            
-            // Show selected view
-            if (view === 'dashboard') {
-                document.getElementById('mainDashboard').style.display = 'block';
-                state.user.role = 'student';
-            } else if (view === 'contributor') {
-                state.user.role = 'contributor';
-                document.getElementById('contributorDashboard').classList.add('active');
-                loadContributorData();
-            } else if (view === 'courses') {
-                showNotification('info', 'Daftar Kursus', 'Fitur ini akan segera hadir!');
-                document.getElementById('mainDashboard').style.display = 'block';
-            } else if (view === 'progress') {
-                showNotification('info', 'Progress Belajar', 'Fitur ini akan segera hadir!');
-                document.getElementById('mainDashboard').style.display = 'block';
-            }
-            
-            // Update UI
-            updateUI();
-        }
-
-        // ==================== LIFE SYSTEM ====================
-        function updateLifeDisplay() {
-            document.getElementById('lifeCount').textContent = state.user.isPro ? '∞' : state.user.lives;
-            
-            // Update timer display
-            const timerElement = document.getElementById('lifeTimer');
-            if (state.user.isPro) {
-                timerElement.textContent = 'Tak Terbatas';
-            } else if (state.user.lives < 5) {
-                const minutes = Math.floor(state.user.lifeTimer / 60);
-                const seconds = state.user.lifeTimer % 60;
-                timerElement.textContent = `Isi ulang dalam ${minutes}:${seconds.toString().padStart(2, '0')}`;
-            } else {
-                timerElement.textContent = 'Penuh';
-            }
-        }
-
-        function startLifeTimer() {
-            if (state.timerInterval) {
-                clearInterval(state.timerInterval);
-            }
-            
-            state.timerInterval = setInterval(() => {
-                if (!state.user.isPro && state.user.lives < 5) {
-                    state.user.lifeTimer--;
-                    
-                    if (state.user.lifeTimer <= 0) {
-                        state.user.lives = Math.min(5, state.user.lives + 1);
-                        state.user.lifeTimer = 20 * 60; // Reset to 20 minutes
-                        
-                        if (state.user.lives === 5) {
-                            showNotification('success', 'Nyawa Penuh', 'Semua nyawa telah diisi ulang!');
-                        }
-                    }
-                    
-                    updateLifeDisplay();
-                }
-            }, 1000);
-        }
-
-        // ==================== MODAL FUNCTIONS ====================
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        function showUpgradeModal() {
-            openModal('upgradeModal');
-        }
-
-        function purchasePro() {
-            state.user.isPro = true;
-            state.user.lives = 999;
-            
-            showNotification('success', 'Upgrade Berhasil!', 'Selamat! Anda sekarang anggota EzyLearn Pro');
-            
-            // Update UI
-            updateLifeDisplay();
-            updateUI();
-            
-            // Close modal
-            closeModal('upgradeModal');
-        }
-
-        // ==================== NOTIFICATION SYSTEM ====================
-        function showNotification(type, title, message) {
-            const container = document.getElementById('notificationContainer');
-            const notificationId = 'notification-' + Date.now();
-            
-            const notification = document.createElement('div');
-            notification.id = notificationId;
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <div class="notification-icon">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
-                </div>
-                <div class="notification-content">
-                    <h4>${title}</h4>
-                    <p>${message}</p>
-                </div>
-            `;
-            
-            container.appendChild(notification);
-            
-            // Show notification
-            setTimeout(() => {
-                notification.classList.add('show');
-            }, 100);
-            
-            // Remove notification after 5 seconds
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, 5000);
-        }
-
-        // ==================== HELPER FUNCTIONS ====================
-        function getCategoryName(category) {
-            const categories = {
-                'design': 'Desain Grafis',
-                'uiux': 'UI/UX Design',
-                'illustration': 'Ilustrasi Digital',
-                'motion': 'Motion Graphics',
-                'branding': 'Branding'
-            };
-            return categories[category] || category;
-        }
-
-        function toggleUserMenu() {
-            // Toggle between student and contributor
-            if (state.user.role === 'student') {
-                state.user.role = 'contributor';
-                showNotification('success', 'Mode Kontributor', 'Anda sekarang dalam mode kontributor');
-                switchView('contributor');
-            } else {
-                state.user.role = 'student';
-                showNotification('info', 'Mode Student', 'Anda sekarang dalam mode student');
-                switchView('dashboard');
-            }
-            
-            updateUI();
-        }
-
-        // ==================== CONTRIBUTOR FUNCTIONS ====================
-        function loadContributorData() {
-            // Count my courses
-            const myCourses = coursesData.filter(course => course.instructor.id === state.user.id);
-            document.getElementById('myCourses').textContent = myCourses.length;
-            
-            // Calculate total students
-            const totalStudents = myCourses.reduce((sum, course) => sum + course.students, 0);
-            document.getElementById('totalStudents').textContent = totalStudents.toLocaleString();
-            
-            // Calculate average rating
-            const averageRating = myCourses.length > 0 ? 
-                (myCourses.reduce((sum, course) => sum + course.rating, 0) / myCourses.length).toFixed(1) : 0;
-            document.getElementById('myRating').textContent = averageRating;
-            
-            // Calculate total reviews
-            const totalReviews = myCourses.reduce((sum, course) => sum + course.reviews.length, 0);
-            document.getElementById('totalReviews').textContent = totalReviews;
-            
-            // Render my courses
-            renderMyCourses();
-        }
-
-        function renderMyCourses() {
-            const myCourses = coursesData.filter(course => course.instructor.id === state.user.id);
-            const container = document.getElementById('myCoursesList');
-            
-            if (myCourses.length === 0) {
-                container.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-secondary);">
-                        <i class="fas fa-chalkboard-teacher" style="font-size: 48px; margin-bottom: 15px; opacity: 0.5;"></i>
-                        <p>Anda belum membuat kursus. Buat kursus pertama Anda sekarang!</p>
+                <!-- Course 4 - UI/UX Design Fundamentals -->
+                <div class="course-card" data-category="uiux pro">
+                    <div class="course-image">
+                        <div class="course-badge pro">PRO</div>
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="UI/UX Design">
                     </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = myCourses.map(course => createCourseCard(course)).join('');
-        }
+                    <div class="course-content">
+                        <h3 class="course-title">UI/UX Design Fundamentals</h3>
+                        <div class="course-instructor">
+                            <i class="fas fa-user"></i> Oleh: Lisa Designer
+                        </div>
+                        <p class="course-description">
+                            Pelajari prinsip-prinsip desain UI/UX, wireframing, prototyping, dan testing. Buat pengalaman pengguna yang menarik dan intuitif untuk aplikasi dan website.
+                        </p>
+                        
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 16 Jam</span>
+                            <span><i class="fas fa-video"></i> 24 Video</span>
+                            <span><i class="fas fa-users"></i> 6,520 Siswa</span>
+                        </div>
+                        
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-value">4.7</span>
+                            </div>
+                            <div class="course-price">Rp 199.000</div>
+                        </div>
+                        
+                        <div class="course-actions">
+                            <button class="btn-course btn-preview">
+                                <i class="fas fa-eye"></i> Pratinjau
+                            </button>
+                            <button class="btn-course btn-enroll">
+                                <i class="fas fa-shopping-cart"></i> Daftar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 5 - Digital Marketing untuk Desainer -->
+                <div class="course-card" data-category="design free">
+                    <div class="course-image">
+                        <div class="course-badge free">GRATIS</div>
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Digital Marketing">
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">Digital Marketing untuk Desainer</h3>
+                        <div class="course-instructor">
+                            <i class="fas fa-user"></i> Oleh: Marketing Pro
+                        </div>
+                        <p class="course-description">
+                            Pelajari strategi digital marketing untuk mempromosikan karya desain Anda. Mulai dari branding, sosial media, hingga SEO untuk desainer.
+                        </p>
+                        
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 10 Jam</span>
+                            <span><i class="fas fa-video"></i> 15 Video</span>
+                            <span><i class="fas fa-users"></i> 4,100 Siswa</span>
+                        </div>
+                        
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-value">4.9</span>
+                            </div>
+                            <div class="course-price free">Gratis</div>
+                        </div>
+                        
+                        <div class="course-actions">
+                            <button class="btn-course btn-preview">
+                                <i class="fas fa-eye"></i> Pratinjau
+                            </button>
+                            <button class="btn-course btn-enroll">
+                                <i class="fas fa-shopping-cart"></i> Daftar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 6 - Motion Graphics dengan After Effects -->
+                <div class="course-card" data-category="design pro">
+                    <div class="course-image">
+                        <div class="course-badge pro">PRO</div>
+                        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Motion Graphics">
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">Motion Graphics dengan After Effects</h3>
+                        <div class="course-instructor">
+                            <i class="fas fa-user"></i> Oleh: Animator Pro
+                        </div>
+                        <p class="course-description">
+                            Pelajari teknik motion graphics dan animasi dengan Adobe After Effects. Buat animasi yang menarik untuk video, presentasi, dan media digital.
+                        </p>
+                        
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 20 Jam</span>
+                            <span><i class="fas fa-video"></i> 30 Video</span>
+                            <span><i class="fas fa-users"></i> 2,850 Siswa</span>
+                        </div>
+                        
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-value">4.6</span>
+                            </div>
+                            <div class="course-price">Rp 349.000</div>
+                        </div>
+                        
+                        <div class="course-actions">
+                            <button class="btn-course btn-preview">
+                                <i class="fas fa-eye"></i> Pratinjau
+                            </button>
+                            <button class="btn-course btn-enroll">
+                                <i class="fas fa-shopping-cart"></i> Daftar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
-        function createNewCourse() {
-            const title = document.getElementById('courseTitle').value.trim();
-            const description = document.getElementById('courseDescription').value.trim();
-            const category = document.getElementById('courseCategory').value;
-            const level = document.getElementById('courseLevel').value;
-            
-            if (!title || !description) {
-                showNotification('error', 'Peringatan', 'Judul dan deskripsi harus diisi');
-                return;
-            }
-            
-            // Create new course object
-            const newCourse = {
-                id: coursesData.length + 1,
-                title: title,
-                description: description,
-                category: category,
-                level: level,
-                instructor: {
-                    id: state.user.id,
-                    name: state.user.name,
-                    title: "Kontributor EzyLearn",
-                    avatar: state.user.avatar,
-                    bio: "Kontributor aktif di platform EzyLearn"
-                },
-                thumbnail: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop",
-                duration: "6 jam",
-                students: 0,
-                rating: 0,
-                price: 0,
-                isPro: false,
-                materials: [],
-                quiz: [],
-                reviews: []
-            };
-            
-            // Add to courses data
-            coursesData.push(newCourse);
-            
-            // Show success notification
-            showNotification('success', 'Kursus Dibuat', `Kursus "${title}" berhasil dibuat!`);
-            
-            // Clear form
-            clearCourseForm();
-            
-            // Reload contributor data
-            loadContributorData();
-        }
-
-        function clearCourseForm() {
-            document.getElementById('courseTitle').value = '';
-            document.getElementById('courseDescription').value = '';
-            document.getElementById('courseCategory').value = 'design';
-            document.getElementById('courseLevel').value = 'pemula';
-        }
-
-        // ==================== LEARNING MODE FUNCTIONS ====================
-        function enterLearningMode(courseId) {
-            const course = coursesData.find(c => c.id === courseId);
-            if (!course) return;
-            
-            state.currentCourse = course;
-            
-            // Hide dashboard, show learning interface
-            document.getElementById('mainDashboard').style.display = 'none';
-            document.getElementById('contributorDashboard').classList.remove('active');
-            document.getElementById('learningInterface').classList.add('active');
-            
-            // Update learning interface
-            document.getElementById('learningCourseTitle').textContent = course.title;
-            
-            // Close any open modals
-            closeModal('courseDetailModal');
-            
-            // Update active menu item
-            updateActiveMenuItem();
-        }
-
-        function exitLearningMode() {
-            document.getElementById('mainDashboard').style.display = 'block';
-            document.getElementById('learningInterface').classList.remove('active');
-            state.currentCourse = null;
-            
-            // Update active menu item
-            updateActiveMenuItem();
-        }
-
-        function switchLearningTab(tabName) {
-            // Update tab buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            document.querySelectorAll('.tab-pane').forEach(pane => {
-                pane.classList.add('hidden');
-            });
-            
-            // Activate selected tab
-            const tabs = document.querySelectorAll('.tab-btn');
-            if (tabName === 'materials') tabs[0].classList.add('active');
-            else if (tabName === 'quiz') tabs[1].classList.add('active');
-            else if (tabName === 'reviews') tabs[2].classList.add('active');
-            
-            document.getElementById(`${tabName}Tab`).classList.remove('hidden');
-        }
-
-        function completeCourse() {
-            if (!state.currentCourse) return;
-            
-            if (!state.user.completedCourses.includes(state.currentCourse.id)) {
-                state.user.completedCourses.push(state.currentCourse.id);
-                showNotification('success', 'Kursus Selesai!', `Selamat! Anda telah menyelesaikan "${state.currentCourse.title}"`);
-                updateUI();
-            }
-        }
-
-        function submitReview() {
-            showNotification('success', 'Review Terkirim', 'Terima kasih atas review Anda!');
-        }
-    </script>
+    <script src="../static/js/ezylearn.js"></script>
 </body>
 </html>

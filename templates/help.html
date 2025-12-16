@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pusat Bantuan - EzyDraw</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/help.css">
+</head>
+<body>
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <div class="logo-img-container">
+                <img src="../static/img/logo.png" alt="EzyDraw Logo" class="logo-img">
+            </div>
+            <div class="logo">
+                <span class="logo-text">Ezy</span><span class="logo-d">D</span><span class="logo-text">raw</span>
+            </div>
+        </div>
+        
+        <!-- Tombol "Buat Desain Baru" -->
+        <a href="design.html" class="btn-new-design">
+            <i class="fas fa-plus-circle"></i> Buat Desain Baru
+        </a>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Alat Utama</div>
+            <a href="dashboard.html" class="menu-item">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="plugins.html" class="menu-item">
+                <i class="fas fa-puzzle-piece"></i> Plugin
+            </a>
+            <a href="templates.html" class="menu-item">
+                <i class="fas fa-th-large"></i> Templates
+            </a>
+            <a href="aset.html" class="menu-item">
+                <i class="fas fa-box-open"></i> Aset
+            </a>
+        </div>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Komunitas</div>
+            <a href="contributor.html" class="menu-item">
+                <i class="fas fa-users"></i> Contributors
+            </a>
+            <a href="ezylearn.html" class="menu-item">
+                <i class="fas fa-graduation-cap"></i> EzyLearn
+            </a>
+        </div>
+        
+        <div class="menu-group sidebar-footer">
+            <div class="menu-group-title">Akun</div>
+            <a href="profile.html" class="menu-item">
+                <i class="fas fa-user-circle"></i> Profile Saya
+            </a>
+            <a href="about_us.html" class="menu-item">
+                <i class="fas fa-info-circle"></i> Tentang Kami
+            </a>
+            <a href="rate.html" class="menu-item">
+                <i class="fas fa-star" style="color: var(--accent-secondary);"></i> Rating EzyDraw
+            </a>
+            <a href="help.html" class="menu-item active">
+                <i class="fas fa-question-circle"></i> Pusat Bantuan
+            </a>
+            <a href="login.html" class="menu-item">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </aside>
+    
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-container">
+        <main class="main-content">
+            <!-- HELP PAGE -->
+            <div id="help-page" class="page-content active">
+                <header class="main-header">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Cari bantuan...">
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <img src="../static/img/profile.jpg" alt="User Profile" class="user-avatar">
+                        <div class="user-info">
+                            <h2>John Designer</h2>
+                            <p>Desainer Grafis Profesional</p>
+                            <div class="ezypro-badge">EzyPro</div>
+                        </div>
+                    </div>
+                </header>
+                
+                <div class="page-title-section">
+                    <h1 class="page-title">Pusat Bantuan</h1>
+                    <p class="page-subtitle">Temukan solusi untuk masalah dan pertanyaan Anda</p>
+                </div>
+                
+                <div class="help-categories">
+                    <div class="help-category">
+                        <h3><i class="fas fa-user"></i> Akun & Profil</h3>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Cara mengganti password</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Cara upgrade ke EzyPro</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Mengatur preferensi notifikasi</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Menghapus akun</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="help-category">
+                        <h3><i class="fas fa-graduation-cap"></i> Pembelajaran</h3>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Cara mendaftar kursus</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Mengakses materi premium</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Mendownload sertifikat</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Sistem nyawa dan kuis</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="help-category">
+                        <h3><i class="fas fa-tools"></i> Alat & Fitur</h3>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Menggunakan editor desain</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Menginstall plugin</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Menggunakan template</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Mengelola aset</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="help-category">
+                        <h3><i class="fas fa-credit-card"></i> Pembayaran</h3>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Metode pembayaran yang tersedia</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Cara refund</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Invoice dan faktur pajak</a></li>
+                            <li><a href="#"><i class="fas fa-question-circle"></i> Promo dan diskon</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-section">
+                    <h2 style="margin-bottom: 20px;">FAQ - Pertanyaan yang Sering Diajukan</h2>
+                    
+                    <div class="faq-item active">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            Bagaimana cara mulai belajar di EzyLearn?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Anda bisa mulai dengan mendaftar akun gratis, lalu pilih kursus yang sesuai dengan level Anda. Untuk pemula, kami rekomendasikan kursus "Fundamental Desain Grafis" sebagai langkah awal.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            Apa perbedaan antara akun gratis dan EzyPro?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Akun gratis memberikan akses ke kursus dasar dan fitur terbatas. EzyPro memberikan akses ke semua kursus premium, sertifikat, nyawa tak terbatas, dan fitur eksklusif lainnya.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            Apakah sertifikat dari EzyLearn diakui industri?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Ya, sertifikat kelulusan dari EzyLearn diakui oleh berbagai perusahaan dan industri. Sertifikat kami mencantumkan detail kursus, durasi, dan keterampilan yang dikuasai.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- RIGHT WIDGETS -->
+        <aside class="right-widgets">
+            <!-- STATISTICS WIDGET -->
+            <div class="widget">
+                <h3><i class="fas fa-chart-bar"></i> Ringkasan Statistik</h3>
+                <div class="stats-grid">
+                    <div class="stat-item-small">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Total Proyek</div>
+                    </div>
+                    <div class="stat-item-small">
+                        <div class="stat-value">20h</div>
+                        <div class="stat-label">Waktu Desain</div>
+                    </div>
+                    <div class="stat-item-small">
+                        <div class="stat-value">5/5</div>
+                        <div class="stat-label">Rating Rata-rata</div>
+                    </div>
+                    <div class="stat-item-small">
+                        <div class="stat-value">30</div>
+                        <div class="stat-label">Aset Digunakan</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- QUICK ACCESS WIDGET -->
+            <div class="widget">
+                <h3><i class="fas fa-bolt"></i> Akses Cepat</h3>
+                <div class="quick-access-list">
+                    <a href="design.html" class="access-item">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Desain Baru</span>
+                    </a>
+                    <a href="templates.html" class="access-item">
+                        <i class="fas fa-th-large"></i>
+                        <span>Templates</span>
+                    </a>
+                    <a href="aset.html" class="access-item">
+                        <i class="fas fa-download"></i>
+                        <span>Unduhan</span>
+                    </a>
+                    <a href="contributor.html" class="access-item">
+                        <i class="fas fa-comments"></i>
+                        <span>Komunitas</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- LEARNING PROGRESS WIDGET -->
+            <div class="widget">
+                <h3><i class="fas fa-chart-line"></i> Progress Belajar</h3>
+                <div class="progress-list">
+                    <div class="progress-item">
+                        <div class="progress-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div class="progress-info">
+                            <h4>Fundamental Desain</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-percentage">65%</div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="progress-info">
+                            <h4>UI/UX Design</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 42%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-percentage">42%</div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="progress-info">
+                            <h4>3D Modeling</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 28%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-percentage">28%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- EZYLEARN PRO WIDGET -->
+            <div class="widget" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 152, 0, 0.1)); border: 1px solid rgba(255, 215, 0, 0.3);">
+                <h3><i class="fas fa-crown" style="color: var(--accent-gold);"></i> EzyLearn Pro</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem;">
+                    Akses semua kursus premium dengan sekali bayar. Dapatkan sertifikat dan nyawa tak terbatas.
+                </p>
+                <button class="btn-enroll" style="background-color: var(--accent-gold); color: #000; width: 100%;" onclick="showUpgradeModal()">
+                    <i class="fas fa-gem"></i> Upgrade Sekarang
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Karena kita sudah di halaman help, maka kita hanya butuh fungsi yang berhubungan dengan halaman help
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            faqItem.classList.toggle('active');
+            
+            // Rotate icon
+            const icon = element.querySelector('i');
+            if (faqItem.classList.contains('active')) {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+
+        function showUpgradeModal() {
+            alert('Membuka halaman upgrade...');
+            // Dalam aplikasi lengkap, ini akan membuka modal upgrade
+        }
+
+        // Set first FAQ as active by default (jika belum ada yang active)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Jika tidak ada FAQ yang active, set yang pertama
+            if (!document.querySelector('.faq-item.active')) {
+                const firstFaq = document.querySelector('.faq-item');
+                if (firstFaq) {
+                    firstFaq.classList.add('active');
+                    const icon = firstFaq.querySelector('.faq-question i');
+                    if (icon) {
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

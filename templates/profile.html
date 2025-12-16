@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - EzyDraw</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES & THEME ===== */
+        :root {
+            --primary-bg: #0F051F;
+            --secondary-bg: #1A0A33;
+            --card-bg: #241242;
+            --accent-primary: #4CAF50;
+            --accent-secondary: #FF9800;
+            --accent-blue: #2196F3;
+            --accent-purple: #9C27B0;
+            --accent-pink: #E91E63;
+            --accent-teal: #00BCD4;
+            --accent-indigo: #3F51B5;
+            --accent-lime: #CDDC39;
+            --accent-cyan: #00BCD4;
+            --accent-deep-orange: #FF5722;
+            --accent-deep-purple: #673AB7;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0A8CC;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            --transition: all 0.3s ease;
+        }
+
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            display: flex;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 220px;
+            background-color: var(--secondary-bg);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 15px;
+            z-index: 10;
+            flex-shrink: 0;
+            height: 100vh;
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 25px;
+            gap: 12px;
+            padding: 0 5px;
+        }
+
+        .logo-img-container {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--accent-primary);
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .logo {
+            font-family: 'Galada', cursive;
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+
+        .logo-text {
+            color: var(--text-primary);
+        }
+
+        .logo-d {
+            color: var(--accent-secondary);
+        }
+
+        .btn-new-design {
+            background-color: var(--accent-primary);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 12px 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0 25px 0;
+            transition: var(--transition);
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-new-design:hover {
+            background-color: #3d8b40;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-new-design i {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+
+        .menu-group {
+            margin-bottom: 25px;
+        }
+
+        .menu-group-title {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .menu-item.active {
+            background-color: rgba(76, 175, 80, 0.15);
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 12px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .menu-item.active i {
+            color: var(--accent-primary);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-container {
+            flex: 1;
+            display: flex;
+            margin-left: 220px;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .btn-back {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background-color: var(--accent-primary);
+            color: var(--primary-bg);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        /* ===== PROFILE HEADER ===== */
+        .profile-header {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+        }
+
+        .profile-header-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .avatar-edit {
+            position: relative;
+        }
+
+        .profile-avatar-large {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-primary);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background-color: var(--secondary-bg);
+        }
+
+        .edit-avatar-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            color: var(--primary-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid var(--card-bg);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .edit-avatar-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .profile-title {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .profile-badges {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-ezypro {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--accent-primary);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .badge-contributor {
+            background: rgba(255, 152, 0, 0.2);
+            color: var(--accent-secondary);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+        }
+
+        .badge-verified {
+            background: rgba(33, 150, 243, 0.2);
+            color: var(--accent-blue);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 20px 25px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: var(--border-radius);
+            min-width: 120px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            background-color: rgba(76, 175, 80, 0.05);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== PROFILE TABS ===== */
+        .profile-tabs-container {
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .profile-tabs {
+            display: flex;
+            gap: 5px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .profile-tabs::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .profile-tabs::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 3px;
+        }
+
+        .profile-tabs::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 3px;
+        }
+
+        .tab {
+            padding: 12px 25px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            white-space: nowrap;
+            transition: var(--transition);
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: 2px solid transparent;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            color: var(--primary-bg);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .tab:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        /* ===== TAB CONTENT ===== */
+        .tab-content-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ===== SECTION CARD ===== */
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .section-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow);
+        }
+
+        .section-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-header h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-header h2 i {
+            color: var(--accent-primary);
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ===== FORM STYLES ===== */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-label i {
+            color: var(--accent-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            color: var(--text-primary);
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* ===== BUTTON STYLES ===== */
+        .btn-profile {
+            padding: 15px 30px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            color: var(--primary-bg);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            margin-right: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(244, 67, 54, 0.4);
+        }
+
+        /* ===== ACTIVITY LIST ===== */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .activity-item:hover {
+            transform: translateX(10px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-primary);
+        }
+
+        .activity-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius);
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-bg);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .activity-time {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== CONTRIBUTOR PLANS ===== */
+        .plans-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .plan-card {
+            border-radius: var(--border-radius);
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.05), rgba(33, 150, 243, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow);
+        }
+
+        .plan-card.starter {
+            border-top: 4px solid var(--accent-lime);
+        }
+
+        .plan-card.pro {
+            border-top: 4px solid var(--accent-blue);
+        }
+
+        .plan-card.agency {
+            border-top: 4px solid var(--accent-secondary);
+        }
+
+        .plan-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        .plan-price span {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .plan-features li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .plan-features li i.fa-check {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-bg);
+            font-size: 0.8rem;
+        }
+
+        .plan-features li i.fa-times {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-bg);
+            font-size: 0.8rem;
+        }
+
+        .plan-btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .plan-btn.starter {
+            background-color: var(--accent-lime);
+            color: var(--primary-bg);
+        }
+
+        .plan-btn.pro {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+            color: var(--primary-bg);
+        }
+
+        .plan-btn.agency {
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-deep-orange));
+            color: var(--primary-bg);
+        }
+
+        .plan-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .current-plan-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            color: var(--primary-bg);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* ===== NOTIFICATIONS ===== */
+        .notification-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        .notification-item:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: var(--border-radius);
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--border-radius);
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-primary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .notification-time {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== TOGGLE SWITCH ===== */
+        .notification-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .notification-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: var(--text-primary);
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+
+        /* ===== ACCOUNT ACTIONS ===== */
+        .account-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        /* ===== CUSTOM SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d8b40;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .plans-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-container {
+                margin-left: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 15px;
+            }
+            
+            .logo-container {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .plans-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .profile-header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .section-card {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .profile-tabs {
+                overflow-x: scroll;
+                padding-bottom: 10px;
+            }
+            
+            .stat-box {
+                min-width: 100px;
+                padding: 15px;
+            }
+            
+            .plan-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <div class="logo-img-container">
+                <img src="../static/img/logo.png" alt="EzyDraw Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/45/4CAF50/0F051F?text=ED'">
+            </div>
+            <div class="logo">
+                <span class="logo-text">Ezy</span><span class="logo-d">D</span><span class="logo-text">raw</span>
+            </div>
+        </div>
+        
+        <a href="design.html" class="btn-new-design">
+            <i class="fas fa-plus-circle"></i> Buat Desain Baru
+        </a>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Alat Utama</div>
+            <a href="dashboard.html" class="menu-item">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="plugins.html" class="menu-item">
+                <i class="fas fa-puzzle-piece"></i> Plugin
+            </a>
+            <a href="templates.html" class="menu-item">
+                <i class="fas fa-th-large"></i> Templates
+            </a>
+            <a href="aset.html" class="menu-item">
+                <i class="fas fa-box-open"></i> Aset
+            </a>
+        </div>
+        
+        <div class="menu-group">
+            <div class="menu-group-title">Komunitas</div>
+            <a href="contributor.html" class="menu-item">
+                <i class="fas fa-users"></i> Contributors
+            </a>
+            <a href="ezylearn.html" class="menu-item">
+                <i class="fas fa-graduation-cap"></i> EzyLearn
+            </a>
+        </div>
+        
+        <div class="menu-group sidebar-footer">
+            <div class="menu-group-title">Akun</div>
+            <a href="profile.html" class="menu-item active">
+                <i class="fas fa-user-circle"></i> Profile Saya
+            </a>
+            <a href="about_us.html" class="menu-item">
+                <i class="fas fa-info-circle"></i> Tentang Kami
+            </a>
+            <a href="rate.html" class="menu-item">
+                <i class="fas fa-star"></i> Rating EzyDraw
+            </a>
+            <a href="help.html" class="menu-item">
+                <i class="fas fa-question-circle"></i> Pusat Bantuan
+            </a>
+            <a href="login.html" class="menu-item">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </aside>
+    
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-container">
+        <main class="main-content">
+            <!-- PAGE HEADER -->
+            <header class="page-header">
+                <div>
+                    <h1 class="page-title">Profile Saya</h1>
+                    <p class="page-subtitle">Kelola informasi profil, pengaturan, dan preferensi Anda</p>
+                </div>
+                <a href="dashboard.html" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
+                </a>
+            </header>
+            
+            <!-- PROFILE HEADER -->
+            <div class="profile-header">
+                <div class="profile-header-content">
+                    <div class="avatar-edit">
+                        <img src="../static/img/profile.jpg" alt="John Designer" class="profile-avatar-large" onerror="this.src='https://via.placeholder.com/180/4CAF50/0F051F?text=JD'">
+                        <div class="edit-avatar-btn" id="editAvatarBtn">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <h1>Rumi Sains Data</h1>
+                        <p class="profile-title">Desainer Grafis Profesional</p>
+                        <div class="profile-badges">
+                            <!-- Menghapus badge EzyPro karena bukan langganan -->
+                            <span class="badge badge-contributor"><i class="fas fa-award"></i> Contributor</span>
+                            <span class="badge badge-verified"><i class="fas fa-check-circle"></i> Verified</span>
+                        </div>
+                        <div class="profile-stats">
+                            <div class="stat-box">
+                                <div class="stat-value">42</div>
+                                <div class="stat-label">Karya</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-value">1.2K</div>
+                                <div class="stat-label">Pengikut</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-value">89</div>
+                                <div class="stat-label">Mengikuti</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-value">4.8</div>
+                                <div class="stat-label">Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PROFILE TABS -->
+            <div class="profile-tabs-container">
+                <div class="profile-tabs">
+                    <div class="tab active" data-tab="info">Informasi Profil</div>
+                    <div class="tab" data-tab="activity">Aktivitas Terbaru</div>
+                    <div class="tab" data-tab="subscription">Paket Contributor</div>
+                    <div class="tab" data-tab="notifications">Notifikasi</div>
+                    <div class="tab" data-tab="security">Keamanan</div>
+                </div>
+            </div>
+            
+            <!-- TAB CONTENT -->
+            <div class="tab-content-container">
+                <!-- Tab 1: Informasi Profil -->
+                <div id="info" class="tab-content active">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h2><i class="fas fa-user"></i> Informasi Pribadi</h2>
+                            <p class="section-subtitle">Kelola informasi pribadi dan kontak Anda</p>
+                        </div>
+                        <form id="profileForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="firstName"><i class="fas fa-user"></i> Nama Depan</label>
+                                    <input type="text" id="firstName" class="form-control" value="Rumi">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="lastName"><i class="fas fa-user"></i> Nama Belakang</label>
+                                    <input type="text" id="lastName" class="form-control" value="Data">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="email"><i class="fas fa-envelope"></i> Email</label>
+                                <input type="email" id="email" class="form-control" value="rumi.ith@example.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="phone"><i class="fas fa-phone"></i> Nomor Telepon</label>
+                                <input type="tel" id="phone" class="form-control" value="+62 812 3456 7890">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="jobTitle"><i class="fas fa-briefcase"></i> Status</label>
+                                <input type="text" id="jobTitle" class="form-control" value="Mahasiswa">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="bio"><i class="fas fa-file-alt"></i> Biografi</label>
+                                <textarea id="bio" class="form-control" rows="4">Saya adalah mahasiswa di Institut Teknologi Bacharuddin Jusuf Habibie dengan prodi sains data. Spesialisasi saya dalam desain branding, ilustrasi digital, dan UI/UX. Saya senang berkolaborasi dalam proyek kreatif dan selalu mencari tantangan baru.</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="location"><i class="fas fa-map-marker-alt"></i> Lokasi</label>
+                                <input type="text" id="location" class="form-control" value="Parepare, Indonesia">
+                            </div>
+                            
+                            <button type="submit" class="btn-profile btn-primary"><i class="fas fa-save"></i> Simpan Perubahan</button>
+                            <button type="button" class="btn-profile btn-secondary" id="cancelChanges"><i class="fas fa-times"></i> Batal</button>
+                        </form>
+                    </div>
+                    
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h2><i class="fas fa-link"></i> Tautan Sosial</h2>
+                            <p class="section-subtitle">Hubungkan profil sosial media Anda</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="portfolio"><i class="fas fa-globe"></i> Portfolio</label>
+                            <input type="url" id="portfolio" class="form-control" value="https://rumi.dribbble.com">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="instagram"><i class="fab fa-instagram"></i> Instagram</label>
+                                <input type="text" id="instagram" class="form-control" value="@rumidesigner">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="twitter"><i class="fab fa-twitter"></i> Twitter</label>
+                                <input type="text" id="twitter" class="form-control" value="@rumidesigner">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="linkedin"><i class="fab fa-linkedin"></i> LinkedIn</label>
+                                <input type="url" id="linkedin" class="form-control" value="https://linkedin.com/in/rumidesigner">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="behance"><i class="fab fa-behance"></i> Behance</label>
+                                <input type="url" id="behance" class="form-control" value="https://behance.net/rumidesigner">
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn-profile btn-primary"><i class="fas fa-save"></i> Simpan Tautan</button>
+                    </div>
+                </div>
+                
+                <!-- Tab 2: Aktivitas Terbaru -->
+                <div id="activity" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h2><i class="fas fa-history"></i> Aktivitas Terbaru</h2>
+                            <p class="section-subtitle">Riwayat aktivitas dan interaksi Anda di EzyDraw</p>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Mengupload karya baru "Poster Event Musik"</div>
+                                    <div class="activity-time">Hari ini, 14:30</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Karya Anda diunduh 15 kali</div>
+                                    <div class="activity-time">Kemarin, 09:15</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-share-alt"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Mendapatkan komisi dari penjualan karya</div>
+                                    <div class="activity-time">2 hari lalu, 16:45</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Karya Anda disukai oleh 25 pengguna</div>
+                                    <div class="activity-time">3 hari lalu, 11:20</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-comment"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Mendapatkan komentar positif pada karya Anda</div>
+                                    <div class="activity-time">5 hari lalu, 13:10</div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Menyelesaikan kursus "Advanced Typography"</div>
+                                    <div class="activity-time">1 minggu lalu, 10:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button class="btn-profile btn-secondary"><i class="fas fa-eye"></i> Lihat Semua Aktivitas</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab 3: Paket Contributor (bukan EzyPro) -->
+                <div id="subscription" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h2><i class="fas fa-users"></i> Paket Contributor</h2>
+                            <p class="section-subtitle">Pilih paket yang sesuai untuk mengupload karya Anda sebagai kontributor</p>
+                        </div>
+                        
+                        <div class="plans-container">
+                            <!-- Paket Starter -->
+                            <div class="plan-card starter">
+                                <div class="plan-title">Starter</div>
+                                <div class="plan-price">Rp 99.000<span>/tahun</span></div>
+                                
+                                <ul class="plan-features">
+                                    <li><i class="fas fa-check"></i> Upload hingga 10 karya/bulan</li>
+                                    <li><i class="fas fa-check"></i> Komisi 70% dari penjualan</li>
+                                    <li><i class="fas fa-check"></i> Dukungan email</li>
+                                    <li><i class="fas fa-times"></i> Fitur analytics lengkap</li>
+                                    <li><i class="fas fa-times"></i> Promosi khusus</li>
+                                </ul>
+                                
+                                <a href="#" class="plan-btn starter">Pilih Paket</a>
+                            </div>
+                            
+                            <!-- Paket Pro -->
+                            <div class="plan-card pro">
+                                <div class="plan-title">Pro</div>
+                                <div class="plan-price">Rp 199.000<span>/tahun</span></div>
+                                
+                                <ul class="plan-features">
+                                    <li><i class="fas fa-check"></i> Upload hingga 50 karya/bulan</li>
+                                    <li><i class="fas fa-check"></i> Komisi 80% dari penjualan</li>
+                                    <li><i class="fas fa-check"></i> Dukungan prioritas</li>
+                                    <li><i class="fas fa-check"></i> Fitur analytics lengkap</li>
+                                    <li><i class="fas fa-check"></i> Promosi khusus 2x/bulan</li>
+                                </ul>
+                                
+                                <a href="#" class="plan-btn pro">Pilih Paket</a>
+                            </div>
+                            
+                            <!-- Paket Agency -->
+                            <div class="plan-card agency">
+                                <div class="plan-title">Agency</div>
+                                <div class="plan-price">Rp 499.000<span>/tahun</span></div>
+                                
+                                <ul class="plan-features">
+                                    <li><i class="fas fa-check"></i> Upload tanpa batas</li>
+                                    <li><i class="fas fa-check"></i> Komisi 85% dari penjualan</li>
+                                    <li><i class="fas fa-check"></i> Dukungan 24/7</li>
+                                    <li><i class="fas fa-check"></i> Fitur analytics premium</li>
+                                    <li><i class="fas fa-check"></i> Promosi khusus mingguan</li>
+                                </ul>
+                                
+                                <a href="#" class="plan-btn agency">Pilih Paket</a>
+                            </div>
+                        </div>
+                        
+                        <div class="account-actions">
+                            <button class="btn-profile btn-secondary"><i class="fas fa-calendar-alt"></i> Lihat Riwayat Pembayaran</button>
+                            <button class="btn-profile btn-primary"><i class="fas fa-cog"></i> Kelola Paket Saya</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab 4: Notifikasi -->
+                <div id="notifications" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h2><i class="fas fa-bell"></i> Pengaturan Notifikasi</h2>
+                            <p class="section-subtitle">Atur preferensi notifikasi yang ingin Anda terima</p>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-title">Email Notifikasi</div>
+                                <div class="notification-time">Terima pemberitahuan via email</div>
+                            </div>
+                            <div class="notification-toggle">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-title">Pembaruan Karya</div>
+                                <div class="notification-time">Notifikasi untuk penjualan karya</div>
+                            </div>
+                            <div class="notification-toggle">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-title">Aktivitas Komunitas</div>
+                                <div class="notification-time">Pembaruan dari komunitas desainer</div>
+                            </div>
+                            <div class="notification-toggle">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-title">Promo dan Penawaran</div>
+                                <div class="notification-time">Informasi promo dan diskon</div>
+                            </div>
+                            <div class="notification-toggle">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-title">Kursus Baru</div>
+                                <div class="notification-time">Notifikasi kursus EzyLearn baru</div>
+                            </div>
+                            <div class="notification-toggle">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 30px;">
+                            <button class="btn-profile btn-primary"><i class="fas fa-save"></i> Simpan Pengaturan</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab 5: Keamanan -->
+                <div id="security" class="tab-content">
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h2><i class="fas fa-shield-alt"></i> Keamanan Akun</h2>
+                            <p class="section-subtitle">Kelola keamanan dan privasi akun Anda</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="currentPassword"><i class="fas fa-key"></i> Password Saat Ini</label>
+                            <input type="password" id="currentPassword" class="form-control" placeholder="Masukkan password saat ini">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="newPassword"><i class="fas fa-key"></i> Password Baru</label>
+                                <input type="password" id="newPassword" class="form-control" placeholder="Masukkan password baru">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="confirmPassword"><i class="fas fa-key"></i> Konfirmasi Password</label>
+                                <input type="password" id="confirmPassword" class="form-control" placeholder="Konfirmasi password baru">
+                            </div>
+                        </div>
+                        
+                        <button class="btn-profile btn-primary"><i class="fas fa-sync-alt"></i> Ubah Password</button>
+                        
+                        <div style="margin-top: 40px;">
+                            <div class="section-header">
+                                <h2><i class="fas fa-desktop"></i> Sesi Aktif</h2>
+                                <p class="section-subtitle">Perangkat yang saat ini login ke akun Anda</p>
+                            </div>
+                            
+                            <div class="notification-item">
+                                <div class="notification-icon">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title">Windows 11 - Chrome</div>
+                                    <div class="notification-time">Jakarta, Indonesia • Saat ini aktif</div>
+                                </div>
+                                <button class="btn-profile btn-secondary"><i class="fas fa-sign-out-alt"></i> Keluar</button>
+                            </div>
+                            
+                            <div class="notification-item">
+                                <div class="notification-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title">iPhone 13 - Safari</div>
+                                    <div class="notification-time">Jakarta, Indonesia • 2 jam lalu</div>
+                                </div>
+                                <button class="btn-profile btn-secondary"><i class="fas fa-sign-out-alt"></i> Keluar</button>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="section-header">
+                                <h2><i class="fas fa-exclamation-triangle"></i> Zona Berbahaya</h2>
+                                <p class="section-subtitle">Tindakan ini tidak dapat dibatalkan. Hanya lanjutkan jika Anda yakin.</p>
+                            </div>
+                            
+                            <div class="account-actions">
+                                <button class="btn-profile btn-danger" id="deleteAccountBtn"><i class="fas fa-trash"></i> Hapus Akun Saya</button>
+                                <button class="btn-profile btn-secondary" id="exportDataBtn"><i class="fas fa-download"></i> Ekspor Data Saya</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Profile page functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Edit avatar button
+            const editAvatarBtn = document.getElementById('editAvatarBtn');
+            if (editAvatarBtn) {
+                editAvatarBtn.addEventListener('click', () => {
+                    showNotification('Fitur upload foto akan membuka pemilih file. Untuk demo, fitur ini dinonaktifkan.', 'info');
+                });
+            }
+            
+            // Profile form submission
+            const profileForm = document.getElementById('profileForm');
+            if (profileForm) {
+                profileForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    showNotification('Profile berhasil diperbarui!', 'success');
+                });
+                
+                // Cancel changes button
+                const cancelBtn = document.getElementById('cancelChanges');
+                if (cancelBtn) {
+                    cancelBtn.addEventListener('click', () => {
+                        profileForm.reset();
+                        showNotification('Perubahan dibatalkan', 'info');
+                    });
+                }
+            }
+            
+            // Delete account button
+            const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+            if (deleteAccountBtn) {
+                deleteAccountBtn.addEventListener('click', () => {
+                    if (confirm('Apakah Anda yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan.')) {
+                        showNotification('Permintaan penghapusan akun telah dikirim. Kami akan menghubungi Anda untuk konfirmasi.', 'warning');
+                    }
+                });
+            }
+            
+            // Export data button
+            const exportDataBtn = document.getElementById('exportDataBtn');
+            if (exportDataBtn) {
+                exportDataBtn.addEventListener('click', () => {
+                    showNotification('Permintaan ekspor data telah dikirim. File akan dikirim ke email Anda dalam 24 jam.', 'info');
+                });
+            }
+            
+            // Notification function
+            function showNotification(message, type) {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `notification notification-${type}`;
+                notification.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                    <button class="close-notification"><i class="fas fa-times"></i></button>
+                `;
+                
+                // Add styles
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 30px;
+                    right: 30px;
+                    background: ${type === 'success' ? 'var(--accent-primary)' : type === 'warning' ? 'var(--accent-secondary)' : 'var(--accent-blue)'};
+                    color: var(--primary-bg);
+                    padding: 20px 25px;
+                    border-radius: var(--border-radius);
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    box-shadow: var(--shadow);
+                    z-index: 10000;
+                    animation: slideInRight 0.4s ease;
+                    min-width: 300px;
+                    max-width: 400px;
+                    font-weight: 600;
+                `;
+                
+                // Close button
+                const closeBtn = notification.querySelector('.close-notification');
+                closeBtn.style.cssText = `
+                    background: transparent;
+                    border: none;
+                    color: var(--primary-bg);
+                    cursor: pointer;
+                    margin-left: auto;
+                    font-size: 1.2rem;
+                `;
+                
+                closeBtn.addEventListener('click', () => {
+                    notification.style.animation = 'slideOutRight 0.4s ease';
+                    setTimeout(() => notification.remove(), 400);
+                });
+                
+                // Add to body
+                document.body.appendChild(notification);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.style.animation = 'slideOutRight 0.4s ease';
+                        setTimeout(() => notification.remove(), 400);
+                    }
+                }, 5000);
+                
+                // Add animation keyframes
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideInRight {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOutRight {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        });
+    </script>
+</body>
+</html>

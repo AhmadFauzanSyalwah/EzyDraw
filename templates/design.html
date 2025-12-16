@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design Editor - Tools Terpisah</title>
+    <title>Design Editor - UI Lengkap</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* VARIABLES & RESET */
@@ -46,60 +46,181 @@
             display: none !important;
         }
 
-        /* SIDEBAR - DASHBOARD BUTTON */
-        .sidebar {
-            width: 70px;
-            background-color: var(--secondary-bg);
+        /* Halaman Pemilihan Template */
+        .template-selection-page {
             display: flex;
             flex-direction: column;
-            padding: 20px 0;
-            z-index: 10;
-            flex-shrink: 0;
             height: 100vh;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            align-items: center;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+            overflow-y: auto;
         }
 
-        .sidebar-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: var(--border-radius);
-            background: var(--card-bg);
-            border: none;
+        .template-selection-header {
+            padding: 30px 50px;
+            text-align: center;
+            background: rgba(26, 10, 51, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .template-selection-header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .template-selection-header p {
             color: var(--text-secondary);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .template-categories {
+            padding: 30px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-primary);
+        }
+
+        .template-grid-large {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .template-card-large {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
             cursor: pointer;
             transition: var(--transition);
-            margin-bottom: 15px;
+            border: 2px solid transparent;
+            height: 100%;
+        }
+
+        .template-card-large:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow);
+        }
+
+        .template-preview {
+            height: 180px;
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .sidebar-btn:hover {
-            background: rgba(76, 175, 80, 0.2);
+        .template-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .template-icon-large {
+            font-size: 3rem;
+            color: white;
+        }
+
+        .template-info {
+            padding: 20px;
+        }
+
+        .template-name-large {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .template-size {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .template-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .template-card-large.featured {
+            border-color: var(--accent-primary);
+            position: relative;
+        }
+
+        .template-card-large.featured::before {
+            content: "POPULAR";
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+            padding: 5px 35px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+
+        .template-selection-footer {
+            padding: 30px 50px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+        }
+
+        .btn-start-blank {
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--accent-primary);
             color: var(--accent-primary);
-            transform: translateY(-2px);
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .sidebar-btn.active {
+        .btn-start-blank:hover {
             background: var(--accent-primary);
             color: var(--primary-bg);
         }
 
-        /* MAIN CONTAINER */
-        .main-container {
-            flex: 1;
+        /* MAIN LAYOUT */
+        .app-container {
             display: flex;
             flex-direction: column;
             height: 100vh;
+            width: 100%;
             overflow: hidden;
+            display: none; /* Awalnya disembunyikan */
         }
 
-        /* HEADER */
-        .header {
+        /* HEADER ATAS */
+        .top-header {
             height: 60px;
-            background-color: var(--secondary-bg);
+            background: var(--secondary-bg);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -123,8 +244,6 @@
         }
 
         .document-name {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -134,8 +253,8 @@
             background: transparent;
             border: none;
             color: var(--text-primary);
-            font-size: 1.1rem;
-            min-width: 200px;
+            font-size: 1rem;
+            width: 200px;
             padding: 5px 10px;
             border-radius: 6px;
         }
@@ -145,24 +264,89 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        .header-center {
-            flex: 1;
+        .header-right {
             display: flex;
-            justify-content: center;
+            align-items: center;
+            gap: 15px;
         }
 
-        .toolbar {
+        /* Autosave Status */
+        .autosave-status {
             display: flex;
-            gap: 5px;
-            background: var(--card-bg);
-            padding: 8px;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: rgba(76, 175, 80, 0.1);
             border-radius: var(--border-radius);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            color: var(--accent-primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .tool-btn {
-            width: 40px;
-            height: 40px;
+        .autosave-status:hover {
+            background: rgba(76, 175, 80, 0.15);
+            border-color: rgba(76, 175, 80, 0.3);
+        }
+
+        .autosave-status i {
+            font-size: 0.8rem;
+            animation: spin 2s linear infinite;
+        }
+
+        .autosave-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .autosave-indicator.active {
+            opacity: 1;
+            box-shadow: 0 0 5px var(--accent-primary);
+        }
+
+        .autosave-indicator.saving {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        /* TOOLS BAR DI ATAS CANVAS */
+        .tools-top-bar {
+            height: 50px;
+            background: var(--secondary-bg);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 20px;
+        }
+
+        .tools-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-right: 20px;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tool-btn-top {
+            width: 36px;
+            height: 36px;
             border-radius: 8px;
             border: none;
             background: transparent;
@@ -175,51 +359,41 @@
             font-size: 1rem;
         }
 
-        .tool-btn:hover {
+        .tool-btn-top:hover {
             background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
         }
 
-        .tool-btn.active {
+        .tool-btn-top.active {
             background: var(--accent-primary);
             color: var(--primary-bg);
         }
 
-        .header-right {
+        .margin-controls {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .action-btn {
-            padding: 10px 20px;
-            border-radius: var(--border-radius);
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
+        .margin-input {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
         }
 
-        .btn-export {
-            background: rgba(33, 150, 243, 0.2);
-            color: var(--accent-blue);
-            border: 1px solid rgba(33, 150, 243, 0.3);
+        .margin-input input {
+            width: 60px;
+            padding: 5px 10px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: var(--text-primary);
+            text-align: center;
         }
 
-        .btn-export:hover {
-            background: rgba(33, 150, 243, 0.3);
-        }
-
-        .btn-share {
-            background: var(--accent-primary);
-            color: var(--primary-bg);
-        }
-
-        .btn-share:hover {
-            background: #3d8b40;
+        .margin-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
 
         /* CONTENT AREA */
@@ -229,50 +403,86 @@
             overflow: hidden;
         }
 
-        /* LEFT PANEL - TEMPLATES, PLUGINS, ASSETS (TERPISAH) */
+        /* SIDEBAR KIRI - NAVIGASI */
+        .sidebar-nav {
+            width: 70px;
+            background-color: var(--secondary-bg);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--border-radius);
+            background: var(--card-bg);
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+        }
+
+        .nav-spacer {
+            flex: 1;
+        }
+
+        /* LEFT PANEL - TEMPLATES, ASSETS, PLUGINS, LAYERS */
         .left-panel {
-            width: 320px;
+            width: 280px;
             background-color: var(--secondary-bg);
             border-right: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            transition: width 0.3s ease;
         }
 
-        .panel-tabs {
-            display: flex;
+        .panel-collapsed {
+            width: 0;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .panel-tab {
-            padding: 15px 20px;
+        .panel-header h3 {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-close {
             background: transparent;
             border: none;
             color: var(--text-secondary);
             cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-            position: relative;
-        }
-
-        .panel-tab:hover {
-            color: var(--text-primary);
-        }
-
-        .panel-tab.active {
-            color: var(--accent-primary);
-        }
-
-        .panel-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--accent-primary);
-            border-radius: 3px 3px 0 0;
+            font-size: 1rem;
         }
 
         .panel-content {
@@ -322,14 +532,14 @@
             color: var(--text-primary);
         }
 
-        /* TOOLS SECTION - DESIGN ELEMENTS TERPISAH */
-        .tools-grid {
+        /* ASSETS SECTION */
+        .assets-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
         }
 
-        .tool-card {
+        .asset-card {
             background: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 15px;
@@ -339,13 +549,13 @@
             text-align: center;
         }
 
-        .tool-card:hover {
+        .asset-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent-blue);
             box-shadow: var(--shadow);
         }
 
-        .tool-icon {
+        .asset-icon {
             width: 40px;
             height: 40px;
             background: rgba(33, 150, 243, 0.2);
@@ -358,7 +568,7 @@
             font-size: 1.2rem;
         }
 
-        .tool-name {
+        .asset-name {
             font-size: 0.9rem;
             color: var(--text-primary);
         }
@@ -408,45 +618,75 @@
             color: var(--text-secondary);
         }
 
-        /* ASSETS SECTION */
-        .assets-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+        /* LAYERS SECTION */
+        .layers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .asset-card {
+        .layer-item {
             background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 15px;
-            cursor: grab;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
             transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
+            border: 1px solid transparent;
         }
 
-        .asset-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-pink);
-            box-shadow: var(--shadow);
+        .layer-item:hover {
+            background: rgba(255, 255, 255, 0.05);
         }
 
-        .asset-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(233, 30, 99, 0.2);
-            border-radius: 10px;
+        .layer-item.selected {
+            border-color: var(--accent-primary);
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .layer-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 10px;
-            color: var(--accent-pink);
-            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
         }
 
-        .asset-name {
+        .layer-text .layer-icon {
+            background: rgba(33, 150, 243, 0.2);
+            color: var(--accent-blue);
+        }
+
+        .layer-shape .layer-icon {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--accent-primary);
+        }
+
+        .layer-info {
+            flex: 1;
+        }
+
+        .layer-name {
             font-size: 0.9rem;
-            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+
+        .layer-type {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .layer-visibility {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.9rem;
         }
 
         /* CANVAS AREA */
@@ -455,56 +695,21 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-        }
-
-        .canvas-header {
-            height: 50px;
-            background: var(--secondary-bg);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-        }
-
-        .canvas-zoom {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-secondary);
-        }
-
-        .zoom-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 6px;
-            background: var(--card-bg);
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .zoom-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
+            background: var(--primary-bg);
         }
 
         .canvas-container {
             flex: 1;
             position: relative;
             overflow: auto;
-            background: var(--primary-bg);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .canvas-paper {
-            width: 794px; /* A4 width */
-            height: 1123px; /* A4 height */
             background: white;
-            margin: 20px auto;
+            margin: 20px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             position: relative;
             background-image: 
@@ -541,12 +746,13 @@
 
         /* RIGHT PANEL - PROPERTIES */
         .right-panel {
-            width: 280px;
+            width: 320px;
             background-color: var(--secondary-bg);
             border-left: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
         .properties-header {
@@ -574,9 +780,10 @@
         .property-group h4 {
             font-size: 0.9rem;
             margin-bottom: 15px;
-            color: var(--text-secondary);
+            color: var(--text-primary);
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .property-row {
@@ -606,8 +813,37 @@
             border-color: var(--accent-primary);
         }
 
-        /* Color Picker */
-        .color-picker {
+        /* Color Wheel */
+        .color-wheel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .color-wheel {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+            position: relative;
+            cursor: pointer;
+            border: 4px solid var(--card-bg);
+            box-shadow: var(--shadow);
+        }
+
+        .color-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid white;
+            box-shadow: var(--shadow);
+            margin-top: 15px;
+        }
+
+        /* Color Picker Compact */
+        .color-picker-compact {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
@@ -661,6 +897,33 @@
             font-size: 0.9rem;
         }
 
+        /* Font Family Selector */
+        .font-family-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .font-option {
+            padding: 8px;
+            background: var(--card-bg);
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .font-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .font-option.active {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+        }
+
         /* STATUS BAR */
         .status-bar {
             height: 40px;
@@ -678,6 +941,506 @@
             display: flex;
             align-items: center;
             gap: 20px;
+        }
+
+        /* ACTION BUTTONS */
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-export {
+            background: rgba(33, 150, 243, 0.2);
+            color: var(--accent-blue);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+
+        .btn-export:hover {
+            background: rgba(33, 150, 243, 0.3);
+        }
+
+        .btn-share {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+        }
+
+        .btn-share:hover {
+            background: #3d8b40;
+        }
+
+        .btn-offline {
+            background: rgba(255, 152, 0, 0.2);
+            color: var(--accent-secondary);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+        }
+
+        .btn-offline:hover {
+            background: rgba(255, 152, 0, 0.3);
+        }
+
+        .btn-offline.active {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+        }
+
+        /* MODAL STYLES */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            padding: 0;
+            box-shadow: var(--shadow);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0;
+            padding: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 20px 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-modal {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-modal-primary {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+        }
+
+        .btn-modal-primary:hover {
+            background: #3d8b40;
+        }
+
+        .btn-modal-secondary {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-modal-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Settings Modal Tabs */
+        .settings-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0 25px;
+        }
+
+        .settings-tab {
+            padding: 15px 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+        }
+
+        .settings-tab:hover {
+            color: var(--text-primary);
+        }
+
+        .settings-tab.active {
+            color: var(--accent-primary);
+        }
+
+        .settings-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .settings-content {
+            padding: 25px;
+        }
+
+        .settings-section {
+            margin-bottom: 30px;
+        }
+
+        .settings-section h4 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--card-bg);
+            transition: var(--transition);
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: var(--text-secondary);
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background-color: white;
+        }
+
+        .toggle-label {
+            flex: 1;
+        }
+
+        .toggle-label span {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .toggle-label small {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Theme Selector */
+        .theme-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .theme-option {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .theme-option:hover {
+            transform: translateY(-5px);
+        }
+
+        .theme-option.selected {
+            border-color: var(--accent-primary);
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .theme-preview {
+            width: 60px;
+            height: 40px;
+            border-radius: 6px;
+            margin: 0 auto 10px;
+        }
+
+        .theme-dark .theme-preview {
+            background: linear-gradient(135deg, #0F051F, #1A0A33);
+        }
+
+        .theme-light .theme-preview {
+            background: linear-gradient(135deg, #F5F5F5, #E0E0E0);
+        }
+
+        .theme-blue .theme-preview {
+            background: linear-gradient(135deg, #0A1929, #1A365D);
+        }
+
+        .theme-name {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        /* Language Selector */
+        .language-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .language-option {
+            padding: 12px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .language-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .language-option.selected {
+            border-color: var(--accent-primary);
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        /* Format Options */
+        .format-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .format-option {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .format-option:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+        }
+
+        .format-option.selected {
+            border-color: var(--accent-primary);
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .format-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--accent-primary);
+        }
+
+        .format-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .format-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Share Options */
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .share-option {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .share-option:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .share-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .whatsapp-icon {
+            color: #25D366;
+        }
+
+        .link-icon {
+            color: var(--accent-blue);
+        }
+
+        .share-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .share-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Export Progress */
+        .export-progress {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--card-bg);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-blue));
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .btn-back {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+            transform: translateX(-5px);
         }
 
         /* CUSTOM SCROLLBAR */
@@ -698,36 +1461,166 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #3d8b40;
         }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent-primary);
+            color: white;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
-    <!-- Sidebar Minimalis dengan Tombol Dashboard -->
-    <div class="sidebar">
-        <button class="sidebar-btn active" title="Dashboard" onclick="window.location.href='dashboard.html'">
-            <i class="fas fa-home"></i>
+    <!-- Halaman Pemilihan Template -->
+    <div class="template-selection-page" id="templateSelectionPage">
+        <div class="template-selection-header">
+            <h1>Design Editor</h1>
+            <p>Pilih template untuk memulai atau buat desain kosong</p>
+        </div>
+
+        <div class="template-categories">
+            <h2 class="category-title">Ukuran Kertas</h2>
+            <div class="template-grid-large">
+                <div class="template-card-large" data-template="a4" onclick="selectTemplate('a4')">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #4CAF50, #2196F3);">
+                        <i class="fas fa-file-alt template-icon-large"></i>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-name-large">A4 Portrait</div>
+                        <div class="template-size">210 × 297 mm</div>
+                        <div class="template-desc">Dokumen standar, cocok untuk laporan, resume, dan presentasi</div>
+                    </div>
+                </div>
+
+                <div class="template-card-large" data-template="a3" onclick="selectTemplate('a3')">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #FF9800, #E91E63);">
+                        <i class="fas fa-file-alt template-icon-large"></i>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-name-large">A3 Landscape</div>
+                        <div class="template-size">297 × 420 mm</div>
+                        <div class="template-desc">Poster, diagram besar, dan presentasi visual</div>
+                    </div>
+                </div>
+
+                <div class="template-card-large featured" data-template="a2" onclick="selectTemplate('a2')">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #9C27B0, #2196F3);">
+                        <i class="fas fa-chart-bar template-icon-large"></i>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-name-large">A2 Poster</div>
+                        <div class="template-size">420 × 594 mm</div>
+                        <div class="template-desc">Poster besar, infografis, dan pameran</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="category-title" style="margin-top: 30px;">Media Sosial</h2>
+            <div class="template-grid-large">
+                <div class="template-card-large" data-template="youtube" onclick="selectTemplate('youtube')">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #FF0000, #CC0000);">
+                        <i class="fab fa-youtube template-icon-large"></i>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-name-large">YouTube Thumbnail</div>
+                        <div class="template-size">1280 × 720 px</div>
+                        <div class="template-desc">Thumbnail untuk video YouTube</div>
+                    </div>
+                </div>
+
+                <div class="template-card-large" data-template="instagram" onclick="selectTemplate('instagram')">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #E4405F, #C13584);">
+                        <i class="fab fa-instagram template-icon-large"></i>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-name-large">Instagram Post</div>
+                        <div class="template-size">1080 × 1080 px</div>
+                        <div class="template-desc">Post persegi untuk feed Instagram</div>
+                    </div>
+                </div>
+
+                <div class="template-card-large" data-template="tiktok" onclick="selectTemplate('tiktok')">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #000000, #25F4EE);">
+                        <i class="fab fa-tiktok template-icon-large"></i>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-name-large">TikTok Video</div>
+                        <div class="template-size">1080 × 1920 px</div>
+                        <div class="template-desc">Portrait untuk video TikTok</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="category-title" style="margin-top: 30px;">Lainnya</h2>
+            <div class="template-grid-large">
+                <div class="template-card-large" data-template="presentation" onclick="selectTemplate('presentation')">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #1A0A33, #4CAF50);">
+                        <i class="fas fa-chart-line template-icon-large"></i>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-name-large">Presentasi Bisnis</div>
+                        <div class="template-size">1920 × 1080 px</div>
+                        <div class="template-desc">Slide presentasi modern untuk bisnis</div>
+                    </div>
+                </div>
+
+                <div class="template-card-large" data-template="resume" onclick="selectTemplate('resume')">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #2196F3, #4CAF50);">
+                        <i class="fas fa-file-contract template-icon-large"></i>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-name-large">Resume/CV</div>
+                        <div class="template-size">A4 Portrait</div>
+                        <div class="template-desc">Template profesional untuk resume dan CV</div>
+                    </div>
+                </div>
+
+                <div class="template-card-large" data-template="custom" onclick="selectTemplate('custom')">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #9C27B0, #FF9800);">
+                        <i class="fas fa-sliders-h template-icon-large"></i>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-name-large">Custom Size</div>
+                        <div class="template-size">Custom dimensions</div>
+                        <div class="template-desc">Buat ukuran kustom sesuai kebutuhan Anda</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn-back" onclick="window.location.href='dashboard.html'">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
         </button>
-        <button class="sidebar-btn" title="Templates" onclick="showPanel('templates')">
-            <i class="fas fa-layer-group"></i>
-        </button>
-        <button class="sidebar-btn" title="Tools" onclick="showPanel('tools')">
-            <i class="fas fa-pen-ruler"></i>
-        </button>
-        <button class="sidebar-btn" title="Plugins" onclick="showPanel('plugins')">
-            <i class="fas fa-puzzle-piece"></i>
-        </button>
-        <button class="sidebar-btn" title="Assets" onclick="showPanel('assets')">
-            <i class="fas fa-images"></i>
-        </button>
-        <div style="flex: 1;"></div>
-        <button class="sidebar-btn" title="Settings" onclick="showSettings()">
-            <i class="fas fa-cog"></i>
-        </button>
+
+        <div class="template-selection-footer">
+            <button class="btn-start-blank" onclick="startWithBlank()">
+                <i class="fas fa-plus-circle"></i>
+                Mulai dengan Halaman Kosong
+            </button>
+        </div>
     </div>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Header -->
-        <header class="header">
+    <!-- Editor Utama (Awalnya Tersembunyi) -->
+    <div class="app-container" id="appContainer">
+        <!-- HEADER ATAS -->
+        <div class="top-header">
             <div class="header-left">
                 <div class="logo">DesignEditor</div>
                 <div class="document-name">
@@ -736,237 +1629,178 @@
                 </div>
             </div>
             
-            <div class="header-center">
-                <div class="toolbar">
-                    <button class="tool-btn active" title="Select">
-                        <i class="fas fa-mouse-pointer"></i>
-                    </button>
-                    <button class="tool-btn" title="Text Tool">
-                        <i class="fas fa-font"></i>
-                    </button>
-                    <button class="tool-btn" title="Shape Tool">
-                        <i class="fas fa-shapes"></i>
-                    </button>
-                    <button class="tool-btn" title="Drawing Tool">
-                        <i class="fas fa-pencil-alt"></i>
-                    </button>
-                    <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.1); margin: 0 5px;"></div>
-                    <button class="tool-btn" title="Undo">
-                        <i class="fas fa-undo"></i>
-                    </button>
-                    <button class="tool-btn" title="Redo">
-                        <i class="fas fa-redo"></i>
-                    </button>
-                    <button class="tool-btn" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-            
             <div class="header-right">
-                <button class="action-btn btn-export" onclick="exportDesign()">
+                <!-- AUTOSAVE STATUS -->
+                <div class="autosave-status" id="autosaveStatus">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Autosave</span>
+                    <div class="autosave-indicator active"></div>
+                </div>
+                
+                <!-- TOMBOL ACTION -->
+                <button class="action-btn btn-export" onclick="showExportModal()">
                     <i class="fas fa-download"></i>
                     Export
                 </button>
-                <button class="action-btn btn-share" onclick="shareDesign()">
+                <button class="action-btn btn-share" onclick="showShareModal()">
                     <i class="fas fa-share"></i>
                     Share
                 </button>
+                <button class="action-btn btn-offline" id="offlineBtn" onclick="toggleOfflineMode()">
+                    <i class="fas fa-wifi"></i>
+                    Online
+                </button>
             </div>
-        </header>
+        </div>
 
-        <!-- Content Area -->
+        <!-- TOOLS BAR DI ATAS CANVAS -->
+        <div class="tools-top-bar">
+            <div class="tools-group">
+                <button class="tool-btn-top active" title="Select Tool" onclick="selectTool('select')">
+                    <i class="fas fa-mouse-pointer"></i>
+                </button>
+                <button class="tool-btn-top" title="Text Tool" onclick="selectTool('text')">
+                    <i class="fas fa-font"></i>
+                </button>
+                <button class="tool-btn-top" title="Shape Tool" onclick="selectTool('shape')">
+                    <i class="fas fa-shapes"></i>
+                </button>
+                <button class="tool-btn-top" title="Draw Tool" onclick="selectTool('draw')">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+            </div>
+
+            <div class="tools-group">
+                <button class="tool-btn-top" title="Align Left" onclick="alignElements('left')">
+                    <i class="fas fa-align-left"></i>
+                </button>
+                <button class="tool-btn-top" title="Align Center" onclick="alignElements('center')">
+                    <i class="fas fa-align-center"></i>
+                </button>
+                <button class="tool-btn-top" title="Align Right" onclick="alignElements('right')">
+                    <i class="fas fa-align-right"></i>
+                </button>
+                <button class="tool-btn-top" title="Distribute Vertically" onclick="distributeElements('vertical')">
+                    <i class="fas fa-arrows-alt-v"></i>
+                </button>
+                <button class="tool-btn-top" title="Distribute Horizontally" onclick="distributeElements('horizontal')">
+                    <i class="fas fa-arrows-alt-h"></i>
+                </button>
+            </div>
+
+            <div class="margin-controls">
+                <div class="margin-input">
+                    <span class="margin-label">Margin:</span>
+                    <input type="number" id="marginTop" value="20" min="0" max="200" onchange="updateCanvasMargin()">
+                    <span class="margin-label">px</span>
+                </div>
+                
+                <div class="margin-input">
+                    <span class="margin-label">Spacing:</span>
+                    <input type="number" id="elementSpacing" value="10" min="0" max="100" onchange="updateElementSpacing()">
+                    <span class="margin-label">px</span>
+                </div>
+            </div>
+
+            <div class="tools-group" style="border-right: none;">
+                <button class="tool-btn-top" title="Undo" onclick="undo()">
+                    <i class="fas fa-undo"></i>
+                </button>
+                <button class="tool-btn-top" title="Redo" onclick="redo()">
+                    <i class="fas fa-redo"></i>
+                </button>
+                <button class="tool-btn-top" title="Delete" onclick="deleteSelected()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- CONTENT AREA -->
         <div class="content-area">
-            <!-- Left Panel -->
-            <div class="left-panel">
-                <div class="panel-tabs">
-                    <button class="panel-tab active" data-tab="templates">Templates</button>
-                    <button class="panel-tab" data-tab="tools">Tools</button>
-                    <button class="panel-tab" data-tab="plugins">Plugins</button>
-                    <button class="panel-tab" data-tab="assets">Assets</button>
-                </div>
-                
+            <!-- SIDEBAR NAVIGASI KIRI -->
+            <div class="sidebar-nav">
+                <button class="nav-btn active" title="Dashboard" onclick="goToDashboard()">
+                    <i class="fas fa-home"></i>
+                </button>
+                <button class="nav-btn" title="Templates" onclick="togglePanel('templates')">
+                    <i class="fas fa-clone"></i>
+                </button>
+                <button class="nav-btn" title="Assets" onclick="togglePanel('assets')">
+                    <i class="fas fa-images"></i>
+                </button>
+                <button class="nav-btn" title="Plugins" onclick="togglePanel('plugins')">
+                    <i class="fas fa-puzzle-piece"></i>
+                </button>
+                <button class="nav-btn" title="Layers" onclick="togglePanel('layers')">
+                    <i class="fas fa-layer-group"></i>
+                </button>
+                <div class="nav-spacer"></div>
+                <button class="nav-btn" title="Settings" onclick="showSettingsModal()">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+
+            <!-- LEFT PANEL -->
+            <div class="left-panel" id="leftPanel">
                 <!-- Templates Panel -->
-                <div class="panel-content" id="templatesContent">
-                    <div class="template-grid">
-                        <div class="template-card" data-template="presentation">
-                            <div class="template-icon">
-                                <i class="fas fa-chart-bar"></i>
-                            </div>
-                            <div class="template-name">Business</div>
-                        </div>
-                        <div class="template-card" data-template="social">
-                            <div class="template-icon">
-                                <i class="fas fa-share-alt"></i>
-                            </div>
-                            <div class="template-name">Social Media</div>
-                        </div>
-                        <div class="template-card" data-template="education">
-                            <div class="template-icon">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <div class="template-name">Education</div>
-                        </div>
-                        <div class="template-card" data-template="marketing">
-                            <div class="template-icon">
-                                <i class="fas fa-bullhorn"></i>
-                            </div>
-                            <div class="template-name">Marketing</div>
-                        </div>
-                        <div class="template-card" data-template="resume">
-                            <div class="template-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <div class="template-name">Resume</div>
-                        </div>
-                        <div class="template-card" data-template="poster">
-                            <div class="template-icon">
-                                <i class="fas fa-image"></i>
-                            </div>
-                            <div class="template-name">Poster</div>
-                        </div>
+                <div class="panel-content hidden" id="templatesPanel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-clone"></i> Templates</h3>
+                        <button class="panel-close" onclick="closePanel()">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
-                </div>
-                
-                <!-- Tools Panel - Design Elements Terpisah -->
-                <div class="panel-content hidden" id="toolsContent">
-                    <div style="margin-bottom: 20px;">
-                        <h4 style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">Text Tools</h4>
-                        <div class="tools-grid">
-                            <div class="tool-card" draggable="true" data-type="text" data-content="Heading 1">
-                                <div class="tool-icon">
-                                    <i class="fas fa-heading"></i>
+                    <div class="panel-content">
+                        <div class="template-grid">
+                            <div class="template-card" data-template="business">
+                                <div class="template-icon">
+                                    <i class="fas fa-chart-bar"></i>
                                 </div>
-                                <div class="tool-name">Heading 1</div>
+                                <div class="template-name">Business</div>
                             </div>
-                            <div class="tool-card" draggable="true" data-type="text" data-content="Heading 2">
-                                <div class="tool-icon">
-                                    <i class="fas fa-heading"></i>
+                            <div class="template-card" data-template="social">
+                                <div class="template-icon">
+                                    <i class="fas fa-share-alt"></i>
                                 </div>
-                                <div class="tool-name">Heading 2</div>
+                                <div class="template-name">Social Media</div>
                             </div>
-                            <div class="tool-card" draggable="true" data-type="text" data-content="Paragraph">
-                                <div class="tool-icon">
-                                    <i class="fas fa-paragraph"></i>
+                            <div class="template-card" data-template="education">
+                                <div class="template-icon">
+                                    <i class="fas fa-graduation-cap"></i>
                                 </div>
-                                <div class="tool-name">Paragraph</div>
+                                <div class="template-name">Education</div>
                             </div>
-                            <div class="tool-card" draggable="true" data-type="text" data-content="Quote">
-                                <div class="tool-icon">
-                                    <i class="fas fa-quote-right"></i>
+                            <div class="template-card" data-template="marketing">
+                                <div class="template-icon">
+                                    <i class="fas fa-bullhorn"></i>
                                 </div>
-                                <div class="tool-name">Quote</div>
+                                <div class="template-name">Marketing</div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 20px;">
-                        <h4 style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">Shape Tools</h4>
-                        <div class="tools-grid">
-                            <div class="tool-card" draggable="true" data-type="shape" data-shape="rectangle">
-                                <div class="tool-icon">
-                                    <i class="fas fa-square"></i>
+                            <div class="template-card" data-template="resume">
+                                <div class="template-icon">
+                                    <i class="fas fa-file-alt"></i>
                                 </div>
-                                <div class="tool-name">Rectangle</div>
+                                <div class="template-name">Resume</div>
                             </div>
-                            <div class="tool-card" draggable="true" data-type="shape" data-shape="circle">
-                                <div class="tool-icon">
-                                    <i class="fas fa-circle"></i>
+                            <div class="template-card" data-template="poster">
+                                <div class="template-icon">
+                                    <i class="fas fa-image"></i>
                                 </div>
-                                <div class="tool-name">Circle</div>
-                            </div>
-                            <div class="tool-card" draggable="true" data-type="shape" data-shape="triangle">
-                                <div class="tool-icon">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                                <div class="tool-name">Triangle</div>
-                            </div>
-                            <div class="tool-card" draggable="true" data-type="shape" data-shape="star">
-                                <div class="tool-icon">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="tool-name">Star</div>
-                            </div>
-                            <div class="tool-card" draggable="true" data-type="shape" data-shape="line">
-                                <div class="tool-icon">
-                                    <i class="fas fa-minus"></i>
-                                </div>
-                                <div class="tool-name">Line</div>
-                            </div>
-                            <div class="tool-card" draggable="true" data-type="shape" data-shape="arrow">
-                                <div class="tool-icon">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                                <div class="tool-name">Arrow</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h4 style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">Other Tools</h4>
-                        <div class="tools-grid">
-                            <div class="tool-card" draggable="true" data-type="button" data-content="Button">
-                                <div class="tool-icon">
-                                    <i class="fas fa-square"></i>
-                                </div>
-                                <div class="tool-name">Button</div>
-                            </div>
-                            <div class="tool-card" draggable="true" data-type="icon" data-icon="star">
-                                <div class="tool-icon">
-                                    <i class="fas fa-icons"></i>
-                                </div>
-                                <div class="tool-name">Icon</div>
+                                <div class="template-name">Poster</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Plugins Panel -->
-                <div class="panel-content hidden" id="pluginsContent">
-                    <div class="plugins-list">
-                        <div class="plugin-item">
-                            <div class="plugin-icon">
-                                <i class="fas fa-chart-pie"></i>
-                            </div>
-                            <div class="plugin-info">
-                                <h4>Chart Generator</h4>
-                                <p>Create beautiful charts and graphs</p>
-                            </div>
-                        </div>
-                        <div class="plugin-item">
-                            <div class="plugin-icon">
-                                <i class="fas fa-icons"></i>
-                            </div>
-                            <div class="plugin-info">
-                                <h4>Icon Library</h4>
-                                <p>Access 5000+ icons</p>
-                            </div>
-                        </div>
-                        <div class="plugin-item">
-                            <div class="plugin-icon">
-                                <i class="fas fa-photo-video"></i>
-                            </div>
-                            <div class="plugin-info">
-                                <h4>Photo Editor</h4>
-                                <p>Advanced image editing tools</p>
-                            </div>
-                        </div>
-                        <div class="plugin-item">
-                            <div class="plugin-icon">
-                                <i class="fas fa-palette"></i>
-                            </div>
-                            <div class="plugin-info">
-                                <h4>Color Palette</h4>
-                                <p>Smart color suggestions</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+
                 <!-- Assets Panel -->
-                <div class="panel-content hidden" id="assetsContent">
-                    <div style="margin-bottom: 20px;">
-                        <h4 style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">Images</h4>
+                <div class="panel-content hidden" id="assetsPanel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-images"></i> Assets</h3>
+                        <button class="panel-close" onclick="closePanel()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content">
                         <div class="assets-grid">
                             <div class="asset-card" draggable="true" data-type="image" data-src="nature">
                                 <div class="asset-icon">
@@ -992,12 +1826,6 @@
                                 </div>
                                 <div class="asset-name">Abstract</div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h4 style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">Icons</h4>
-                        <div class="assets-grid">
                             <div class="asset-card" draggable="true" data-type="icon" data-icon="heart">
                                 <div class="asset-icon">
                                     <i class="fas fa-heart"></i>
@@ -1010,54 +1838,86 @@
                                 </div>
                                 <div class="asset-name">Star</div>
                             </div>
-                            <div class="asset-card" draggable="true" data-type="icon" data-icon="check">
-                                <div class="asset-icon">
-                                    <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plugins Panel -->
+                <div class="panel-content hidden" id="pluginsPanel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-puzzle-piece"></i> Plugins</h3>
+                        <button class="panel-close" onclick="closePanel()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="plugins-list">
+                            <div class="plugin-item">
+                                <div class="plugin-icon">
+                                    <i class="fas fa-chart-pie"></i>
                                 </div>
-                                <div class="asset-name">Check</div>
-                            </div>
-                            <div class="asset-card" draggable="true" data-type="icon" data-icon="arrow">
-                                <div class="asset-icon">
-                                    <i class="fas fa-arrow-right"></i>
+                                <div class="plugin-info">
+                                    <h4>Chart Generator</h4>
+                                    <p>Create beautiful charts and graphs</p>
                                 </div>
-                                <div class="asset-name">Arrow</div>
                             </div>
+                            <div class="plugin-item">
+                                <div class="plugin-icon">
+                                    <i class="fas fa-icons"></i>
+                                </div>
+                                <div class="plugin-info">
+                                    <h4>Icon Library</h4>
+                                    <p>Access 5000+ icons</p>
+                                </div>
+                            </div>
+                            <div class="plugin-item">
+                                <div class="plugin-icon">
+                                    <i class="fas fa-photo-video"></i>
+                                </div>
+                                <div class="plugin-info">
+                                    <h4>Photo Editor</h4>
+                                    <p>Advanced image editing tools</p>
+                                </div>
+                            </div>
+                            <div class="plugin-item">
+                                <div class="plugin-icon">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <div class="plugin-info">
+                                    <h4>Color Palette</h4>
+                                    <p>Smart color suggestions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layers Panel -->
+                <div class="panel-content" id="layersPanel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-layer-group"></i> Layers</h3>
+                        <button class="panel-close" onclick="closePanel()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="layers-list" id="layersList">
+                            <!-- Layers will be added dynamically -->
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Canvas Area -->
+            <!-- CANVAS AREA -->
             <div class="canvas-area">
-                <div class="canvas-header">
-                    <div class="canvas-zoom">
-                        <button class="zoom-btn" onclick="zoomOut()">
-                            <i class="fas fa-search-minus"></i>
-                        </button>
-                        <span id="zoomLevel">100%</span>
-                        <button class="zoom-btn" onclick="zoomIn()">
-                            <i class="fas fa-search-plus"></i>
-                        </button>
-                    </div>
-                </div>
-                
                 <div class="canvas-container">
                     <div class="canvas-paper" id="canvas">
-                        <!-- Default elements on canvas -->
-                        <div class="canvas-element text-element selected" style="left: 100px; top: 100px; font-size: 36px; font-weight: bold; color: #1A0A33;">
-                            Welcome to Design Editor
-                        </div>
-                        <div class="canvas-element text-element" style="left: 100px; top: 150px; font-size: 18px; color: #666;">
-                            Drag tools from the left panel to start designing
-                        </div>
-                        <div class="canvas-element shape-element" style="left: 100px; top: 250px; width: 120px; height: 120px; background: linear-gradient(135deg, #4CAF50, #2196F3); border-radius: 10px;">
-                            <i class="fas fa-star" style="color: white; font-size: 40px;"></i>
-                        </div>
+                        <!-- Default elements will be added based on template -->
                     </div>
                 </div>
             </div>
 
-            <!-- Right Panel - Properties -->
+            <!-- RIGHT PANEL - PROPERTIES -->
             <div class="right-panel">
                 <div class="properties-header">
                     <h3><i class="fas fa-sliders-h"></i> Properties</h3>
@@ -1065,10 +1925,29 @@
                 
                 <div class="properties-content">
                     <div class="property-group">
-                        <h4>Text Properties</h4>
+                        <h4>LAYER PROPERTIES</h4>
+                        <div class="property-row">
+                            <label class="property-label">Layer Name</label>
+                            <input type="text" id="layerName" value="Text Layer">
+                        </div>
+                        <div class="property-row">
+                            <label class="property-label">Visibility</label>
+                            <div style="display: flex; gap: 15px;">
+                                <button class="font-option active" style="flex: 1;" onclick="toggleLayerVisibility(true)">
+                                    <i class="fas fa-eye"></i> Visible
+                                </button>
+                                <button class="font-option" style="flex: 1;" onclick="toggleLayerVisibility(false)">
+                                    <i class="fas fa-eye-slash"></i> Hidden
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="property-group">
+                        <h4>TEXT PROPERTIES</h4>
                         <div class="property-row">
                             <label class="property-label">Content</label>
-                            <input type="text" id="textContent" value="Welcome to Design Editor">
+                            <input type="text" id="textContent" value="Welcome to De">
                         </div>
                         <div class="property-row">
                             <label class="property-label">Font Size</label>
@@ -1078,25 +1957,61 @@
                             </div>
                         </div>
                         <div class="property-row">
-                            <label class="property-label">Color</label>
-                            <div class="color-picker">
-                                <div class="color-option active" style="background: #1A0A33;" data-color="#1A0A33"></div>
-                                <div class="color-option" style="background: #4CAF50;" data-color="#4CAF50"></div>
-                                <div class="color-option" style="background: #2196F3;" data-color="#2196F3"></div>
-                                <div class="color-option" style="background: #FF9800;" data-color="#FF9800"></div>
-                                <div class="color-option" style="background: #9C27B0;" data-color="#9C27B0"></div>
+                            <label class="property-label">Font Family</label>
+                            <div class="font-family-selector">
+                                <div class="font-option active" onclick="selectFont('Arial')">Arial</div>
+                                <div class="font-option" onclick="selectFont('Helvetica')">Helvetica</div>
+                                <div class="font-option" onclick="selectFont('Georgia')">Georgia</div>
+                                <div class="font-option" onclick="selectFont('Times')">Times</div>
+                                <div class="font-option" onclick="selectFont('Courier')">Courier</div>
+                                <div class="font-option" onclick="selectFont('Verdana')">Verdana</div>
+                            </div>
+                        </div>
+                        <div class="property-row">
+                            <label class="property-label">Text Color</label>
+                            <div class="color-wheel-container">
+                                <div class="color-wheel" onclick="selectColorFromWheel(event)"></div>
+                                <div class="color-preview" id="colorPreview" style="background: #1A0A33;"></div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="property-group">
-                        <h4>Shape Properties</h4>
+                        <h4>SHAPE PROPERTIES</h4>
+                        <div class="property-row">
+                            <label class="property-label">Size</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="number" id="shapeWidth" value="100" style="flex: 1;" placeholder="Width">
+                                <input type="number" id="shapeHeight" value="100" style="flex: 1;" placeholder="Height">
+                            </div>
+                        </div>
                         <div class="property-row">
                             <label class="property-label">Background Color</label>
-                            <div class="color-picker">
-                                <div class="color-option" style="background: linear-gradient(135deg, #4CAF50, #2196F3);" data-bgcolor="linear-gradient(135deg, #4CAF50, #2196F3)"></div>
-                                <div class="color-option active" style="background: #FF9800;" data-bgcolor="#FF9800"></div>
-                                <div class="color-option" style="background: #E91E63;" data-bgcolor="#E91E63"></div>
+                            <div class="color-picker-compact">
+                                <div class="color-option active" style="background: linear-gradient(135deg, #4CAF50, #2196F3);" data-color="gradient"></div>
+                                <div class="color-option" style="background: #FF9800;" data-color="#FF9800"></div>
+                                <div class="color-option" style="background: #E91E63;" data-color="#E91E63"></div>
+                                <div class="color-option" style="background: #9C27B0;" data-color="#9C27B0"></div>
+                                <div class="color-option" style="background: #1A0A33;" data-color="#1A0A33"></div>
+                                <div class="color-option" style="background: #FFFFFF;" data-color="#FFFFFF"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="property-group">
+                        <h4>POSITION</h4>
+                        <div class="property-row">
+                            <label class="property-label">X Position</label>
+                            <div class="slider-container">
+                                <input type="range" id="posX" min="0" max="1000" value="100">
+                                <span class="slider-value" id="posXValue">100px</span>
+                            </div>
+                        </div>
+                        <div class="property-row">
+                            <label class="property-label">Y Position</label>
+                            <div class="slider-container">
+                                <input type="range" id="posY" min="0" max="1000" value="100">
+                                <span class="slider-value" id="posYValue">100px</span>
                             </div>
                         </div>
                     </div>
@@ -1104,16 +2019,530 @@
             </div>
         </div>
 
-        <!-- Status Bar -->
+        <!-- STATUS BAR -->
         <div class="status-bar">
             <div class="status-left">
-                <span>Canvas Size: 794 × 1123px</span>
+                <span id="canvasSize">Canvas Size: 794 × 1123px</span>
                 <span id="mouseCoords">X: 0, Y: 0</span>
+                <span id="zoomLevel">Zoom: 100%</span>
             </div>
             <div class="status-right">
-                <span id="selectedElement">Selected: Text Element</span>
+                <span id="selectedElement">Selected: None</span>
+                <span id="elementCount">Elements: 0</span>
             </div>
         </div>
+    </div>
+
+    <!-- Modal untuk Settings -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-cog"></i> Settings</h3>
+                <button class="modal-close" onclick="closeModal('settingsModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="settings-tabs">
+                <button class="settings-tab active" data-tab="general">General</button>
+                <button class="settings-tab" data-tab="appearance">Appearance</button>
+                <button class="settings-tab" data-tab="editor">Editor</button>
+                <button class="settings-tab" data-tab="export">Export</button>
+                <button class="settings-tab" data-tab="account">Account</button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- General Settings -->
+                <div class="settings-content" id="generalSettings">
+                    <div class="settings-section">
+                        <h4><i class="fas fa-globe"></i> Language & Region</h4>
+                        <div class="language-selector">
+                            <div class="language-option selected" onclick="selectLanguage('en')">
+                                English
+                            </div>
+                            <div class="language-option" onclick="selectLanguage('id')">
+                                Bahasa Indonesia
+                            </div>
+                            <div class="language-option" onclick="selectLanguage('es')">
+                                Español
+                            </div>
+                            <div class="language-option" onclick="selectLanguage('fr')">
+                                Français
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4><i class="fas fa-bell"></i> Notifications</h4>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Enable Notifications</span>
+                                <small>Get alerts for updates and collaborations</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="notificationsToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Email Updates</span>
+                                <small>Receive updates via email</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="emailUpdatesToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Sound Effects</span>
+                                <small>Play sounds for actions</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="soundToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4><i class="fas fa-cloud"></i> Cloud Sync</h4>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Auto Save</span>
+                                <small>Automatically save your work</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="autoSaveToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Cloud Backup</span>
+                                <small>Backup designs to cloud</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="cloudBackupToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appearance Settings -->
+                <div class="settings-content hidden" id="appearanceSettings">
+                    <div class="settings-section">
+                        <h4><i class="fas fa-palette"></i> Theme</h4>
+                        <div class="theme-options">
+                            <div class="theme-option theme-dark selected" onclick="selectTheme('dark')">
+                                <div class="theme-preview"></div>
+                                <div class="theme-name">Dark</div>
+                            </div>
+                            <div class="theme-option theme-light" onclick="selectTheme('light')">
+                                <div class="theme-preview"></div>
+                                <div class="theme-name">Light</div>
+                            </div>
+                            <div class="theme-option theme-blue" onclick="selectTheme('blue')">
+                                <div class="theme-preview"></div>
+                                <div class="theme-name">Blue</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4><i class="fas fa-eye"></i> Display</h4>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>High Contrast</span>
+                                <small>Increase contrast for better visibility</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="contrastToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Reduce Motion</span>
+                                <small>Minimize animations</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="motionToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4><i class="fas fa-font"></i> Font Size</h4>
+                        <div class="slider-container">
+                            <input type="range" id="uiFontSize" min="12" max="20" value="14">
+                            <span class="slider-value" id="uiFontSizeValue">14px</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Editor Settings -->
+                <div class="settings-content hidden" id="editorSettings">
+                    <div class="settings-section">
+                        <h4><i class="fas fa-mouse-pointer"></i> Editor Behavior</h4>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Snap to Grid</span>
+                                <small>Align elements to grid automatically</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="snapToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Show Grid</span>
+                                <small>Display grid on canvas</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="gridToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Auto-align</span>
+                                <small>Automatically align elements</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="autoAlignToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4><i class="fas fa-keyboard"></i> Shortcuts</h4>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Enable Keyboard Shortcuts</span>
+                                <small>Use keyboard for faster editing</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="shortcutsToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Quick Tools</span>
+                                <small>Show quick access tools</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="quickToolsToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4><i class="fas fa-history"></i> History</h4>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Unlimited Undo/Redo</span>
+                                <small>Allow unlimited history steps</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="unlimitedUndoToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="property-row">
+                            <label class="property-label">History Steps (1-1000)</label>
+                            <input type="number" id="historySteps" value="100" min="1" max="1000">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Settings -->
+                <div class="settings-content hidden" id="exportSettings">
+                    <div class="settings-section">
+                        <h4><i class="fas fa-download"></i> Export Defaults</h4>
+                        <div class="property-row">
+                            <label class="property-label">Default Format</label>
+                            <select id="defaultExportFormat">
+                                <option value="pdf">PDF</option>
+                                <option value="jpg" selected>JPG</option>
+                                <option value="png">PNG</option>
+                                <option value="svg">SVG</option>
+                            </select>
+                        </div>
+                        <div class="property-row">
+                            <label class="property-label">Default Quality</label>
+                            <select id="defaultQuality">
+                                <option value="low">Low (72 DPI)</option>
+                                <option value="medium" selected>Medium (150 DPI)</option>
+                                <option value="high">High (300 DPI)</option>
+                                <option value="ultra">Ultra (600 DPI)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4><i class="fas fa-file-export"></i> Export Options</h4>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Include Metadata</span>
+                                <small>Add creator info to exported files</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="metadataToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Transparent Background</span>
+                                <small>Export with transparent background</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="transparentToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Compress Images</span>
+                                <small>Reduce file size for web</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="compressToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4><i class="fas fa-folder"></i> Save Location</h4>
+                        <div class="property-row">
+                            <label class="property-label">Default Download Folder</label>
+                            <input type="text" id="downloadFolder" value="Downloads" placeholder="Folder path">
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Ask for Location</span>
+                                <small>Always ask where to save files</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="askLocationToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Settings -->
+                <div class="settings-content hidden" id="accountSettings">
+                    <div class="settings-section">
+                        <h4><i class="fas fa-user"></i> Profile</h4>
+                        <div class="property-row">
+                            <label class="property-label">Display Name</label>
+                            <input type="text" id="displayName" value="Designer" placeholder="Your name">
+                        </div>
+                        <div class="property-row">
+                            <label class="property-label">Email</label>
+                            <input type="email" id="userEmail" value="designer@example.com" placeholder="Your email">
+                        </div>
+                        <div class="property-row">
+                            <label class="property-label">Avatar</label>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--accent-primary); display: flex; align-items: center; justify-content: center; color: white;">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <button class="btn-modal btn-modal-secondary" style="padding: 8px 15px;">
+                                    Change Avatar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4><i class="fas fa-shield-alt"></i> Security</h4>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Two-Factor Authentication</span>
+                                <small>Add extra security to your account</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="twoFactorToggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-label">
+                                <span>Email Login Notifications</span>
+                                <small>Get notified of new logins</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="loginNotificationsToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <button class="btn-modal btn-modal-secondary" style="width: 100%;" onclick="changePassword()">
+                                Change Password
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4><i class="fas fa-database"></i> Data Management</h4>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <button class="btn-modal btn-modal-secondary" onclick="exportUserData()">
+                                Export My Data
+                            </button>
+                            <button class="btn-modal btn-modal-secondary" onclick="deleteAccount()" style="background: rgba(233, 30, 99, 0.2); color: var(--accent-pink);">
+                                Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-modal btn-modal-secondary" onclick="closeModal('settingsModal')">
+                    Cancel
+                </button>
+                <button class="btn-modal btn-modal-primary" onclick="saveSettings()">
+                    Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk Ekspor -->
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Export Design</h3>
+                <button class="modal-close" onclick="closeModal('exportModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Choose format and quality for your design:</p>
+                
+                <div class="format-options">
+                    <div class="format-option selected" data-format="pdf" onclick="selectFormat(this)">
+                        <div class="format-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="format-name">PDF</div>
+                        <div class="format-desc">High quality</div>
+                    </div>
+                    <div class="format-option" data-format="jpg" onclick="selectFormat(this)">
+                        <div class="format-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <div class="format-name">JPG</div>
+                        <div class="format-desc">Web quality</div>
+                    </div>
+                    <div class="format-option" data-format="png" onclick="selectFormat(this)">
+                        <div class="format-icon">
+                            <i class="fas fa-file-image"></i>
+                        </div>
+                        <div class="format-name">PNG</div>
+                        <div class="format-desc">Transparent BG</div>
+                    </div>
+                </div>
+
+                <div class="export-progress hidden" id="exportProgress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Preparing export...</div>
+                </div>
+
+                <div class="export-success hidden" id="exportSuccess">
+                    <p style="text-align: center; color: var(--accent-primary); margin: 20px 0;">
+                        <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                        <br>
+                        Design successfully exported!
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-modal-secondary" onclick="closeModal('exportModal')">
+                    Cancel
+                </button>
+                <button class="btn-modal btn-modal-primary" onclick="startExport()" id="exportBtn">
+                    Export
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk Berbagi -->
+    <div class="modal-overlay" id="shareModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Share Design</h3>
+                <button class="modal-close" onclick="closeModal('shareModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Share your design with others for collaboration:</p>
+                
+                <div class="share-options">
+                    <div class="share-option" onclick="shareViaWhatsApp()">
+                        <div class="share-icon whatsapp-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="share-name">WhatsApp</div>
+                        <div class="share-desc">Share link via WhatsApp</div>
+                    </div>
+                    <div class="share-option" onclick="copyShareLink()">
+                        <div class="share-icon link-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="share-name">Copy Link</div>
+                        <div class="share-desc">Copy to clipboard</div>
+                    </div>
+                </div>
+
+                <div class="share-link-container">
+                    <p style="margin-bottom: 10px;">Collaboration Link:</p>
+                    <div class="share-link-input">
+                        <input type="text" id="shareLink" value="https://designeditor.app/collab/abc123" readonly>
+                        <button class="btn-copy" onclick="copyShareLink()">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 10px;">
+                        Share this link for real-time collaboration
+                    </p>
+                </div>
+
+                <div class="share-success hidden" id="shareSuccess">
+                    <p style="text-align: center; color: var(--accent-primary); margin: 20px 0;">
+                        <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                        <br>
+                        Link copied to clipboard!
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-modal-primary" onclick="closeModal('shareModal')">
+                    Done
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Operation completed!</span>
     </div>
 
     <script>
@@ -1122,89 +2551,253 @@
         let zoomLevel = 100;
         let isDragging = false;
         let dragOffset = { x: 0, y: 0 };
-        let currentPanel = 'templates';
+        let currentTemplate = '';
+        let currentCanvasSize = { width: 794, height: 1123 };
+        let selectedFormat = 'pdf';
+        let isExporting = false;
+        let isOfflineMode = false;
+        let layers = [];
+        let currentPanel = null;
+        let currentSettingsTab = 'general';
+        
+        // Autosave variables
+        let autosaveInterval = null;
+        let autosaveEnabled = true;
+        let lastSaveTime = null;
+        let unsavedChanges = false;
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Set up panel tabs
-            setupPanelTabs();
+            // Tampilkan halaman pemilihan template di awal
+            document.getElementById('templateSelectionPage').style.display = 'flex';
+            document.getElementById('appContainer').style.display = 'none';
             
-            // Set up element drag and drop
-            setupDragAndDrop();
+            // Setup event listeners untuk asset cards
+            setupAssetCards();
             
-            // Set up canvas interactions
-            setupCanvas();
+            // Update layer list
+            updateLayersList();
             
-            // Set up property listeners
-            setupPropertyListeners();
+            // Setup settings tabs
+            setupSettingsTabs();
             
-            // Select initial element
-            selectElement(document.querySelector('.canvas-element'));
+            // Setup UI font size slider
+            setupUIFontSizeSlider();
+            
+            // Setup canvas drag and drop
+            setTimeout(() => {
+                setupCanvasDragAndDrop();
+            }, 100);
+            
+            // Setup autosave
+            startAutosave();
+            setupAutosaveListeners();
+            
+            // Tambahkan event listener untuk autosave status
+            const autosaveStatus = document.getElementById('autosaveStatus');
+            if (autosaveStatus) {
+                autosaveStatus.addEventListener('click', toggleAutosave);
+                autosaveStatus.title = "Klik untuk mengaktifkan/nonaktifkan autosave";
+            }
         });
 
-        // Panel Management
-        function showPanel(panel) {
-            // Hide all panels
-            document.getElementById('templatesContent').classList.add('hidden');
-            document.getElementById('toolsContent').classList.add('hidden');
-            document.getElementById('pluginsContent').classList.add('hidden');
-            document.getElementById('assetsContent').classList.add('hidden');
+        // PERBAIKAN: Fungsi untuk kembali ke dashboard
+        function goToDashboard() {
+            // Sembunyikan editor
+            document.getElementById('appContainer').style.display = 'none';
             
-            // Remove active from all tabs
-            document.querySelectorAll('.panel-tab').forEach(tab => tab.classList.remove('active'));
+            // Tampilkan halaman pemilihan template
+            document.getElementById('templateSelectionPage').style.display = 'flex';
             
-            // Show selected panel
-            document.getElementById(panel + 'Content').classList.remove('hidden');
-            document.querySelector(`.panel-tab[data-tab="${panel}"]`).classList.add('active');
+            // Reset state panel
+            closePanel();
             
-            // Update sidebar button
-            document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+            // Reset tombol navigasi
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
             
-            currentPanel = panel;
+            // Aktifkan tombol home
+            const homeBtn = document.querySelector('.nav-btn[title="Dashboard"]');
+            if (homeBtn) {
+                homeBtn.classList.add('active');
+            }
+            
+            showToast('Kembali ke dashboard');
         }
 
-        function setupPanelTabs() {
-            document.querySelectorAll('.panel-tab').forEach(tab => {
+        // Setup settings tabs
+        function setupSettingsTabs() {
+            const tabs = document.querySelectorAll('.settings-tab');
+            tabs.forEach(tab => {
                 tab.addEventListener('click', function() {
-                    const panel = this.getAttribute('data-tab');
-                    showPanel(panel);
+                    // Remove active from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active to clicked tab
+                    this.classList.add('active');
+                    
+                    // Hide all settings content
+                    document.querySelectorAll('.settings-content').forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // Show selected tab content
+                    const tabId = this.getAttribute('data-tab');
+                    currentSettingsTab = tabId;
+                    document.getElementById(tabId + 'Settings').classList.remove('hidden');
                 });
             });
         }
 
-        // Drag and Drop Setup
-        function setupDragAndDrop() {
-            // Setup for tool cards
-            const toolCards = document.querySelectorAll('.tool-card[draggable="true"]');
-            toolCards.forEach(card => {
-                card.addEventListener('dragstart', function(e) {
-                    const type = this.getAttribute('data-type');
-                    const data = this.getAttribute('data-content') || 
-                                 this.getAttribute('data-shape') || 
-                                 this.getAttribute('data-icon');
+        // Setup UI font size slider
+        function setupUIFontSizeSlider() {
+            const slider = document.getElementById('uiFontSize');
+            const value = document.getElementById('uiFontSizeValue');
+            
+            slider.addEventListener('input', function() {
+                value.textContent = this.value + 'px';
+                // In a real app, this would update the UI font size
+            });
+        }
+
+        // Fungsi untuk memilih template
+        function selectTemplate(templateType) {
+            currentTemplate = templateType;
+            
+            // Sembunyikan halaman pemilihan template
+            document.getElementById('templateSelectionPage').style.display = 'none';
+            
+            // Tampilkan editor
+            document.getElementById('appContainer').style.display = 'flex';
+            
+            // Setup editor berdasarkan template yang dipilih
+            setupEditorForTemplate(templateType);
+            showToast(`Template ${templateType.toUpperCase()} dipilih!`);
+        }
+
+        // Fungsi untuk memulai dengan halaman kosong
+        function startWithBlank() {
+            currentTemplate = 'blank';
+            
+            // Sembunyikan halaman pemilihan template
+            document.getElementById('templateSelectionPage').style.display = 'none';
+            
+            // Tampilkan editor
+            document.getElementById('appContainer').style.display = 'flex';
+            
+            // Setup editor dengan ukuran default
+            setupEditorForTemplate('blank');
+            showToast('Mulai dengan halaman kosong!');
+        }
+
+        // Setup editor berdasarkan template
+        function setupEditorForTemplate(templateType) {
+            const canvas = document.getElementById('canvas');
+            
+            // Bersihkan canvas
+            canvas.innerHTML = '';
+            layers = [];
+            
+            // Atur ukuran canvas berdasarkan template
+            let width, height;
+            let defaultElements = [];
+            
+            switch(templateType) {
+                case 'a4':
+                    width = 794;
+                    height = 1123;
+                    currentCanvasSize = { width, height };
+                    defaultElements = [
+                        { type: 'text', content: 'Dokumen A4', left: 100, top: 100, fontSize: 36, color: '#1A0A33', layerName: 'Title Text' },
+                        { type: 'text', content: 'Ini adalah template dokumen A4 standar', left: 100, top: 150, fontSize: 18, color: '#666', layerName: 'Subtitle Text' },
+                        { type: 'shape', shape: 'rectangle', left: 100, top: 250, width: 200, height: 150, bgColor: 'linear-gradient(135deg, #4CAF50, #2196F3)', layerName: 'Shape 1' }
+                    ];
+                    break;
                     
-                    e.dataTransfer.setData('elementType', type);
-                    e.dataTransfer.setData('elementData', data);
-                });
+                case 'a3':
+                    width = 1123;
+                    height = 794;
+                    currentCanvasSize = { width, height };
+                    defaultElements = [
+                        { type: 'text', content: 'Poster A3 Landscape', left: 150, top: 100, fontSize: 48, color: '#1A0A33', layerName: 'Main Title' },
+                        { type: 'text', content: 'Ukuran besar untuk poster dan presentasi', left: 150, top: 170, fontSize: 24, color: '#666', layerName: 'Description' },
+                        { type: 'shape', shape: 'rectangle', left: 150, top: 250, width: 300, height: 200, bgColor: 'linear-gradient(135deg, #FF9800, #E91E63)', layerName: 'Background Shape' }
+                    ];
+                    break;
+                    
+                case 'youtube':
+                    width = 1280;
+                    height = 720;
+                    currentCanvasSize = { width, height };
+                    defaultElements = [
+                        { type: 'text', content: 'YouTube Thumbnail', left: 100, top: 100, fontSize: 48, color: '#FF0000', layerName: 'YouTube Title' },
+                        { type: 'text', content: 'Klik untuk menonton!', left: 100, top: 170, fontSize: 24, color: '#333', layerName: 'Call to Action' },
+                        { type: 'shape', shape: 'rectangle', left: 100, top: 250, width: 300, height: 150, bgColor: '#FF0000', layerName: 'Red Banner' }
+                    ];
+                    break;
+                    
+                default: // blank
+                    width = 794;
+                    height = 1123;
+                    currentCanvasSize = { width, height };
+                    defaultElements = [
+                        { type: 'text', content: 'Halaman Kosong', left: 100, top: 100, fontSize: 36, color: '#1A0A33', layerName: 'Title' },
+                        { type: 'text', content: 'Mulai desain dari nol', left: 100, top: 150, fontSize: 18, color: '#666', layerName: 'Instruction' }
+                    ];
+            }
+            
+            // Atur ukuran canvas
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            
+            // Update status bar
+            document.getElementById('canvasSize').textContent = `Canvas Size: ${width} × ${height}px`;
+            
+            // Tambahkan elemen default
+            defaultElements.forEach((element, index) => {
+                addElementToCanvas(element.type, element.content || element.shape, element.left, element.top, element);
                 
-                card.addEventListener('click', function() {
-                    const type = this.getAttribute('data-type');
-                    const data = this.getAttribute('data-content') || 
-                                 this.getAttribute('data-shape') || 
-                                 this.getAttribute('data-icon');
-                    
-                    addElementToCanvas(type, data, 200, 200);
+                // Add to layers
+                layers.push({
+                    id: index + 1,
+                    name: element.layerName || `${element.type} ${index + 1}`,
+                    type: element.type,
+                    visible: true,
+                    element: document.querySelectorAll('.canvas-element')[index]
                 });
             });
             
-            // Setup for asset cards
+            // Update layer list
+            updateLayersList();
+            
+            // Select first element
+            if (defaultElements.length > 0) {
+                selectElement(document.querySelector('.canvas-element'));
+            }
+            
+            // Update element count
+            updateElementCount();
+            
+            // PERBAIKAN: Reset tombol navigasi
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Aktifkan tombol home
+            const homeBtn = document.querySelector('.nav-btn[title="Dashboard"]');
+            if (homeBtn) {
+                homeBtn.classList.add('active');
+            }
+        }
+
+        // Setup asset cards for drag and drop
+        function setupAssetCards() {
             const assetCards = document.querySelectorAll('.asset-card[draggable="true"]');
             assetCards.forEach(card => {
                 card.addEventListener('dragstart', function(e) {
                     const type = this.getAttribute('data-type');
-                    const data = this.getAttribute('data-src') || 
-                                 this.getAttribute('data-icon');
+                    const data = this.getAttribute('data-src') || this.getAttribute('data-icon');
                     
                     e.dataTransfer.setData('elementType', type);
                     e.dataTransfer.setData('elementData', data);
@@ -1212,25 +2805,603 @@
                 
                 card.addEventListener('click', function() {
                     const type = this.getAttribute('data-type');
-                    const data = this.getAttribute('data-src') || 
-                                 this.getAttribute('data-icon');
+                    const data = this.getAttribute('data-src') || this.getAttribute('data-icon');
+                    const name = this.querySelector('.asset-name').textContent;
                     
-                    addElementToCanvas(type, data, 200, 200);
-                });
-            });
-            
-            // Setup for template cards
-            const templateCards = document.querySelectorAll('.template-card');
-            templateCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const template = this.getAttribute('data-template');
-                    loadTemplate(template);
+                    addElementToCanvas(type, data, 200, 200, { layerName: name });
                 });
             });
         }
 
-        // Canvas Setup
-        function setupCanvas() {
+        // Element Creation
+        function addElementToCanvas(type, data, x = 100, y = 100, options = {}) {
+            const canvas = document.getElementById('canvas');
+            let newElement;
+            let elementId = layers.length + 1;
+            
+            if (type === 'text') {
+                newElement = document.createElement('div');
+                newElement.className = 'canvas-element text-element';
+                newElement.style.left = x + 'px';
+                newElement.style.top = y + 'px';
+                newElement.style.fontSize = (options.fontSize || 24) + 'px';
+                newElement.style.color = options.color || '#1A0A33';
+                newElement.style.fontFamily = options.fontFamily || 'Arial';
+                newElement.style.fontWeight = options.fontWeight || 'normal';
+                newElement.textContent = data || 'New Text';
+                newElement.dataset.elementId = elementId;
+                
+                // Double-click to edit
+                newElement.addEventListener('dblclick', function() {
+                    this.contentEditable = true;
+                    this.focus();
+                });
+                
+                newElement.addEventListener('blur', function() {
+                    this.contentEditable = false;
+                    document.getElementById('textContent').value = this.textContent;
+                    
+                    // Update layer name
+                    const layer = layers.find(l => l.element === this);
+                    if (layer && this.textContent.length > 0) {
+                        layer.name = this.textContent.substring(0, 20) + (this.textContent.length > 20 ? '...' : '');
+                        updateLayersList();
+                    }
+                });
+            }
+            else if (type === 'shape') {
+                newElement = document.createElement('div');
+                newElement.className = 'canvas-element shape-element';
+                newElement.style.left = x + 'px';
+                newElement.style.top = y + 'px';
+                newElement.style.width = (options.width || 100) + 'px';
+                newElement.style.height = (options.height || 100) + 'px';
+                newElement.dataset.elementId = elementId;
+                
+                if (data === 'rectangle') {
+                    newElement.style.borderRadius = options.borderRadius || '8px';
+                    newElement.style.background = options.bgColor || 'linear-gradient(135deg, #4CAF50, #2196F3)';
+                }
+            }
+            else if (type === 'image' || type === 'icon') {
+                newElement = document.createElement('div');
+                newElement.className = 'canvas-element';
+                newElement.style.left = x + 'px';
+                newElement.style.top = y + 'px';
+                newElement.style.width = '100px';
+                newElement.style.height = '100px';
+                newElement.style.background = 'linear-gradient(135deg, #4CAF50, #2196F3)';
+                newElement.style.borderRadius = '8px';
+                newElement.style.display = 'flex';
+                newElement.style.alignItems = 'center';
+                newElement.style.justifyContent = 'center';
+                newElement.dataset.elementId = elementId;
+                
+                const icon = document.createElement('i');
+                icon.className = type === 'icon' ? `fas fa-${data}` : 'fas fa-image';
+                icon.style.color = 'white';
+                icon.style.fontSize = '40px';
+                newElement.appendChild(icon);
+            }
+            
+            // Add click listener
+            newElement.addEventListener('mousedown', function(e) {
+                e.stopPropagation();
+                selectElement(this);
+                
+                if (!e.target.classList.contains('fa-arrows-alt')) {
+                    startDrag(this, e);
+                }
+            });
+            
+            canvas.appendChild(newElement);
+            
+            // Add to layers
+            const layerName = options.layerName || `${type} ${elementId}`;
+            layers.push({
+                id: elementId,
+                name: layerName,
+                type: type,
+                visible: true,
+                element: newElement
+            });
+            
+            selectElement(newElement);
+            updateLayersList();
+            updateElementCount();
+            showToast('Element added to canvas');
+            
+            // Tandai ada perubahan
+            markUnsavedChanges();
+        }
+
+        // Element Selection
+        function selectElement(element) {
+            // Remove selection from all elements
+            document.querySelectorAll('.canvas-element').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Remove selection from all layers
+            document.querySelectorAll('.layer-item').forEach(layer => {
+                layer.classList.remove('selected');
+            });
+            
+            // Update selectedElement
+            selectedElement = element;
+            
+            if (element) {
+                element.classList.add('selected');
+                updatePropertyPanel(element);
+                updateStatusBar(element);
+                
+                // Select corresponding layer
+                const layer = layers.find(l => l.element === element);
+                if (layer) {
+                    const layerItem = document.querySelector(`.layer-item[data-id="${layer.id}"]`);
+                    if (layerItem) {
+                        layerItem.classList.add('selected');
+                    }
+                }
+            } else {
+                clearPropertyPanel();
+            }
+        }
+
+        function updatePropertyPanel(element) {
+            if (element.classList.contains('text-element')) {
+                document.getElementById('textContent').value = element.textContent;
+                const fontSize = parseInt(element.style.fontSize) || 24;
+                document.getElementById('fontSize').value = fontSize;
+                document.getElementById('fontSizeValue').textContent = fontSize + 'px';
+                
+                // Update position sliders
+                const left = parseInt(element.style.left) || 100;
+                const top = parseInt(element.style.top) || 100;
+                document.getElementById('posX').value = left;
+                document.getElementById('posY').value = top;
+                document.getElementById('posXValue').textContent = left + 'px';
+                document.getElementById('posYValue').textContent = top + 'px';
+                
+                // Update layer name
+                const layer = layers.find(l => l.element === element);
+                if (layer) {
+                    document.getElementById('layerName').value = layer.name;
+                }
+                
+                // Update color preview
+                const color = element.style.color || '#1A0A33';
+                document.getElementById('colorPreview').style.background = color;
+            } else if (element.classList.contains('shape-element')) {
+                // Update shape properties
+                const width = parseInt(element.style.width) || 100;
+                const height = parseInt(element.style.height) || 100;
+                document.getElementById('shapeWidth').value = width;
+                document.getElementById('shapeHeight').value = height;
+                
+                const left = parseInt(element.style.left) || 100;
+                const top = parseInt(element.style.top) || 100;
+                document.getElementById('posX').value = left;
+                document.getElementById('posY').value = top;
+                document.getElementById('posXValue').textContent = left + 'px';
+                document.getElementById('posYValue').textContent = top + 'px';
+                
+                // Update layer name
+                const layer = layers.find(l => l.element === element);
+                if (layer) {
+                    document.getElementById('layerName').value = layer.name;
+                }
+            }
+        }
+
+        function clearPropertyPanel() {
+            document.getElementById('textContent').value = '';
+            document.getElementById('selectedElement').textContent = 'Selected: None';
+        }
+
+        function updateStatusBar(element) {
+            const elementType = element.classList.contains('text-element') ? 'Text Element' :
+                               element.classList.contains('shape-element') ? 'Shape Element' : 'Element';
+            document.getElementById('selectedElement').textContent = `Selected: ${elementType}`;
+        }
+
+        function updateElementCount() {
+            document.getElementById('elementCount').textContent = `Elements: ${layers.length}`;
+        }
+
+        // Update layers list
+        function updateLayersList() {
+            const layersList = document.getElementById('layersList');
+            layersList.innerHTML = '';
+            
+            // Sort layers by their position in DOM (z-index)
+            const sortedLayers = [...layers].reverse();
+            
+            sortedLayers.forEach(layer => {
+                const layerItem = document.createElement('div');
+                layerItem.className = `layer-item ${layer.visible ? '' : 'hidden'} ${layer.type === 'text' ? 'layer-text' : 'layer-shape'}`;
+                layerItem.dataset.id = layer.id;
+                
+                layerItem.innerHTML = `
+                    <div class="layer-icon">
+                        <i class="fas fa-${layer.type === 'text' ? 'font' : layer.type === 'shape' ? 'square' : 'image'}"></i>
+                    </div>
+                    <div class="layer-info">
+                        <div class="layer-name">${layer.name}</div>
+                        <div class="layer-type">${layer.type.charAt(0).toUpperCase() + layer.type.slice(1)}</div>
+                    </div>
+                    <button class="layer-visibility" onclick="toggleLayerVisibility(${layer.id}, event)">
+                        <i class="fas fa-${layer.visible ? 'eye' : 'eye-slash'}"></i>
+                    </button>
+                `;
+                
+                layerItem.addEventListener('click', () => {
+                    selectElement(layer.element);
+                });
+                
+                layersList.appendChild(layerItem);
+            });
+        }
+
+        // PERBAIKAN: Panel Management
+        function togglePanel(panelName) {
+            const leftPanel = document.getElementById('leftPanel');
+            const panel = document.getElementById(panelName + 'Panel');
+            
+            // If clicking the same panel, close it
+            if (currentPanel === panelName) {
+                closePanel();
+                return;
+            }
+            
+            // Hide all panels
+            document.querySelectorAll('.panel-content').forEach(p => {
+                p.classList.add('hidden');
+            });
+            
+            // Show selected panel
+            panel.classList.remove('hidden');
+            
+            // Show left panel if it's collapsed
+            leftPanel.classList.remove('panel-collapsed');
+            
+            // Update current panel
+            currentPanel = panelName;
+            
+            // Update tombol navigasi aktif
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Aktifkan tombol yang sesuai dengan panel yang dibuka
+            const activeBtn = document.querySelector(`.nav-btn[title="${panelName.charAt(0).toUpperCase() + panelName.slice(1)}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+
+        // PERBAIKAN: Fungsi closePanel
+        function closePanel() {
+            const leftPanel = document.getElementById('leftPanel');
+            leftPanel.classList.add('panel-collapsed');
+            currentPanel = null;
+            
+            // Reset semua tombol navigasi
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Aktifkan tombol home
+            const homeBtn = document.querySelector('.nav-btn[title="Dashboard"]');
+            if (homeBtn) {
+                homeBtn.classList.add('active');
+            }
+        }
+
+        // Tool Selection
+        function selectTool(tool) {
+            // Remove active from all tool buttons
+            document.querySelectorAll('.tool-btn-top').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active to clicked tool
+            event.currentTarget.classList.add('active');
+            
+            showToast(`${tool.charAt(0).toUpperCase() + tool.slice(1)} tool selected`);
+        }
+
+        // Alignment Functions
+        function alignElements(alignment) {
+            if (!selectedElement) {
+                showToast('Select an element first');
+                return;
+            }
+            
+            const canvas = document.getElementById('canvas');
+            const canvasWidth = canvas.clientWidth;
+            
+            switch(alignment) {
+                case 'left':
+                    selectedElement.style.left = '20px';
+                    break;
+                case 'center':
+                    const elementWidth = selectedElement.offsetWidth;
+                    selectedElement.style.left = (canvasWidth / 2 - elementWidth / 2) + 'px';
+                    break;
+                case 'right':
+                    const elementWidthRight = selectedElement.offsetWidth;
+                    selectedElement.style.left = (canvasWidth - elementWidthRight - 20) + 'px';
+                    break;
+            }
+            
+            showToast(`Aligned ${alignment}`);
+            markUnsavedChanges();
+        }
+
+        function distributeElements(direction) {
+            const elements = document.querySelectorAll('.canvas-element');
+            if (elements.length < 2) {
+                showToast('Need at least 2 elements to distribute');
+                return;
+            }
+            
+            // Simple distribution simulation
+            showToast(`Distributed elements ${direction}ly`);
+            markUnsavedChanges();
+        }
+
+        // Margin and Spacing Controls
+        function updateCanvasMargin() {
+            const margin = document.getElementById('marginTop').value;
+            const canvas = document.getElementById('canvas');
+            canvas.style.margin = margin + 'px';
+            showToast(`Canvas margin updated to ${margin}px`);
+            markUnsavedChanges();
+        }
+
+        function updateElementSpacing() {
+            const spacing = document.getElementById('elementSpacing').value;
+            // In a real app, this would adjust spacing between selected elements
+            showToast(`Element spacing set to ${spacing}px`);
+            markUnsavedChanges();
+        }
+
+        // Layer Functions
+        function toggleLayerVisibility(layerId, event) {
+            if (event) event.stopPropagation();
+            
+            const layer = layers.find(l => l.id === layerId);
+            if (layer) {
+                layer.visible = !layer.visible;
+                layer.element.style.display = layer.visible ? 'block' : 'none';
+                updateLayersList();
+                showToast(`Layer ${layer.visible ? 'shown' : 'hidden'}`);
+                markUnsavedChanges();
+            }
+        }
+
+        // Font Functions
+        function selectFont(font) {
+            if (selectedElement && selectedElement.classList.contains('text-element')) {
+                selectedElement.style.fontFamily = font;
+                showToast(`Font changed to ${font}`);
+                
+                // Update font buttons
+                document.querySelectorAll('.font-option').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                event.currentTarget.classList.add('active');
+                markUnsavedChanges();
+            }
+        }
+
+        // Color Functions
+        function selectColorFromWheel(event) {
+            // Simulated color selection
+            const colors = ['#1A0A33', '#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#E91E63'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.getElementById('colorPreview').style.background = randomColor;
+            
+            if (selectedElement && selectedElement.classList.contains('text-element')) {
+                selectedElement.style.color = randomColor;
+                showToast('Text color updated');
+                markUnsavedChanges();
+            }
+        }
+
+        // Tool Functions
+        function undo() {
+            showToast('Undo action');
+        }
+
+        function redo() {
+            showToast('Redo action');
+        }
+
+        function deleteSelected() {
+            if (selectedElement) {
+                // Remove from layers
+                const layerIndex = layers.findIndex(l => l.element === selectedElement);
+                if (layerIndex !== -1) {
+                    layers.splice(layerIndex, 1);
+                }
+                
+                selectedElement.remove();
+                selectedElement = null;
+                clearPropertyPanel();
+                updateLayersList();
+                updateElementCount();
+                showToast('Element deleted');
+                markUnsavedChanges();
+            } else {
+                showToast('No element selected');
+            }
+        }
+
+        // Offline Mode
+        function toggleOfflineMode() {
+            isOfflineMode = !isOfflineMode;
+            const btn = document.getElementById('offlineBtn');
+            
+            if (isOfflineMode) {
+                btn.innerHTML = '<i class="fas fa-wifi-slash"></i> Offline';
+                btn.classList.add('active');
+                showToast('Offline mode activated');
+            } else {
+                btn.innerHTML = '<i class="fas fa-wifi"></i> Online';
+                btn.classList.remove('active');
+                showToast('Online mode activated');
+            }
+        }
+
+        // Settings Functions
+        function showSettingsModal() {
+            document.getElementById('settingsModal').classList.add('active');
+        }
+
+        function selectLanguage(lang) {
+            // Remove selected from all language options
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected to clicked option
+            event.currentTarget.classList.add('selected');
+            
+            showToast(`Language changed to ${lang}`);
+        }
+
+        function selectTheme(theme) {
+            // Remove selected from all theme options
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected to clicked option
+            event.currentTarget.classList.add('selected');
+            
+            showToast(`Theme changed to ${theme}`);
+        }
+
+        function changePassword() {
+            showToast('Password change dialog would open here');
+        }
+
+        function exportUserData() {
+            showToast('Exporting user data...');
+        }
+
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                showToast('Account deletion initiated...');
+            }
+        }
+
+        function saveSettings() {
+            showToast('Settings saved successfully!');
+            closeModal('settingsModal');
+        }
+
+        // Modal Functions
+        function showExportModal() {
+            document.getElementById('exportModal').classList.add('active');
+        }
+
+        function showShareModal() {
+            document.getElementById('shareModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function selectFormat(element) {
+            // Remove selected from all format options
+            document.querySelectorAll('.format-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected to clicked option
+            element.classList.add('selected');
+            selectedFormat = element.getAttribute('data-format');
+        }
+
+        // Export Functions (Simulasi)
+        function startExport() {
+            if (isExporting) return;
+            
+            isExporting = true;
+            document.getElementById('exportBtn').disabled = true;
+            document.getElementById('exportProgress').classList.remove('hidden');
+            
+            // Simulate export process
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 10;
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('progressText').textContent = 
+                    progress < 100 ? `Exporting ${selectedFormat.toUpperCase()}... ${progress}%` : 'Finishing up...';
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    setTimeout(() => {
+                        document.getElementById('exportProgress').classList.add('hidden');
+                        document.getElementById('exportSuccess').classList.remove('hidden');
+                        document.getElementById('exportBtn').textContent = 'Done';
+                        document.getElementById('exportBtn').disabled = false;
+                        document.getElementById('exportBtn').onclick = function() {
+                            closeModal('exportModal');
+                            showToast(`Design exported as ${selectedFormat.toUpperCase()} successfully!`);
+                        };
+                        isExporting = false;
+                    }, 500);
+                }
+            }, 200);
+        }
+
+        // Share Functions (Simulasi)
+        function shareViaWhatsApp() {
+            showToast('Opening WhatsApp to share design...');
+            
+            setTimeout(() => {
+                showToast('Design shared via WhatsApp!');
+            }, 1000);
+        }
+
+        function copyShareLink() {
+            const linkInput = document.getElementById('shareLink');
+            linkInput.select();
+            linkInput.setSelectionRange(0, 99999);
+            
+            try {
+                navigator.clipboard.writeText(linkInput.value).then(() => {
+                    document.getElementById('shareSuccess').classList.remove('hidden');
+                    showToast('Collaboration link copied to clipboard!');
+                });
+            } catch (err) {
+                document.execCommand('copy');
+                document.getElementById('shareSuccess').classList.remove('hidden');
+                showToast('Collaboration link copied to clipboard!');
+            }
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Drag and Drop for Canvas
+        function setupCanvasDragAndDrop() {
             const canvas = document.getElementById('canvas');
             
             // Allow drop
@@ -1297,6 +3468,19 @@
             
             selectedElement.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
             selectedElement.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
+            
+            // Update position sliders
+            const left = parseInt(selectedElement.style.left) || 100;
+            const top = parseInt(selectedElement.style.top) || 100;
+            document.getElementById('posX').value = left;
+            document.getElementById('posY').value = top;
+            document.getElementById('posXValue').textContent = left + 'px';
+            document.getElementById('posYValue').textContent = top + 'px';
+            
+            // Tandai ada perubahan saat drag
+            if (isDragging) {
+                markUnsavedChanges();
+            }
         }
 
         function handleCanvasMouseUp() {
@@ -1315,272 +3499,118 @@
             
             document.body.style.cursor = 'grabbing';
         }
-
-        // Element Creation
-        function addElementToCanvas(type, data, x = 100, y = 100) {
-            const canvas = document.getElementById('canvas');
-            let newElement;
-            
-            if (type === 'text') {
-                newElement = document.createElement('div');
-                newElement.className = 'canvas-element text-element';
-                newElement.style.left = x + 'px';
-                newElement.style.top = y + 'px';
-                newElement.style.fontSize = '24px';
-                newElement.style.color = '#1A0A33';
-                newElement.textContent = data;
-                
-                // Double-click to edit
-                newElement.addEventListener('dblclick', function() {
-                    this.contentEditable = true;
-                    this.focus();
-                });
-                
-                newElement.addEventListener('blur', function() {
-                    this.contentEditable = false;
-                    document.getElementById('textContent').value = this.textContent;
-                });
+        
+        // ==================== AUTOSAVE FUNCTIONS ====================
+        
+        // Fungsi untuk memulai autosave
+        function startAutosave() {
+            if (autosaveInterval) {
+                clearInterval(autosaveInterval);
             }
-            else if (type === 'shape') {
-                newElement = document.createElement('div');
-                newElement.className = 'canvas-element shape-element';
-                newElement.style.left = x + 'px';
-                newElement.style.top = y + 'px';
-                newElement.style.width = '100px';
-                newElement.style.height = '100px';
-                
-                if (data === 'rectangle') {
-                    newElement.style.borderRadius = '8px';
-                    newElement.style.background = 'linear-gradient(135deg, #4CAF50, #2196F3)';
-                } else if (data === 'circle') {
-                    newElement.style.borderRadius = '50%';
-                    newElement.style.background = 'linear-gradient(135deg, #FF9800, #E91E63)';
-                } else if (data === 'triangle') {
-                    newElement.style.borderRadius = '0';
-                    newElement.style.background = 'transparent';
-                    newElement.style.width = '0';
-                    newElement.style.height = '0';
-                    newElement.style.borderLeft = '50px solid transparent';
-                    newElement.style.borderRight = '50px solid transparent';
-                    newElement.style.borderBottom = '100px solid #9C27B0';
-                } else if (data === 'star') {
-                    newElement.style.background = 'linear-gradient(135deg, #9C27B0, #2196F3)';
-                    newElement.style.borderRadius = '8px';
-                    const starIcon = document.createElement('i');
-                    starIcon.className = 'fas fa-star';
-                    starIcon.style.color = 'white';
-                    starIcon.style.fontSize = '40px';
-                    newElement.appendChild(starIcon);
-                } else if (data === 'line') {
-                    newElement.style.width = '200px';
-                    newElement.style.height = '4px';
-                    newElement.style.background = '#4CAF50';
-                    newElement.style.borderRadius = '2px';
-                } else if (data === 'arrow') {
-                    newElement.style.width = '150px';
-                    newElement.style.height = '4px';
-                    newElement.style.background = '#FF9800';
-                    newElement.style.borderRadius = '2px';
-                    newElement.style.position = 'relative';
-                    
-                    const arrowHead = document.createElement('div');
-                    arrowHead.style.position = 'absolute';
-                    arrowHead.style.right = '-10px';
-                    arrowHead.style.top = '-8px';
-                    arrowHead.style.width = '0';
-                    arrowHead.style.height = '0';
-                    arrowHead.style.borderTop = '10px solid transparent';
-                    arrowHead.style.borderBottom = '10px solid transparent';
-                    arrowHead.style.borderLeft = '10px solid #FF9800';
-                    newElement.appendChild(arrowHead);
+            
+            autosaveInterval = setInterval(() => {
+                if (autosaveEnabled && unsavedChanges) {
+                    simulateAutosave();
                 }
-            }
-            else if (type === 'button') {
-                newElement = document.createElement('div');
-                newElement.className = 'canvas-element text-element';
-                newElement.style.left = x + 'px';
-                newElement.style.top = y + 'px';
-                newElement.style.fontSize = '16px';
-                newElement.style.color = 'white';
-                newElement.style.background = '#4CAF50';
-                newElement.style.padding = '10px 20px';
-                newElement.style.borderRadius = '8px';
-                newElement.style.textAlign = 'center';
-                newElement.style.cursor = 'pointer';
-                newElement.textContent = 'Button';
-                newElement.style.minWidth = '120px';
-            }
-            else if (type === 'icon' || type === 'image') {
-                newElement = document.createElement('div');
-                newElement.className = 'canvas-element';
-                newElement.style.left = x + 'px';
-                newElement.style.top = y + 'px';
-                newElement.style.width = '100px';
-                newElement.style.height = '100px';
-                newElement.style.background = 'linear-gradient(135deg, #4CAF50, #2196F3)';
-                newElement.style.borderRadius = '8px';
-                newElement.style.display = 'flex';
-                newElement.style.alignItems = 'center';
-                newElement.style.justifyContent = 'center';
-                
-                const icon = document.createElement('i');
-                icon.className = type === 'icon' ? `fas fa-${data}` : 'fas fa-image';
-                icon.style.color = 'white';
-                icon.style.fontSize = '40px';
-                newElement.appendChild(icon);
-            }
-            
-            // Add click listener
-            newElement.addEventListener('mousedown', function(e) {
-                e.stopPropagation();
-                selectElement(this);
-                
-                if (!e.target.classList.contains('fa-arrows-alt')) {
-                    startDrag(this, e);
-                }
-            });
-            
-            canvas.appendChild(newElement);
-            selectElement(newElement);
+            }, 30000); // Simpan setiap 30 detik
         }
 
-        // Template Loading
-        function loadTemplate(template) {
-            const canvas = document.getElementById('canvas');
+        // Fungsi untuk mensimulasikan autosave
+        function simulateAutosave() {
+            const status = document.getElementById('autosaveStatus');
+            const indicator = status.querySelector('.autosave-indicator');
             
-            // Clear existing elements (keep first 3 default ones)
-            const elements = canvas.querySelectorAll('.canvas-element');
-            for (let i = 3; i < elements.length; i++) {
-                elements[i].remove();
-            }
+            // Tampilkan status saving
+            indicator.classList.add('saving');
+            status.querySelector('i').style.animation = 'spin 1s linear infinite';
             
-            // Add template-specific elements
-            if (template === 'presentation') {
-                addElementToCanvas('text', 'Business Presentation', 200, 200);
-                addElementToCanvas('text', 'Quarterly Report 2024', 200, 250);
-                addElementToCanvas('shape', 'rectangle', 400, 200);
-            } else if (template === 'social') {
-                addElementToCanvas('text', 'Social Media Post', 200, 200);
-                addElementToCanvas('icon', 'heart', 200, 300);
-                addElementToCanvas('icon', 'share-alt', 250, 300);
-            }
-            
-            alert(`Template "${template}" loaded!`);
+            // Simulasi delay untuk autosave
+            setTimeout(() => {
+                // Update status
+                lastSaveTime = new Date();
+                unsavedChanges = false;
+                
+                // Update UI
+                indicator.classList.remove('saving');
+                indicator.classList.add('active');
+                status.querySelector('i').style.animation = 'spin 2s linear infinite';
+                
+                // Tampilkan toast notification
+                showToast('Desain disimpan secara otomatis');
+                
+                // Reset setelah 2 detik
+                setTimeout(() => {
+                    indicator.classList.remove('active');
+                }, 2000);
+            }, 1000);
         }
 
-        // Element Selection
-        function selectElement(element) {
-            // Remove selection from all elements
-            document.querySelectorAll('.canvas-element').forEach(el => {
-                el.classList.remove('selected');
-            });
+        // Fungsi untuk menandai ada perubahan
+        function markUnsavedChanges() {
+            if (!unsavedChanges) {
+                unsavedChanges = true;
+                
+                // Update indikator
+                const indicator = document.querySelector('.autosave-indicator');
+                indicator.classList.remove('active');
+            }
+        }
+
+        // Fungsi untuk toggle autosave
+        function toggleAutosave() {
+            autosaveEnabled = !autosaveEnabled;
+            const status = document.getElementById('autosaveStatus');
+            const indicator = status.querySelector('.autosave-indicator');
             
-            // Update selectedElement
-            selectedElement = element;
-            
-            if (element) {
-                element.classList.add('selected');
-                updatePropertyPanel(element);
-                updateStatusBar(element);
+            if (autosaveEnabled) {
+                status.style.opacity = '1';
+                status.style.cursor = 'default';
+                indicator.style.opacity = '1';
+                startAutosave();
+                showToast('Autosave diaktifkan');
             } else {
-                clearPropertyPanel();
+                status.style.opacity = '0.6';
+                status.style.cursor = 'pointer';
+                indicator.style.opacity = '0.3';
+                if (autosaveInterval) {
+                    clearInterval(autosaveInterval);
+                }
+                showToast('Autosave dinonaktifkan');
             }
         }
 
-        function updatePropertyPanel(element) {
-            if (element.classList.contains('text-element')) {
-                document.getElementById('textContent').value = element.textContent;
-                const fontSize = parseInt(element.style.fontSize) || 24;
-                document.getElementById('fontSize').value = fontSize;
-                document.getElementById('fontSizeValue').textContent = fontSize + 'px';
-                
-                // Update color picker
-                const color = element.style.color || '#1A0A33';
-                updateActiveColorPicker(color);
-            } else if (element.classList.contains('shape-element')) {
-                // Update shape properties
+        // Tambahkan event listener untuk perubahan
+        function setupAutosaveListeners() {
+            // Monitor perubahan pada input dokumen
+            const docNameInput = document.getElementById('docName');
+            if (docNameInput) {
+                docNameInput.addEventListener('input', markUnsavedChanges);
             }
-        }
-
-        function updateActiveColorPicker(color) {
-            document.querySelectorAll('.color-option').forEach(option => {
-                option.classList.remove('active');
-                if (option.getAttribute('data-color') === color || 
-                    option.style.background === color) {
-                    option.classList.add('active');
-                }
-            });
-        }
-
-        function clearPropertyPanel() {
-            document.getElementById('textContent').value = '';
-        }
-
-        function updateStatusBar(element) {
-            const elementType = element.classList.contains('text-element') ? 'Text Element' :
-                               element.classList.contains('shape-element') ? 'Shape Element' : 'Element';
-            document.getElementById('selectedElement').textContent = `Selected: ${elementType}`;
-        }
-
-        // Property Listeners
-        function setupPropertyListeners() {
-            // Text content
-            document.getElementById('textContent').addEventListener('input', function() {
-                if (selectedElement && selectedElement.classList.contains('text-element')) {
-                    selectedElement.textContent = this.value;
-                }
+            
+            // Monitor perubahan pada properti
+            const propertyInputs = document.querySelectorAll('#textContent, #fontSize, #posX, #posY, #shapeWidth, #shapeHeight, #layerName');
+            propertyInputs.forEach(input => {
+                input.addEventListener('input', markUnsavedChanges);
+                input.addEventListener('change', markUnsavedChanges);
             });
             
-            // Font size
-            const fontSizeSlider = document.getElementById('fontSize');
-            const fontSizeValue = document.getElementById('fontSizeValue');
-            
-            fontSizeSlider.addEventListener('input', function() {
-                fontSizeValue.textContent = this.value + 'px';
-                if (selectedElement && selectedElement.classList.contains('text-element')) {
-                    selectedElement.style.fontSize = this.value + 'px';
-                }
-            });
-            
-            // Color picker
-            document.querySelectorAll('.color-option[data-color]').forEach(option => {
-                option.addEventListener('click', function() {
-                    if (selectedElement && selectedElement.classList.contains('text-element')) {
-                        const color = this.getAttribute('data-color');
-                        selectedElement.style.color = color;
-                        updateActiveColorPicker(color);
+            // Monitor perubahan pada canvas
+            const canvas = document.getElementById('canvas');
+            if (canvas) {
+                canvas.addEventListener('mouseup', function() {
+                    if (selectedElement) {
+                        markUnsavedChanges();
                     }
                 });
+            }
+            
+            // Monitor perubahan layer visibility
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('layer-visibility') || 
+                    e.target.closest('.layer-visibility')) {
+                    markUnsavedChanges();
+                }
             });
-        }
-
-        // Zoom Functions
-        function zoomIn() {
-            zoomLevel = Math.min(zoomLevel + 25, 300);
-            updateZoom();
-        }
-
-        function zoomOut() {
-            zoomLevel = Math.max(zoomLevel - 25, 50);
-            updateZoom();
-        }
-
-        function updateZoom() {
-            document.getElementById('zoomLevel').textContent = zoomLevel + '%';
-        }
-
-        // Settings Modal (placeholder)
-        function showSettings() {
-            alert('Settings dialog would open here');
-        }
-
-        // Export and Share Functions
-        function exportDesign() {
-            alert('Export functionality would be implemented here');
-        }
-
-        function shareDesign() {
-            alert('Share functionality would be implemented here');
         }
     </script>
 </body>

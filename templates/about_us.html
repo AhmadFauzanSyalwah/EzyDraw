@@ -13,54 +13,62 @@
     <aside class="sidebar">
         <div class="logo-container">
             <div class="logo-img-container">
-                <img src="../static/img/logo.png" alt="EzyDraw Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/45/4CAF50/FFFFFF?text=ED'">
+                <img src="../static/img/logo.png" alt="EzyDraw Logo" class="logo-img">
             </div>
             <div class="logo">
                 <span class="logo-text">Ezy</span><span class="logo-d">D</span><span class="logo-text">raw</span>
             </div>
         </div>
         
-        <button class="btn-new-design">
+        <!-- Tombol Buat Desain Baru -->
+        <a href="design.html" class="btn-new-design">
             <i class="fas fa-plus-circle"></i> Buat Desain Baru
-        </button>
+        </a>
         
         <div class="menu-group">
             <div class="menu-group-title">Alat Utama</div>
-            <div class="menu-item">
+            <a href="dashboard.html" class="menu-item">
                 <i class="fas fa-tachometer-alt"></i> Dashboard
-            </div>
-            <div class="menu-item">
+            </a>
+            <a href="plugin.html" class="menu-item">
                 <i class="fas fa-puzzle-piece"></i> Plugin
-            </div>
-            <div class="menu-item">
+            </a>
+            <a href="templates.html" class="menu-item">
                 <i class="fas fa-th-large"></i> Templates
-            </div>
-            <div class="menu-item">
+            </a>
+            <a href="aset.html" class="menu-item">
                 <i class="fas fa-box-open"></i> Aset
-            </div>
+            </a>
         </div>
         
         <div class="menu-group">
             <div class="menu-group-title">Komunitas</div>
-            <div class="menu-item">
+            <a href="contributor.html" class="menu-item">
                 <i class="fas fa-users"></i> Contributors
-            </div>
-            <div class="menu-item">
+            </a>
+            <a href="ezylearn.html" class="menu-item">
                 <i class="fas fa-graduation-cap"></i> EzyLearn
-            </div>
+            </a>
         </div>
         
         <div class="menu-group sidebar-footer">
             <div class="menu-group-title">Akun</div>
-            <div class="menu-item active">
+            <a href="profile.html" class="menu-item">
+        <i class="fas fa-user-circle"></i> Profile Saya
+    </a>
+            <a href="about_us.html" class="menu-item active">
                 <i class="fas fa-info-circle"></i> Tentang Kami
-            </div>
-            <div class="menu-item">
+            </a>
+            <a href="rate.html" class="menu-item">
                 <i class="fas fa-star" style="color: var(--accent-secondary);"></i> Rating EzyDraw
-            </div>
-            <div class="menu-item">
+            </a>
+            <a href="help.html" class="menu-item">
                 <i class="fas fa-question-circle"></i> Pusat Bantuan
-            </div>
+            </a>
+            <a href="login.html" class="menu-item">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
         </div>
     </aside>
     
@@ -117,7 +125,7 @@
             <div class="section-card">
                 <div class="section-header">
                     <h2><i class="fas fa-user-friends"></i> Tim Pengembang EzyDraw</h2>
-                    <p class="section-subtitle">Kelompok EzyDraw - Mahasiswa Universitas Gunadarma</p>
+                    <p class="section-subtitle">Kelompok 2 - Mahasiswa Institut Teknologi Bacharuddin Jusuf Habibie</p>
                 </div>
                 
                 <div class="team-grid">
@@ -129,7 +137,7 @@
                             <h3 class="member-name">Muh. Azwar R</h3>
                             <p class="member-nim">241011053</p>
                             <div class="member-role">
-                                <span class="badge badge-primary">UI/UX Designer</span>
+                                <span class="badge badge-primary">Functional Analyst</span>
                             </div>
                         </div>
                     </div>
@@ -155,7 +163,7 @@
                             <h3 class="member-name">Muhammad Aqsha Ridwan</h3>
                             <p class="member-nim">241011089</p>
                             <div class="member-role">
-                                <span class="badge badge-accent">Backend Developer</span>
+                                <span class="badge badge-accent">UI/UX Designer</span>
                             </div>
                         </div>
                     </div>
@@ -182,30 +190,62 @@
                     <p class="section-subtitle">Profil pengguna utama yang menjadi fokus pengembangan EzyDraw</p>
                 </div>
                 
-                <div class="persona-card">
-                    <div class="persona-header">
-                        <div class="persona-avatar">
-                            <span>R</span>
+                <div class="persona-grid">
+                    <!-- Persona Rumi -->
+                    <div class="persona-card">
+                        <div class="persona-header">
+                            <div class="persona-avatar">
+                                <span>R</span>
+                            </div>
+                            <div class="persona-info">
+                                <h3 class="persona-name">Rumi</h3>
+                                <div class="persona-details">
+                                    <span class="detail-item"><i class="fas fa-birthday-cake"></i> Usia: 24</span>
+                                    <span class="detail-item"><i class="fas fa-university"></i> Semester: 3</span>
+                                    <span class="detail-item"><i class="fas fa-book"></i> Prodi: Sains Data</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="persona-info">
-                            <h3 class="persona-name">Rumi</h3>
-                            <div class="persona-details">
-                                <span class="detail-item"><i class="fas fa-birthday-cake"></i> Usia: 24</span>
-                                <span class="detail-item"><i class="fas fa-university"></i> Semester: 3</span>
-                                <span class="detail-item"><i class="fas fa-book"></i> Prodi: Sains Data</span>
+                        
+                        <div class="persona-content">
+                            <div class="persona-goal">
+                                <h4><i class="fas fa-flag-checkered"></i> Tujuan Utama</h4>
+                                <p>Menyelesaikan presentasi dan mockup proyek dengan cepat dan visual menarik, menggunakan Canva sebagai shortcut sebelum disempurnakan (jika perlu) di software profesional.</p>
+                            </div>
+                            
+                            <div class="persona-problem">
+                                <h4><i class="fas fa-exclamation-triangle"></i> Masalah Utama</h4>
+                                <p>Membutuhkan alat desain yang lebih cepat dan mudah daripada software profesional (Photoshop), namun masih bisa diintegrasikan dengan workflow desain yang lebih detail dan tanpa perlu bergantung pada aset premium berbayar.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="persona-content">
-                        <div class="persona-goal">
-                            <h4><i class="fas fa-flag-checkered"></i> Tujuan Utama</h4>
-                            <p>Menyelesaikan presentasi dan mockup proyek dengan cepat dan visual menarik, menggunakan Canva sebagai shortcut sebelum disempurnakan (jika perlu) di software profesional.</p>
+                    <!-- Persona Mira -->
+                    <div class="persona-card">
+                        <div class="persona-header">
+                            <div class="persona-avatar mira">
+                                <span>M</span>
+                            </div>
+                            <div class="persona-info">
+                                <h3 class="persona-name">Mira</h3>
+                                <div class="persona-details">
+                                    <span class="detail-item"><i class="fas fa-birthday-cake"></i> Usia: 21</span>
+                                    <span class="detail-item"><i class="fas fa-university"></i> Semester: 5</span>
+                                    <span class="detail-item"><i class="fas fa-book"></i> Prodi: Ilmu Komputer</span>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="persona-problem">
-                            <h4><i class="fas fa-exclamation-triangle"></i> Masalah Utama</h4>
-                            <p>Membutuhkan alat desain yang lebih cepat dan mudah daripada software profesional (Photoshop), namun masih bisa diintegrasikan dengan workflow desain yang lebih detail dan tanpa perlu bergantung pada aset premium berbayar.</p>
+                        <div class="persona-content">
+                            <div class="persona-goal">
+                                <h4><i class="fas fa-flag-checkered"></i> Karakteristik Pengguna</h4>
+                                <p>Mahasiswa yang menggunakan Canva untuk tugas-tugas kuliah seperti membuat ballpoint dan presentasi. Tidak familiar dengan software desain lain dan merasa Canva sudah lebih baik dari software lain yang dikenalnya.</p>
+                            </div>
+                            
+                            <div class="persona-problem">
+                                <h4><i class="fas fa-exclamation-triangle"></i> Insight dari Wawancara</h4>
+                                <p>Pengguna yang kesulitan berpindah aplikasi karena kurangnya pemahaman fundamental desain. Mengalami lag ketika desain kompleks, tapi terbantu dengan auto-save. Lebih sering menggunakan laptop daripada mobile, dan puas dengan kualitas output Canva untuk kebutuhan akademik.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -254,6 +294,16 @@
                             <span>4</span>
                         </div>
                         <div class="finding-content">
+                            <h3>Permintaan Edukasi Desain</h3>
+                            <p>Kebutuhan akan platform pembelajaran desain grafis yang terintegrasi dengan tools desain sangat tinggi di kalangan mahasiswa.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="finding-item">
+                        <div class="finding-icon">
+                            <span>5</span>
+                        </div>
+                        <div class="finding-content">
                             <h3>Masalah Kualitas Akhir</h3>
                             <p>Responden menghindari menggunakan Canva untuk kebutuhan cetak dan print dalam resolusi tinggi.</p>
                         </div>
@@ -272,7 +322,7 @@
                     <div class="challenge-card">
                         <h3><i class="fas fa-question-circle"></i> Tantangan Desain</h3>
                         <p class="challenge-text">
-                            Mendesain aplikasi desain grafis berbasis Desktop (EzyDraw) yang membantu Mahasiswa Hybrid seperti Rumi untuk mencapai kualitas output profesional, kinerja stabil offline, dan akses ke semua aset premium secara ekonomis, sehingga mereka tidak perlu berkompromi antara kecepatan, kualitas, dan biaya.
+                            Mendesain aplikasi desain grafis berbasis Desktop (EzyDraw) yang membantu Mahasiswa Hybrid seperti Rumi dan Mira untuk mencapai kualitas output profesional, kinerja stabil offline, dan akses ke semua aset premium secara ekonomis, sehingga mereka tidak perlu berkompromi antara kecepatan, kualitas, dan biaya.
                         </p>
                     </div>
                     
@@ -329,9 +379,9 @@
                             <h3>Arsitektur Offline-First Berbasis Desktop</h3>
                             <p>Merancang EzyDraw sebagai aplikasi desktop (native) yang mengutamakan Mode Offline dan mengalihkan proses berat (seperti rendering dan pengeditan) sepenuhnya ke sumber daya lokal (CPU/RAM).</p>
                             <div class="solution-features">
-                                <span><i class="fas fa-check"></i> Mode Offline</span>
-                                <span><i class="fas fa-check"></i> AutoSave</span>
-                                <span><i class="fas fa-check"></i> Mode Lite</span>
+                                <span><i class="fas fa-wifi-slash"></i> Mode Offline</span>
+                                <span><i class="fas fa-save"></i> AutoSave</span>
+                                <span><i class="fas fa-tachometer-alt"></i> Mode Lite</span>
                             </div>
                         </div>
                     </div>
@@ -344,9 +394,9 @@
                             <h3>Model Bisnis Buy-Once, Get All Premium</h3>
                             <p>Menerapkan model Sekali Bayar dengan Harga Merakyat yang memberikan akses penuh ke Semua Aset dan fitur premium (seperti Smart Remove Object dan Background Remover) secara permanen.</p>
                             <div class="solution-features">
-                                <span><i class="fas fa-check"></i> One-time Payment</span>
-                                <span><i class="fas fa-check"></i> All Assets Included</span>
-                                <span><i class="fas fa-check"></i> No Subscription</span>
+                                <span><i class="fas fa-money-bill-wave"></i> One-time Payment</span>
+                                <span><i class="fas fa-gem"></i> All Assets Included</span>
+                                <span><i class="fas fa-ban"></i> No Subscription</span>
                             </div>
                         </div>
                     </div>
@@ -359,9 +409,41 @@
                             <h3>Ekosistem Shortcut dan Kualitas Terjamin</h3>
                             <p>Menyediakan Template Bawaan yang Bervariasi dan fungsionalitas Konversi ke Berbagai Format File sekaligus mendukung Plugin/Ekstensi Pihak Ketiga.</p>
                             <div class="solution-features">
-                                <span><i class="fas fa-check"></i> Varied Templates</span>
-                                <span><i class="fas fa-check"></i> Multi-Format Export</span>
-                                <span><i class="fas fa-check"></i> Plugin Support</span>
+                                <span><i class="fas fa-th-large"></i> Varied Templates</span>
+                                <span><i class="fas fa-file-export"></i> Multi-Format Export</span>
+                                <span><i class="fas fa-puzzle-piece"></i> Plugin Support</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- EZYLEARN SOLUTION -->
+                    <div class="final-solution-card">
+                        <div class="solution-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="solution-content">
+                            <h3>EzyLearn Learning Platform</h3>
+                            <p>Platform pembelajaran terintegrasi dengan tutorial desain grafis dan kursus interaktif untuk membantu pengguna seperti Mira yang kesulitan berpindah aplikasi karena kurangnya pemahaman fundamental desain.</p>
+                            <div class="solution-features">
+                                <span><i class="fas fa-chalkboard-teacher"></i> Tutorial Interaktif</span>
+                                <span><i class="fas fa-certificate"></i> Fundamental Design Course</span>
+                                <span><i class="fas fa-chart-line"></i> Progress Tracking</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CONTRIBUTOR SOLUTION -->
+                    <div class="final-solution-card">
+                        <div class="solution-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="solution-content">
+                            <h3>Contributor Revenue Program</h3>
+                            <p>Sistem berlangganan bagi kontributor untuk menghasilkan cuan dengan membagikan aset desain, template, dan plugin kepada komunitas pengguna EzyDraw.</p>
+                            <div class="solution-features">
+                                <span><i class="fas fa-hand-holding-usd"></i> Revenue Sharing</span>
+                                <span><i class="fas fa-credit-card"></i> Subscription Model</span>
+                                <span><i class="fas fa-award"></i> Community Recognition</span>
                             </div>
                         </div>
                     </div>
@@ -386,7 +468,6 @@
                     
                     <div class="feature-card">
                         <div class="feature-icon">
-                            
                             <i class="fas fa-gem"></i>
                         </div>
                         <h3>Aset Premium Gratis</h3>
@@ -407,6 +488,24 @@
                         </div>
                         <h3>Plugin Ecosystem</h3>
                         <p>Dukungan plugin pihak ketiga untuk kustomisasi alat sesuai kebutuhan akademik.</p>
+                    </div>
+                    
+                    <!-- EZYLEARN FEATURE -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>EzyLearn Platform</h3>
+                        <p>Platform pembelajaran desain grafis dengan tutorial interaktif untuk membantu pengguna dengan pemahaman fundamental desain yang terbatas.</p>
+                    </div>
+                    
+                    <!-- CONTRIBUTOR FEATURE -->
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Contributor Program</h3>
+                        <p>Hasilkan cuan dengan berlangganan sebagai kontributor dan bagikan aset desain kepada komunitas.</p>
                     </div>
                 </div>
             </div>
